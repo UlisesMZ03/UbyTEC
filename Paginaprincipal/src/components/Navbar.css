@@ -1,0 +1,212 @@
+/* General del Navbar */
+.navbar {
+  background-color: #00796b; /* Fondo verde azulado */
+  height: 80px;
+  display: flex;
+  justify-content: space-between; /* Espacio entre el logo y el menú */
+  align-items: center; /* Centrado vertical */
+  font-size: 1.2rem;
+  position: sticky;
+  top: 0;
+  z-index: 999;
+  padding: 0 20px; /* Ajustar el espaciado interno */
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1); /* Sombra ligera */
+}
+
+.navbar-container {
+  display: flex;
+  justify-content: space-between; /* Espacio entre el logo y el menú */
+  align-items: center; /* Centrado vertical */
+  width: 100%;
+  max-width: 2000; /* Ancho máximo */
+}
+
+.navbar-logo {
+  color: white;
+  cursor: pointer;
+  text-decoration: none;
+  font-size: 2.2rem;
+  font-weight: bold;
+  display: flex;
+  align-items: center; /* Centrado vertical */
+}
+
+/* Menú */
+.nav-menu {
+  display: flex;
+  list-style: none;
+  justify-content: flex-start; /* Alinear a la izquierda */
+  width: auto; /* Ajustar ancho */
+  margin: 0; /* Eliminar margen */
+}
+
+.nav-links {
+  color: white;
+  text-decoration: none;
+  padding: 1rem 1.5rem;
+  transition: background-color 0.3s ease; /* Sin cambio de padding para evitar movimiento */
+  font-size: 1.1rem;
+  display: flex;
+  align-items: center; /* Alineación vertical */
+  height: 80px; /* Asegura que ocupe todo el alto del navbar */
+}
+
+.nav-links:hover {
+  background-color: #004d40; /* Fondo verde oscuro en hover */
+  color: white;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+
+/* Estilo para el icono de perfil */
+.profile-icon {
+  position: relative;
+  cursor: pointer;
+  font-size: 24px;
+  color: white;
+  margin-left: 20px; /* Espacio a la izquierda del icono */
+  display: flex;
+  align-items: center; /* Centrado verticalmente */
+  height: 80px; /* Asegura que el ícono esté alineado con el resto */
+}
+
+.profile-icon i {
+  background-color: #004d40; /* Verde oscuro */
+  border-radius: 50%;
+  padding: 10px;
+  font-size: 24px;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.profile-icon:hover i {
+  background-color: #00796b; /* Verde azulado más claro en hover */
+  transform: scale(1.1); /* Aumenta ligeramente el tamaño en hover */
+}
+
+/* Menú desplegable del perfil */
+.dropdown-menu {
+  position: absolute;
+  top: 70px; /* Debajo del ícono de perfil */
+  right: 10px;
+  background-color: white;
+  color: black;
+  border-radius: 8px;
+  box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+  z-index: 100;
+  min-width: 160px;
+  display: none; /* Oculto por defecto */
+  flex-direction: column;
+  text-align: left;
+  padding: 10px 0;
+}
+
+.dropdown-menu.active {
+  display: flex; /* Mostrar cuando esté activo */
+}
+
+.dropdown-item {
+  padding: 12px 20px;
+  display: block;
+  color: black;
+  text-decoration: none;
+  font-size: 16px;
+}
+
+.dropdown-item:hover {
+  background-color: #f1f1f1;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+/* Opciones del menú desplegable */
+.dropdown-menu .dropdown-item:first-child {
+  font-weight: bold; /* Hace que "Mi Perfil" se vea más destacado */
+}
+
+.dropdown-menu .dropdown-item:last-child {
+  color: red; /* Cerrar Sesión en rojo */
+}
+
+.dropdown-menu .dropdown-item:last-child:hover {
+  background-color: #ffcccc; /* Fondo rojo claro en hover para Cerrar Sesión */
+}
+
+/* Estilo para enlaces especiales */
+.nav-links.special-link {
+  color: #b2dfdb;
+}
+
+.nav-links.special-link:hover {
+  background-color: #004d40;
+  color: white;
+  border-radius: 5px;
+  transition: all 0.3s ease;
+}
+
+/* Responsivo */
+@media screen and (max-width: 960px) {
+  .nav-menu {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 30vh;
+    position: absolute;
+    top: 80px;
+    left: -100%;
+    opacity: 0;
+    transition: all 0.5s ease;
+  }
+
+  .nav-menu.active {
+    background: #00796b;
+    left: 0;
+    opacity: 1;
+    transition: all 0.5s ease;
+    z-index: 1;
+  }
+
+  .nav-links {
+    text-align: center;
+    padding: 2rem;
+    width: 100%;
+    display: table;
+  }
+
+  .navbar-logo {
+    position: absolute;
+    top: 0;
+    left: 0;
+    transform: translate(25%, 50%);
+  }
+
+  .menu-icon {
+    display: block;
+    position: absolute;
+    top: 0;
+    right: 0;
+    transform: translate(-100%, 60%);
+    font-size: 1.8rem;
+    cursor: pointer;
+  }
+
+  .nav-links-mobile {
+    display: block;
+    text-align: center;
+    margin: 2rem auto;
+    border-radius: 4px;
+    width: 80%;
+    text-decoration: none;
+    font-size: 1.5rem;
+    background-color: transparent;
+    color: white;
+    padding: 14px 20px;
+    border: 1px solid white;
+    transition: all 0.3s ease-out;
+  }
+
+  .nav-links-mobile:hover {
+    background: #004d40;
+    color: white;
+    transition: 250ms;
+  }
+}

@@ -1,0 +1,24 @@
+.reports-container {
+    background-color: #f9f9f9;
+    padding: 20px;
+    border-radius: 8px;
+    max-width: 600px;
+    margin: 20px auto;
+  }
+  
+  .report-item {
+    background-color: white;
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    margin-bottom: 15px;
+  }
+  
+  .report-item h3 {
+    color: #00796b;
+  }
+  
+  .report-item p {
+    color: #555;
+  }
+  

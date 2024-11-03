@@ -1,0 +1,67 @@
+.iniciar-sesion {
+  max-width: 400px;
+  margin: 40px auto;
+  padding: 40px;
+  background-color: #f4f4f4;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  font-family: 'Arial', sans-serif;
+}
+
+.login {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.input-container {
+  margin-bottom: 20px;
+  text-align: left;
+}
+
+input {
+  width: 100%;
+  padding: 10px;
+  margin-top: 5px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  font-size: 16px;
+  transition: border-color 0.3s ease;
+}
+
+input:focus {
+  border-color: #00796b; /* Cambiado el color del borde al color principal */
+  outline: none;
+}
+
+.button-container button {
+  width: 100%;
+  padding: 12px;
+  background-color: #00796b; /* Cambiado el color de fondo del botón */
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.button-container button:hover {
+  background-color: #004d40; /* Color oscuro para el hover */
+}
+
+.register-link {
+  margin-top: 15px;
+  font-size: 14px;
+}
+
+.register-link a {
+  color: #00796b; /* Cambiado el color del enlace */
+  text-decoration: none;
+}
+
+.register-link a:hover {
+  text-decoration: underline;
+}

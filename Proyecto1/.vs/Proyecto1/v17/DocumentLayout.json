@@ -1,0 +1,217 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\ulise\\source\\repos\\SmartHomeTEC\\Proyecto1\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{EA2E5BA0-0B75-41FA-B9E4-137041472617}|Proyecto1.csproj|c:\\users\\ulise\\source\\repos\\smarthometec\\proyecto1\\controllers\\dispositivousuariocontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{EA2E5BA0-0B75-41FA-B9E4-137041472617}|Proyecto1.csproj|solutionrelative:controllers\\dispositivousuariocontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{EA2E5BA0-0B75-41FA-B9E4-137041472617}|Proyecto1.csproj|c:\\users\\ulise\\source\\repos\\smarthometec\\proyecto1\\models\\dispositivousuario.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{EA2E5BA0-0B75-41FA-B9E4-137041472617}|Proyecto1.csproj|solutionrelative:models\\dispositivousuario.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{EA2E5BA0-0B75-41FA-B9E4-137041472617}|Proyecto1.csproj|c:\\users\\ulise\\source\\repos\\smarthometec\\proyecto1\\models\\smarthomedbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{EA2E5BA0-0B75-41FA-B9E4-137041472617}|Proyecto1.csproj|solutionrelative:models\\smarthomedbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{EA2E5BA0-0B75-41FA-B9E4-137041472617}|Proyecto1.csproj|c:\\users\\ulise\\source\\repos\\smarthometec\\proyecto1\\controllers\\productocontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{EA2E5BA0-0B75-41FA-B9E4-137041472617}|Proyecto1.csproj|solutionrelative:controllers\\productocontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{EA2E5BA0-0B75-41FA-B9E4-137041472617}|Proyecto1.csproj|c:\\users\\ulise\\source\\repos\\smarthometec\\proyecto1\\models\\productos.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{EA2E5BA0-0B75-41FA-B9E4-137041472617}|Proyecto1.csproj|solutionrelative:models\\productos.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{EA2E5BA0-0B75-41FA-B9E4-137041472617}|Proyecto1.csproj|c:\\users\\ulise\\source\\repos\\smarthometec\\proyecto1\\models\\dispositivo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{EA2E5BA0-0B75-41FA-B9E4-137041472617}|Proyecto1.csproj|solutionrelative:models\\dispositivo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{EA2E5BA0-0B75-41FA-B9E4-137041472617}|Proyecto1.csproj|c:\\users\\ulise\\source\\repos\\smarthometec\\proyecto1\\models\\distribuidor.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{EA2E5BA0-0B75-41FA-B9E4-137041472617}|Proyecto1.csproj|solutionrelative:models\\distribuidor.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{EA2E5BA0-0B75-41FA-B9E4-137041472617}|Proyecto1.csproj|c:\\users\\ulise\\source\\repos\\smarthometec\\proyecto1\\controllers\\userscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{EA2E5BA0-0B75-41FA-B9E4-137041472617}|Proyecto1.csproj|solutionrelative:controllers\\userscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{EA2E5BA0-0B75-41FA-B9E4-137041472617}|Proyecto1.csproj|c:\\users\\ulise\\source\\repos\\smarthometec\\proyecto1\\controllers\\distribuidorcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{EA2E5BA0-0B75-41FA-B9E4-137041472617}|Proyecto1.csproj|solutionrelative:controllers\\distribuidorcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{EA2E5BA0-0B75-41FA-B9E4-137041472617}|Proyecto1.csproj|c:\\users\\ulise\\source\\repos\\smarthometec\\proyecto1\\controllers\\dispositivoscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{EA2E5BA0-0B75-41FA-B9E4-137041472617}|Proyecto1.csproj|solutionrelative:controllers\\dispositivoscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{EA2E5BA0-0B75-41FA-B9E4-137041472617}|Proyecto1.csproj|c:\\users\\ulise\\source\\repos\\smarthometec\\proyecto1\\controllers\\tipodispositivocontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{EA2E5BA0-0B75-41FA-B9E4-137041472617}|Proyecto1.csproj|solutionrelative:controllers\\tipodispositivocontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{EA2E5BA0-0B75-41FA-B9E4-137041472617}|Proyecto1.csproj|c:\\users\\ulise\\source\\repos\\smarthometec\\proyecto1\\models\\tipodispositivo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{EA2E5BA0-0B75-41FA-B9E4-137041472617}|Proyecto1.csproj|solutionrelative:models\\tipodispositivo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 8,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{3ae79031-e1bc-11d0-8f78-00a0c9110057}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "DispositivoUsuario.cs",
+              "DocumentMoniker": "C:\\Users\\ulise\\source\\repos\\SmartHomeTEC\\Proyecto1\\Models\\DispositivoUsuario.cs",
+              "RelativeDocumentMoniker": "Models\\DispositivoUsuario.cs",
+              "ToolTip": "C:\\Users\\ulise\\source\\repos\\SmartHomeTEC\\Proyecto1\\Models\\DispositivoUsuario.cs",
+              "RelativeToolTip": "Models\\DispositivoUsuario.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAnAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-18T17:07:50.101Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "ProductoController.cs",
+              "DocumentMoniker": "C:\\Users\\ulise\\source\\repos\\SmartHomeTEC\\Proyecto1\\Controllers\\ProductoController.cs",
+              "RelativeDocumentMoniker": "Controllers\\ProductoController.cs",
+              "ToolTip": "C:\\Users\\ulise\\source\\repos\\SmartHomeTEC\\Proyecto1\\Controllers\\ProductoController.cs",
+              "RelativeToolTip": "Controllers\\ProductoController.cs",
+              "ViewState": "AgIAAIEAAAAAAAAAAAAgwJ0AAAAzAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-18T12:24:47.994Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "Distribuidor.cs",
+              "DocumentMoniker": "C:\\Users\\ulise\\source\\repos\\SmartHomeTEC\\Proyecto1\\Models\\Distribuidor.cs",
+              "RelativeDocumentMoniker": "Models\\Distribuidor.cs",
+              "ToolTip": "C:\\Users\\ulise\\source\\repos\\SmartHomeTEC\\Proyecto1\\Models\\Distribuidor.cs",
+              "RelativeToolTip": "Models\\Distribuidor.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABYAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-18T12:29:31.754Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "DistribuidorController.cs",
+              "DocumentMoniker": "C:\\Users\\ulise\\source\\repos\\SmartHomeTEC\\Proyecto1\\Controllers\\DistribuidorController.cs",
+              "RelativeDocumentMoniker": "Controllers\\DistribuidorController.cs",
+              "ToolTip": "C:\\Users\\ulise\\source\\repos\\SmartHomeTEC\\Proyecto1\\Controllers\\DistribuidorController.cs",
+              "RelativeToolTip": "Controllers\\DistribuidorController.cs",
+              "ViewState": "AgIAACgAAAAAAAAAAAAgwEQAAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-18T12:29:14.206Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "Productos.cs",
+              "DocumentMoniker": "C:\\Users\\ulise\\source\\repos\\SmartHomeTEC\\Proyecto1\\Models\\Productos.cs",
+              "RelativeDocumentMoniker": "Models\\Productos.cs",
+              "ToolTip": "C:\\Users\\ulise\\source\\repos\\SmartHomeTEC\\Proyecto1\\Models\\Productos.cs",
+              "RelativeToolTip": "Models\\Productos.cs",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAAABQAAABNAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-18T12:26:35.911Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "TipoDispositivoController.cs",
+              "DocumentMoniker": "C:\\Users\\ulise\\source\\repos\\SmartHomeTEC\\Proyecto1\\Controllers\\TipoDispositivoController.cs",
+              "RelativeDocumentMoniker": "Controllers\\TipoDispositivoController.cs",
+              "ToolTip": "C:\\Users\\ulise\\source\\repos\\SmartHomeTEC\\Proyecto1\\Controllers\\TipoDispositivoController.cs",
+              "RelativeToolTip": "Controllers\\TipoDispositivoController.cs",
+              "ViewState": "AgIAAHoAAAAAAAAAAAAAAJcAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-18T12:08:41.215Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "SmartHomeDbContext.cs",
+              "DocumentMoniker": "C:\\Users\\ulise\\source\\repos\\SmartHomeTEC\\Proyecto1\\Models\\SmartHomeDbContext.cs",
+              "RelativeDocumentMoniker": "Models\\SmartHomeDbContext.cs",
+              "ToolTip": "C:\\Users\\ulise\\source\\repos\\SmartHomeTEC\\Proyecto1\\Models\\SmartHomeDbContext.cs",
+              "RelativeToolTip": "Models\\SmartHomeDbContext.cs",
+              "ViewState": "AgIAAEMAAAAAAAAAAAAwwGEAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-18T15:25:58.567Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "DispositivoUsuarioController.cs",
+              "DocumentMoniker": "C:\\Users\\ulise\\source\\repos\\SmartHomeTEC\\Proyecto1\\Controllers\\DispositivoUsuarioController.cs",
+              "RelativeDocumentMoniker": "Controllers\\DispositivoUsuarioController.cs",
+              "ToolTip": "C:\\Users\\ulise\\source\\repos\\SmartHomeTEC\\Proyecto1\\Controllers\\DispositivoUsuarioController.cs",
+              "RelativeToolTip": "Controllers\\DispositivoUsuarioController.cs",
+              "ViewState": "AgIAAAkAAAAAAAAAAAAiwBAAAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-18T17:07:27.621Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "TipoDispositivo.cs",
+              "DocumentMoniker": "C:\\Users\\ulise\\source\\repos\\SmartHomeTEC\\Proyecto1\\Models\\TipoDispositivo.cs",
+              "RelativeDocumentMoniker": "Models\\TipoDispositivo.cs",
+              "ToolTip": "C:\\Users\\ulise\\source\\repos\\SmartHomeTEC\\Proyecto1\\Models\\TipoDispositivo.cs",
+              "RelativeToolTip": "Models\\TipoDispositivo.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-18T12:08:36.408Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "Dispositivo.cs",
+              "DocumentMoniker": "C:\\Users\\ulise\\source\\repos\\SmartHomeTEC\\Proyecto1\\Models\\Dispositivo.cs",
+              "RelativeDocumentMoniker": "Models\\Dispositivo.cs",
+              "ToolTip": "C:\\Users\\ulise\\source\\repos\\SmartHomeTEC\\Proyecto1\\Models\\Dispositivo.cs",
+              "RelativeToolTip": "Models\\Dispositivo.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABoAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-18T12:08:22.433Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "UsersController.cs",
+              "DocumentMoniker": "C:\\Users\\ulise\\source\\repos\\SmartHomeTEC\\Proyecto1\\Controllers\\UsersController.cs",
+              "RelativeDocumentMoniker": "Controllers\\UsersController.cs",
+              "ToolTip": "C:\\Users\\ulise\\source\\repos\\SmartHomeTEC\\Proyecto1\\Controllers\\UsersController.cs",
+              "RelativeToolTip": "Controllers\\UsersController.cs",
+              "ViewState": "AgIAACIAAAAAAAAAAAAcwDkAAAAoAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-18T14:03:20.702Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "DispositivosController.cs",
+              "DocumentMoniker": "C:\\Users\\ulise\\source\\repos\\SmartHomeTEC\\Proyecto1\\Controllers\\DispositivosController.cs",
+              "RelativeDocumentMoniker": "Controllers\\DispositivosController.cs",
+              "ToolTip": "C:\\Users\\ulise\\source\\repos\\SmartHomeTEC\\Proyecto1\\Controllers\\DispositivosController.cs",
+              "RelativeToolTip": "Controllers\\DispositivosController.cs",
+              "ViewState": "AgIAAFAAAAAAAAAAAAAIwFsAAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-18T12:08:25.1Z"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
