@@ -28,7 +28,7 @@ function Navbar() {
     <nav className="navbar">
       <div className="navbar-container">
         <Link to="/" className="navbar-logo" onClick={closeMobileMenu}>
-          SmartHomeTEC
+          UbyTEC
         </Link>
         <div className="menu-icon" onClick={handleClick}>
           <i className={click ? "fas fa-times" : "fas fa-bars"} />
@@ -37,6 +37,11 @@ function Navbar() {
           <li>
             <Link to="/login" className="nav-links" onClick={closeMobileMenu}>
               Iniciar Sesión
+            </Link>
+          </li>
+          <li>
+            <Link to="/LoginCommerce" className="nav-links" onClick={closeMobileMenu}>
+              Comercios Afiliados
             </Link>
           </li>
         </ul>
