@@ -1,7 +1,7 @@
 import React from "react";
 import "./ArticleSection.css";
 
-// Importar las imágenes locales
+// Importar imágenes locales
 import smartDevicesImage from "../images/casa1.png";
 import energySavingImage from "../images/disp.png";
 import automationImage from "../images/casa2.png";
@@ -10,46 +10,48 @@ function ArticleSection() {
   return (
     <div className="article-container">
       <div className="article-hero">
-        <h1>La Importancia de un Hogar Inteligente</h1>
-        <p>Cómo los dispositivos inteligentes pueden mejorar tu calidad de vida y la eficiencia en tu hogar</p>
+        <h1>UbyTEC: Tu plataforma para envíos de comida en Costa Rica</h1>
+        <p>La mejor opción para disfrutar de tus comidas favoritas desde la comodidad de tu hogar</p>
       </div>
 
       <div className="article-content">
         <div className="article-section">
           <img
             src={smartDevicesImage}
-            alt="Dispositivos inteligentes"
+            alt="Conectando comercios y clientes"
             className="article-image"
           />
-          <h2>¿Qué es un hogar inteligente?</h2>
+          <h2>¿Qué es UbyTEC?</h2>
           <p>
-            Un hogar inteligente utiliza dispositivos conectados a Internet para controlar y automatizar funciones como iluminación, calefacción, seguridad y electrodomésticos. Estos dispositivos permiten un mayor control, comodidad y ahorro energético.
+            UbyTEC es una plataforma diseñada para conectar a clientes con sus comercios locales favoritos,
+            ofreciendo una experiencia fácil y rápida para realizar pedidos y recibirlos en casa.
           </p>
         </div>
 
         <div className="article-section">
-          <h2>Beneficios de los dispositivos inteligentes</h2>
+          <h2>Beneficios de UbyTEC</h2>
           <p>
-            Los dispositivos inteligentes no solo mejoran la comodidad, sino que también ayudan a reducir el consumo de energía. Gracias a la automatización y al control remoto, es posible ajustar el uso de dispositivos para que sean más eficientes y contribuyan a un estilo de vida sostenible.
+            Con UbyTEC, puedes disfrutar de tus comidas favoritas sin salir de casa. La plataforma facilita
+            el proceso de compra, brindando acceso rápido a una variedad de comercios y opciones de entrega segura.
           </p>
           <img
             src={energySavingImage}
-            alt="Ahorro de energía"
+            alt="Comida rápida y segura"
             className="article-image"
           />
         </div>
 
         <div className="article-section">
-          <h2>Consejos para un hogar más eficiente</h2>
+          <h2>Cómo usar UbyTEC</h2>
           <ul>
-            <li>Utiliza termostatos inteligentes para regular la temperatura y reducir el consumo de energía.</li>
-            <li>Automatiza las luces para que se apaguen cuando no haya nadie en casa.</li>
-            <li>Instala cámaras de seguridad conectadas para monitorizar tu hogar desde cualquier lugar.</li>
-            <li>Configura rutinas para que los electrodomésticos funcionen en horarios de menor consumo.</li>
+            <li>Regístrate y configura tu perfil de cliente.</li>
+            <li>Explora los comercios afiliados en tu área.</li>
+            <li>Agrega tus productos favoritos al carrito y realiza tu pedido.</li>
+            <li>Recibe tu pedido en casa y deja tu feedback para ayudar a mejorar el servicio.</li>
           </ul>
           <img
             src={automationImage}
-            alt="Automatización del hogar"
+            alt="Facilidad de uso"
             className="article-image"
           />
         </div>

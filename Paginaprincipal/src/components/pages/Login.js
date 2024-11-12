@@ -1,101 +1,57 @@
-import React, { useState } from 'react';
-import "../../App.css";
-import { useNavigate } from "react-router-dom";
-import { Link } from "react-router-dom";
-import { useAuth } from "../../AuthContext"; // Importar el contexto de autenticación
+import React, { useState } from "react";
 import "./Login.css";
 
-export default function Login() {
-  const navigate = useNavigate();
-  const { login } = useAuth(); // Usar la función login del contexto
+function Login() {
+  const [userType, setUserType] = useState("Administrador");
 
-  const [formData, setFormData] = useState({
-    email: '',
-    password: ''
-  });
-
-  const [errorMessage, setErrorMessage] = useState('');
-
-  const handleInputChange = (e) => {
-    const { id, value } = e.target;
-    setFormData({
-      ...formData,
-      [id]: value
-    });
+  const handleUserTypeChange = (event) => {
+    setUserType(event.target.value);
   };
 
-  const handleSubmit2 = async (e) => {
-    e.preventDefault();
-
-    try {
-      const response = await fetch("https://localhost:5555/api/users/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          email: formData.email,
-          password: formData.password
-        })
-      });
-
-      const data = await response.json();
-
-      if (response.ok) {
-        if (data.userId) {
-          // Usar la función login del contexto para guardar el estado global
-          login({
-            userId: data.userId,
-            nombre: data.nombre,
-            token: data.token // Si tienes un token, también puedes guardarlo
-          });
-          
-          // Redirigir a la página de inicio o dashboard
-          navigate("/");
-        }
-      } else {
-        setErrorMessage(data.message || "Error al iniciar sesión");
-      }
-    } catch (error) {
-      console.error("Error al conectarse con la API:", error);
-      setErrorMessage("Error al conectarse con la API");
-    }
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    // Aquí puedes agregar la lógica para el inicio de sesión según el tipo de usuario
+    console.log(`Iniciando sesión como: ${userType}`);
   };
 
   return (
     <div className="iniciar-sesion">
-      <h1 className="login">INICIAR SESIÓN</h1>
-      <form onSubmit={handleSubmit2}>
+      <h2 className="login">Iniciar Sesión</h2>
+      <form onSubmit={handleSubmit}>
+        {/* Selección del tipo de usuario */}
         <div className="input-container">
-          <label htmlFor="email">Email</label>
-          <input
-            id="email"
-            type="text"
-            placeholder="Introduce tu email"
-            value={formData.email}
-            onChange={handleInputChange}
-          />
+          <label>Tipo de Usuario</label>
+          <select value={userType} onChange={handleUserTypeChange}>
+            <option value="Administrador">Administrador</option>
+            <option value="Cliente">Cliente</option>
+          </select>
         </div>
+
+        {/* Campo de correo electrónico */}
         <div className="input-container">
-          <label htmlFor="password">Contraseña</label>
-          <input
-            id="password"
-            type="password"
-            placeholder="Introduce tu contraseña"
-            value={formData.password}
-            onChange={handleInputChange}
-          />
+          <label>Correo Electrónico</label>
+          <input type="email" placeholder="Ingrese su correo" required />
         </div>
-        {errorMessage && <p className="error-message">{errorMessage}</p>}
+
+        {/* Campo de contraseña */}
+        <div className="input-container">
+          <label>Contraseña</label>
+          <input type="password" placeholder="Ingrese su contraseña" required />
+        </div>
+
+        {/* Botón de inicio de sesión */}
         <div className="button-container">
-          <button type="submit">
-            Iniciar Sesión
-          </button>
+          <button type="submit">Iniciar Sesión</button>
+        </div>
+
+        {/* Enlace para registrarse */}
+        <div className="register-link">
+          ¿No tienes cuenta? <a href="/register">Regístrate aquí</a>
         </div>
       </form>
-      <div className="register-link">
-        <Link to="/registrarse">O registrarse</Link>
-      </div>
     </div>
   );
 }
+
+export default Login;
+

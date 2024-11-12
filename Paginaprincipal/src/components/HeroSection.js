@@ -1,47 +1,22 @@
-import React, { useEffect, useState } from 'react';
-
-
+import React from "react";
 import "./HeroSection.css";
-
-import "../App.css";
-
 import { Button } from "./Button";
-import { Link } from "react-router-dom";
-
-// Importa las imágenes locales (asegúrate de agregar imágenes relacionadas a dispositivos inteligentes)
 import smartHomeImage1 from "../images/casa.png";
-import smartHomeImage2 from "../images/berries.png";
+
 function HeroSection() {
-  const [user, setUser] = useState(null);
-
-  // Verificar si el usuario ha iniciado sesión
-  useEffect(() => {
-    const storedUser = localStorage.getItem('user');
-    if (storedUser) {
-      setUser(JSON.parse(storedUser)); // Si el usuario está logueado, obtenemos su información
-    }
-  }, []);
-
   return (
     <div className="hero-container">
       <div className="welcome-message">
-        {user ? (
-          <>
-            <h2>Bienvenido de nuevo, {user.nombre}</h2>
-            <p>La plataforma que te permitirá gestionar todos tus dispositivos inteligentes.</p>
-          </>
-        ) : (
-          <>
-            <h2>Bienvenido a SmartHomeTEC!</h2>
-            <p>La plataforma que te permitirá gestionar todos tus dispositivos inteligentes desde un solo lugar.</p>
-          </>
-        )}
+        <h2>¡Bienvenido a UbyTEC!</h2>
+        <p>La mejor plataforma para conectar clientes con sus comercios locales favoritos</p>
       </div>
 
-      {/* Texto principal del Hero */}
       <div className="hero-text">
-        <h1>Controla tu hogar inteligente de manera eficiente.</h1>
-        <p>¿Quieres administrar tus dispositivos de forma centralizada? Monitorea y controla todos tus dispositivos con SmartHomeTEC.</p>
+        <h1>Disfruta de Comidas y Productos en Casa con UbyTEC</h1>
+        <p>
+          Explora una amplia variedad de comercios afiliados, realiza tus pedidos en pocos clics y disfruta de
+          la comodidad de recibir todo en la puerta de tu hogar.
+        </p>
         <div className="hero-btns">
           <Button className="btns" buttonStyle="btn--primary" buttonSize="btn--large">
             EMPIEZA AHORA
@@ -49,12 +24,12 @@ function HeroSection() {
         </div>
       </div>
 
-      {/* Imágenes de apoyo */}
       <div className="hero-images">
-        <img src={smartHomeImage1} alt="Dispositivo inteligente" className="hero-image" />
+        <img src={smartHomeImage1} alt="Servicio de entrega con UbyTEC" className="hero-image" />
       </div>
     </div>
   );
 }
 
 export default HeroSection;
+

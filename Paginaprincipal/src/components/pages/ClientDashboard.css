@@ -1,0 +1,175 @@
+.cliente-dashboard {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    font-family: Arial, sans-serif;
+  }
+  
+  .cliente-dashboard h2 {
+    font-size: 2rem;
+    text-align: center;
+    color: #00796b;
+    margin-bottom: 1.5rem;
+  }
+  
+  .comercios, .compras-recientes, .formulario-cliente, .carrito, .feedback {
+    margin-bottom: 2rem;
+  }
+  
+  h3 {
+    font-size: 1.5rem;
+    color: #333;
+    margin-bottom: 1rem;
+  }
+  
+  /* Estilos de formularios y listas */
+  .input-container {
+    margin-bottom: 15px;
+    text-align: left;
+  }
+  
+  input[type="text"], input[type="date"], input[type="number"], input[type="password"], textarea {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    font-size: 16px;
+    transition: border-color 0.3s ease;
+  }
+  
+  input:focus, textarea:focus {
+    border-color: #00796b;
+    outline: none;
+  }
+  
+  /* Botones generales */
+  .button-container button,
+  button {
+    padding: 10px 15px;
+    background-color: #00796b;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-top: 10px;
+  }
+  
+  button:hover {
+    background-color: #004d40;
+  }
+  
+  ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  li {
+    padding: 15px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  li h4 {
+    font-size: 1.2rem;
+    color: #00796b;
+    margin: 0 0 5px;
+  }
+  
+  li p {
+    margin: 5px 0;
+    color: #555;
+  }
+  
+  /* Carrito de Compras */
+  .carrito ul {
+    padding: 10px;
+  }
+  
+  .carrito h3 {
+    font-size: 1.5rem;
+    color: #00796b;
+    margin-bottom: 10px;
+  }
+  
+  .carrito li {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  
+  .carrito li input[type="number"] {
+    width: 60px;
+    margin-left: 10px;
+  }
+  
+  .carrito p {
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: #00796b;
+  }
+  
+  .carrito button {
+    padding: 5px 10px;
+    font-size: 0.9rem;
+  }
+  
+  /* Feedback */
+  .feedback h3 {
+    font-size: 1.5rem;
+    color: #333;
+    margin-bottom: 10px;
+  }
+  
+  .feedback textarea {
+    width: 100%;
+    height: 100px;
+    resize: vertical;
+    border-radius: 5px;
+    padding: 10px;
+  }
+  
+  .feedback button {
+    margin-top: 10px;
+    padding: 10px 15px;
+    font-size: 1rem;
+    background-color: #00796b;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .feedback button:hover {
+    background-color: #004d40;
+  }
+  
+  /* Formularios de Cliente */
+  .formulario-cliente h3 {
+    font-size: 1.5rem;
+    color: #333;
+    margin-bottom: 1rem;
+  }
+  
+  .input-container label {
+    font-size: 1rem;
+    color: #333;
+  }
+  
+  .input-container input {
+    padding: 8px 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    font-size: 1rem;
+  }
+  
+  .formulario-cliente button {
+    width: 100%;
+    padding: 10px;
+    font-size: 1rem;
+  }
+  
