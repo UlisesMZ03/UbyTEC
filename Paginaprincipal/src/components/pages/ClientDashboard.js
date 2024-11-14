@@ -117,10 +117,33 @@ function ClienteDashboard() {
   };
 
   // Dejar feedback
-  const dejarFeedback = () => {
-    alert("Gracias por tu feedback");
-    setFeedback("");
+  const dejarFeedback = async () => {
+    if (!feedback) {
+      alert("Por favor, escribe un comentario antes de enviar.");
+      return;
+    }
+  
+    try {
+      const response = await fetch("http://localhost:5000/feedback", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ feedback }), // Enviar el feedback como JSON
+      });
+  
+      if (response.ok) {
+        alert("Gracias por tu feedback");
+        setFeedback(""); // Limpiar el campo de texto después de enviar
+      } else {
+        alert("Hubo un problema al enviar el feedback");
+      }
+    } catch (error) {
+      console.error("Error al enviar feedback:", error);
+      alert("Error de conexión. No se pudo enviar el feedback.");
+    }
   };
+  
 
   // Mostrar mensaje de perfil eliminado si es el caso
   if (isDeleted) {
