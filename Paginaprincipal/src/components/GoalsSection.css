@@ -1,71 +1,24 @@
-/* Container for the entire section */
-.goals-container {
-  text-align: center;
-  padding: 50px 20px;
-  background-color: white; /* Fondo neutro */
+.ubbytec-cities {
+  margin-top: 80px;
+  padding: 0 20px;
 }
 
-/* Main heading */
-.goals-container h1 {
-  font-size: 2.5rem;
-  color: #004d40; /* Verde oscuro para el título */
-  margin-bottom: 20px;
+.ubbytec-cities h2 {
+  font-size: 1.8em;
   font-weight: bold;
-}
-
-/* Subheading */
-.goals-container p {
-  font-size: 1.2rem;
-  color: #555; /* Texto en gris suave */
-  margin-bottom: 40px;
-}
-
-/* Flexbox for goals */
-.goals-items {
-  display: flex;
-  justify-content: space-around;
-  flex-wrap: wrap;
-  gap: 20px;
-}
-
-/* Individual goal card */
-.goal-card {
-  background-color: #f0f4f8;
-  padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  max-width: 300px;
-  text-align: center;
-  transition: transform 0.3s ease;
-}
-
-.goal-card:hover {
-  transform: scale(1.05);
-}
-
-/* Imagen de cada tarjeta */
-.goal-card img {
-  width: 96px;
   margin-bottom: 20px;
+  padding-left: 50px;
 }
 
-/* Título de cada tarjeta */
-.goal-card h3 {
-  font-size: 1.5rem;
-  color: #00796b; /* Verde azulado */
-  margin-bottom: 15px;
+.city-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 50px 50px; /* Espacio vertical y horizontal entre las ciudades */
+  text-align: left;
+  padding-left: 50px;
+  padding-bottom: 50px;
 }
 
-/* Texto de descripción en cada tarjeta */
-.goal-card p {
-  font-size: 1rem;
-  color: #666; /* Gris suave */
-}
-
-/* Responsive design */
-@media (max-width: 768px) {
-  .goals-items {
-    flex-direction: column;
-    align-items: center;
-  }
+.city-item {
+  font-size: 1em;
 }

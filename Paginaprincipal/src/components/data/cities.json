@@ -1,0 +1,28 @@
+[
+    { "id": 1, "name": "San José" },
+    { "id": 2, "name": "Alajuela" },
+    { "id": 3, "name": "Cartago" },
+    { "id": 4, "name": "Heredia" },
+    { "id": 5, "name": "Puntarenas" },
+    { "id": 6, "name": "Guanacaste" },
+    { "id": 7, "name": "Limón" },
+    { "id": 8, "name": "Desamparados" },
+    { "id": 9, "name": "Goicoechea" },
+    { "id": 10, "name": "Escazú" },
+    { "id": 11, "name": "Santa Ana" },
+    { "id": 12, "name": "Moravia" },
+    { "id": 13, "name": "Pérez Zeledón" },
+    { "id": 14, "name": "Liberia" },
+    { "id": 15, "name": "Nicoya" },
+    { "id": 16, "name": "Turrialba" },
+    { "id": 17, "name": "Ciudad Quesada" },
+    { "id": 18, "name": "San Ramón" },
+    { "id": 19, "name": "Grecia" },
+    { "id": 20, "name": "Cañas" },
+    { "id": 21, "name": "Naranjo" },
+    { "id": 22, "name": "Santa Cruz" },
+    { "id": 23, "name": "Orotina" },
+    { "id": 24, "name": "Quepos" },
+    { "id": 25, "name": "Parrita" }
+  ]
+  

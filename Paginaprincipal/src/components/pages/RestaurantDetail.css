@@ -1,0 +1,149 @@
+.restaurant-detail {
+  padding: 20px;
+  max-width: 900px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.restaurant-detail button {
+  background-color: #f04e23;
+  color: #fff;
+  border: none;
+  padding: 10px 10px;
+  font-size: 16px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-bottom: 20px;
+  transition: background-color 0.3s ease;
+}
+
+.restaurant-detail button:hover {
+  background-color: #c03b1d;
+}
+
+.restaurant-detail h2 {
+  font-size: 28px;
+  margin: 5px 0;
+  color: #333;
+  text-align: left;
+}
+
+.restaurant-detail p {
+  color: #666;
+  font-size: 16px;
+  margin: 5px 0;
+  text-align: left;
+}
+
+.platillos {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+  justify-content: center;
+  margin-top: 30px;
+  min-height: 700px;
+}
+
+.platillo-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #f9f9f9;
+  border-radius: 2px;
+  width: 440px;
+  height: 130px;
+  transition: transform 0.1s ease;
+  padding: 0 0px;
+  cursor: pointer;
+}
+
+.platillo-item:hover {
+  transform: scale(1.002);
+}
+
+.image-container {
+  position: relative;
+  width: 130px;
+  height: 130px;
+  min-width: 130px; /* Fija el ancho mínimo para todas las imágenes */
+  min-height: 130px; /* Fija el alto mínimo para todas las imágenes */
+  margin-left: 25px;
+}
+
+.image-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Ajusta la imagen para que siempre ocupe el contenedor */
+  border-radius: 3px;
+}
+
+
+.add-button {
+  position: absolute;
+  top: 90px;
+  right: 5px;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background-color: #f04e23;
+  color: white;
+  font-size: 18px;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.3s ease;
+}
+
+.add-button:hover {
+  background-color: #c03b1d;
+}
+
+.platillo-info {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+}
+
+.platillo-info h4 {
+  font-size: 18px;
+  font-weight: bold;
+  color: #333;
+  margin: 0;
+  text-align: left;
+  padding-left: 10px;
+  
+}
+
+.platillo-info .precio {
+  font-size: 14px;
+  color: #666;
+  margin-top: 5px;
+  padding-left: 10px;
+}
+
+.platillo-info .descripcion {
+  font-size: 14px;
+  color: #888;
+  margin-top: 1px;
+  padding-left: 10px;
+}
+
+.action-button {
+  background-color: #f04e23;
+  color: #fff;
+  width: 32px;
+  height: 32px;
+  border-radius: 80%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.action-button:hover {
+  background-color: #c03b1d;
+}

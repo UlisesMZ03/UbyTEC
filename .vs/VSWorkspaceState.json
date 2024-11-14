@@ -1,7 +1,11 @@
 {
   "ExpandedNodes": [
-    "\\smarthometec",
-    "\\Tarea-Corta-Bases-3af4bd1b87c25ea381e1413ebde1fcc0b91ab3f0"
+    "",
+    "\\Proyecto1",
+    "\\Proyecto1\\Models",
+    "\\Proyecto1\\obj",
+    "\\smarthometec"
   ],
+  "SelectedNode": "\\Proyecto1\\Proyecto1.csproj",
   "PreviewInSolutionExplorer": false
 }

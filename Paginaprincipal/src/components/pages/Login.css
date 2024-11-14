@@ -39,7 +39,7 @@ input:focus {
 .button-container button {
   width: 100%;
   padding: 12px;
-  background-color: #00796b; /* Cambiado el color de fondo del botón */
+  background-color: #c03b1d; /* Cambiado el color de fondo del botón */
   color: white;
   border: none;
   border-radius: 5px;
@@ -49,7 +49,7 @@ input:focus {
 }
 
 .button-container button:hover {
-  background-color: #004d40; /* Color oscuro para el hover */
+  background-color: #8a2e15; /* Color oscuro para el hover */
 }
 
 .register-link {
@@ -58,10 +58,11 @@ input:focus {
 }
 
 .register-link a {
-  color: #00796b; /* Cambiado el color del enlace */
+  color: #c03b1d; /* Cambiado el color del enlace */
   text-decoration: none;
 }
 
 .register-link a:hover {
   text-decoration: underline;
+  color: #8a2e15;
 }

@@ -1,7 +1,7 @@
 /* General del Navbar */
 .navbar {
-  background-color: #00796b; /* Fondo verde azulado */
-  height: 80px;
+  background-color: #c03b1d; /* Fondo verde azulado inicial */
+  height: 60px; /* Ajustar la altura para hacerlo más delgado */
   display: flex;
   justify-content: space-between; /* Espacio entre el logo y el menú */
   align-items: center; /* Centrado vertical */
@@ -11,6 +11,11 @@
   z-index: 999;
   padding: 0 20px; /* Ajustar el espaciado interno */
   box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1); /* Sombra ligera */
+  transition: background-color 0.3s ease;
+}
+
+.navbar.scrolled {
+  background-color: #c03b1dc4; /* Fondo semi-transparente al hacer scroll */
 }
 
 .navbar-container {
@@ -18,17 +23,33 @@
   justify-content: space-between; /* Espacio entre el logo y el menú */
   align-items: center; /* Centrado vertical */
   width: 100%;
-  max-width: 2000; /* Ancho máximo */
+  max-width: 2000px; /* Ancho máximo */
 }
 
 .navbar-logo {
   color: white;
   cursor: pointer;
   text-decoration: none;
-  font-size: 2.2rem;
+  font-size: 2rem; /* Ajustar tamaño de fuente si deseas un logo más pequeño */
   font-weight: bold;
   display: flex;
   align-items: center; /* Centrado vertical */
+}
+
+/* Estilo personalizado para el botón de inicio de sesión */
+.btn-login {
+  background-color: #8a2e15; /* Color de fondo */
+  color: white; /* Color del texto */
+  padding: 10px 10px;
+  border: 1px solid #c03b1d; /* Color de borde */
+  border-radius: 4px;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.btn-login:hover {
+  background-color: #c03b1d; /* Color al pasar el cursor */
+  color: #ffffff;
 }
 
 /* Menú */
@@ -44,15 +65,15 @@
   color: white;
   text-decoration: none;
   padding: 1rem 1.5rem;
-  transition: background-color 0.3s ease; /* Sin cambio de padding para evitar movimiento */
+  transition: background-color 0.3s ease;
   font-size: 1.1rem;
   display: flex;
-  align-items: center; /* Alineación vertical */
-  height: 80px; /* Asegura que ocupe todo el alto del navbar */
+  align-items: center;
+  height: 60px; /* Ajustar altura para que coincida con el navbar */
 }
 
 .nav-links:hover {
-  background-color: #004d40; /* Fondo verde oscuro en hover */
+  background-color: #8a2e15; /* Fondo verde oscuro en hover */
   color: white;
   border-radius: 5px;
   transition: background-color 0.3s ease;
@@ -64,29 +85,29 @@
   cursor: pointer;
   font-size: 24px;
   color: white;
-  margin-left: 20px; /* Espacio a la izquierda del icono */
+  margin-left: 20px;
   display: flex;
-  align-items: center; /* Centrado verticalmente */
-  height: 80px; /* Asegura que el ícono esté alineado con el resto */
+  align-items: center;
+  height: 60px; /* Asegura que el ícono esté alineado con el navbar */
 }
 
 .profile-icon i {
-  background-color: #004d40; /* Verde oscuro */
+  background-color: #c03b1d;
   border-radius: 50%;
-  padding: 10px;
-  font-size: 24px;
+  padding: 8px; /* Ajustar padding si es necesario */
+  font-size: 20px; /* Ajustar tamaño de icono si prefieres algo más pequeño */
   transition: background-color 0.3s ease, transform 0.3s ease;
 }
 
 .profile-icon:hover i {
-  background-color: #00796b; /* Verde azulado más claro en hover */
-  transform: scale(1.1); /* Aumenta ligeramente el tamaño en hover */
+  background-color: #8a2e15;
+  transform: scale(1.1);
 }
 
 /* Menú desplegable del perfil */
 .dropdown-menu {
   position: absolute;
-  top: 70px; /* Debajo del ícono de perfil */
+  top: 60px; /* Debajo del ícono de perfil */
   right: 10px;
   background-color: white;
   color: black;
@@ -94,22 +115,22 @@
   box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
   z-index: 100;
   min-width: 160px;
-  display: none; /* Oculto por defecto */
+  display: none;
   flex-direction: column;
   text-align: left;
   padding: 10px 0;
 }
 
 .dropdown-menu.active {
-  display: flex; /* Mostrar cuando esté activo */
+  display: flex;
 }
 
 .dropdown-item {
-  padding: 12px 20px;
+  padding: 10px 15px;
   display: block;
   color: black;
   text-decoration: none;
-  font-size: 16px;
+  font-size: 15px;
 }
 
 .dropdown-item:hover {
@@ -118,29 +139,102 @@
   transition: all 0.3s ease;
 }
 
-/* Opciones del menú desplegable */
 .dropdown-menu .dropdown-item:first-child {
-  font-weight: bold; /* Hace que "Mi Perfil" se vea más destacado */
+  font-weight: bold;
 }
 
 .dropdown-menu .dropdown-item:last-child {
-  color: red; /* Cerrar Sesión en rojo */
+  color: red;
 }
 
 .dropdown-menu .dropdown-item:last-child:hover {
-  background-color: #ffcccc; /* Fondo rojo claro en hover para Cerrar Sesión */
+  background-color: #ffcccc;
 }
 
 /* Estilo para enlaces especiales */
 .nav-links.special-link {
-  color: #b2dfdb;
+  color: #ffffff;
 }
 
 .nav-links.special-link:hover {
-  background-color: #004d40;
-  color: white;
+  background-color: #c03b1d;
+  color: rgb(228, 199, 199);
   border-radius: 5px;
   transition: all 0.3s ease;
+}
+
+/* Estilo para el icono de carrito */
+.cart-menu {
+  position: relative;
+  margin-left: 20px;
+  cursor: pointer;
+}
+
+.cart-icon {
+  position: relative;
+  font-size: 24px;
+  color: white;
+  display: flex;
+  align-items: center;
+}
+
+.cart-count {
+  background-color: #f04e23; /* Color del contador */
+  color: white;
+  border-radius: 50%;
+  padding: 2px 8px;
+  font-size: 12px;
+  position: absolute;
+  top: -10px;
+  right: -10px;
+}
+
+.cart-dropdown {
+  position: fixed;
+  top: 0;
+  right: -300px; /* Fuera de la vista por defecto */
+  width: 300px;
+  height: 100%;
+  background-color: white;
+  box-shadow: -2px 0 5px rgba(0, 0, 0, 0.3);
+  z-index: 999;
+  transition: right 0.3s ease-in-out;
+  padding: 20px;
+  display: flex;
+  flex-direction: column; /* Organiza los elementos en columna */
+}
+
+.cart-dropdown.active {
+  right: 0; /* Mueve el carrito hacia la vista cuando se active */
+}
+
+.cart-dropdown-items {
+  max-height: calc(100% - 60px); /* Ocupa todo el espacio menos el espacio para el botón */
+  overflow-y: auto;
+  flex-grow: 1; /* Permite que esta área crezca y ocupe el espacio disponible */
+}
+.cart-total {
+  font-weight: bold;
+  margin-top: 10px;
+}
+
+
+/* Estilo para el botón de Ver carrito */
+.view-cart-button {
+  display: block;
+  margin-top: 10px; /* Añadimos un pequeño margen al botón */
+  text-align: center;
+  padding: 10px;
+  background-color: #28a745; /* Color del botón */
+  color: white;
+  font-weight: bold;
+  text-decoration: none;
+  border-radius: 0 0 5px 5px;
+  transition: background-color 0.3s ease;
+}
+
+.view-cart-button:hover {
+  background-color: #218838;
 }
 
 /* Responsivo */
@@ -151,14 +245,14 @@
     width: 100%;
     height: 30vh;
     position: absolute;
-    top: 80px;
+    top: 60px;
     left: -100%;
     opacity: 0;
     transition: all 0.5s ease;
   }
 
   .nav-menu.active {
-    background: #00796b;
+    background: #c03b1d;
     left: 0;
     opacity: 1;
     transition: all 0.5s ease;
@@ -167,7 +261,7 @@
 
   .nav-links {
     text-align: center;
-    padding: 2rem;
+    padding: 1.5rem;
     width: 100%;
     display: table;
   }
@@ -205,7 +299,7 @@
   }
 
   .nav-links-mobile:hover {
-    background: #004d40;
+    background: #c03b1d;
     color: white;
     transition: 250ms;
   }

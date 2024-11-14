@@ -1,0 +1,89 @@
+/* Estilo general de la página de checkout */
+.checkout-page-container {
+    max-width: 900px;
+    min-height: 700px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .checkout-page-container h1 {
+    text-align: center;
+    font-size: 28px;
+    color: #333;
+    
+  }
+  
+  .checkout-page-container h2 {
+    font-size: 22px;
+    color: #444;
+    text-align: center;
+    margin-bottom: 20px;
+    min-height: 50px;
+  }
+  
+  /* Resumen de los productos */
+  .checkout-products-summary {
+    margin-bottom: 30px;
+    min-height: 300px;
+  }
+  
+  .checkout-product-item {
+    background-color: #fff;
+    padding: 15px;
+    margin-bottom: 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .checkout-product-item h3 {
+    font-size: 20px;
+    color: #333;
+  }
+  
+  .checkout-product-item p {
+    font-size: 16px;
+    color: #555;
+    margin: 5px 0;
+  }
+  
+  /* Total */
+  .checkout-total {
+    font-size: 18px;
+    font-weight: bold;
+    background-color: #f1f1f1;
+    padding: 10px;
+    border-radius: 8px;
+    text-align: right;
+    margin-top: 20px;
+  }
+  
+  .checkout-total h3 {
+    margin: 0;
+    color: #333;
+  }
+  
+  /* Botón de pago */
+  .checkout-button {
+    width: 100%;
+    padding: 15px;
+    font-size: 18px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    margin-top: 30px;
+    transition: background-color 0.3s;
+  }
+  
+  .checkout-button:hover {
+    background-color: #45a049;
+  }
+  
+  .checkout-button:focus {
+    outline: none;
+  }
+  

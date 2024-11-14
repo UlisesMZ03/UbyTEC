@@ -16,6 +16,15 @@ export default function Login() {
 
   const [errorMessage, setErrorMessage] = useState('');
 
+  // Usuario de prueba
+  const testUser = {
+    email: 'usuario@prueba.com',
+    password: '123456',
+    userId: 'testUser123',
+    nombre: 'Usuario de Prueba',
+    token: 'fakeToken12345'
+  };
+
   const handleInputChange = (e) => {
     const { id, value } = e.target;
     setFormData({
@@ -27,38 +36,16 @@ export default function Login() {
   const handleSubmit2 = async (e) => {
     e.preventDefault();
 
-    try {
-      const response = await fetch("https://localhost:5555/api/users/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          email: formData.email,
-          password: formData.password
-        })
+    // Verifica si los datos coinciden con el usuario de prueba
+    if (formData.email === testUser.email && formData.password === testUser.password) {
+      login({
+        userId: testUser.userId,
+        nombre: testUser.nombre,
+        token: testUser.token
       });
-
-      const data = await response.json();
-
-      if (response.ok) {
-        if (data.userId) {
-          // Usar la función login del contexto para guardar el estado global
-          login({
-            userId: data.userId,
-            nombre: data.nombre,
-            token: data.token // Si tienes un token, también puedes guardarlo
-          });
-          
-          // Redirigir a la página de inicio o dashboard
-          navigate("/");
-        }
-      } else {
-        setErrorMessage(data.message || "Error al iniciar sesión");
-      }
-    } catch (error) {
-      console.error("Error al conectarse con la API:", error);
-      setErrorMessage("Error al conectarse con la API");
+      navigate("/delivery");
+    } else {
+      setErrorMessage("Email o contraseña incorrectos");
     }
   };
 

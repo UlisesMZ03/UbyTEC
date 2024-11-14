@@ -1,0 +1,373 @@
+[
+  {
+    "id": 1,
+    "nombre": "La Casa del Chef",
+    "descripcion": "Disfruta de una experiencia culinaria única con platillos tradicionales.",
+    "imgUrl": "https://scontent.fsyq6-1.fna.fbcdn.net/v/t39.30808-6/298467245_474579731341139_3239710196624325143_n.jpg?_nc_cat=105&ccb=1-7&_nc_sid=6ee11a&_nc_ohc=p3_MoiUUwaoQ7kNvgE1hJ0L&_nc_zt=23&_nc_ht=scontent.fsyq6-1.fna&_nc_gid=AfUU6R365UBG7f45V3eWjyd&oh=00_AYCJZ9rnrNkP2gq-lA4yfyoc_7pXjsSWewEFsx0_O98cGQ&oe=673A4732",
+    "calificacion": 4,
+    "platillos": [
+      {
+        "id": 1,
+        "nombre": "Sopa de Tortilla",
+        "descripcion": "Sopa tradicional con trozos de tortilla crujiente y chile.",
+        "imgUrl": "https://www.gourmet.cl/wp-content/uploads/2015/09/Sopa-de-Tortillas.jpg",
+        "precio": "3500"
+      },
+      {
+        "id": 2,
+        "nombre": "Enchiladas",
+        "descripcion": "Enchiladas rellenas de pollo con salsa verde.",
+        "imgUrl": "https://www.gourmet.cl/wp-content/uploads/2021/08/foto-istock-enchilada-tama%C3%B1o-web.jpg",
+        "precio": "4000"
+      },
+      {
+        "id": 3,
+        "nombre": "Tacos de Barbacoa",
+        "descripcion": "Tacos rellenos de barbacoa de res y cilantro.",
+        "imgUrl": "https://i.ytimg.com/vi/UBxmMD5b_ks/hq720.jpg?sqp=-oaymwEhCK4FEIIDSFryq4qpAxMIARUAAAAAGAElAADIQj0AgKJD&rs=AOn4CLCTv5o65lFDqApiqwHtRI68VTUtJw",
+        "precio": "3500"
+      },
+      {
+        "id": 4,
+        "nombre": "Chiles Rellenos",
+        "descripcion": "Pimientos rellenos de queso y carne, acompañados de salsa.",
+        "imgUrl": "https://www.recetasnestle.com.mx/sites/default/files/srh_recipes/fef5e4495df3b3116c3ffb2e3b8243c9.jpg",
+        "precio": "4500"
+      },
+      {
+        "id": 5,
+        "nombre": "Mole Poblano",
+        "descripcion": "Pechuga de pollo bañada en mole poblano tradicional.",
+        "imgUrl": "https://cdn.recetasderechupete.com/wp-content/uploads/2023/03/Mole-poblano-con-arroz.jpg",
+        "precio": "4000"
+      },
+      {
+        "id": 6,
+        "nombre": "Pozole",
+        "descripcion": "Sopa mexicana de maíz hominy con carne de cerdo y condimentos.",
+        "imgUrl": "https://peopleenespanol.com/thmb/vxx6_l3dlR75mS6OvBwFSTapwtg=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/pozole-blanco-de-puerco-2000-cc5fd5d86ae4408abecc2bb1d57422e0.jpg",
+        "precio": "3000"
+      },
+      {
+        "id": 7,
+        "nombre": "Tamales",
+        "descripcion": "Tamales de masa de maíz rellenos de carne y salsa.",
+        "imgUrl": "https://tulemar.com/wp-content/uploads/2022/12/tamales-e1674070279378.jpg",
+        "precio": "2000"
+      }
+    ]
+  },
+  
+  {
+    "id": 2,
+    "nombre": "El Asador Argentino",
+    "descripcion": "Auténticos cortes de carne y sabores argentinos.",
+    "imgUrl": "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/1c/bc/1e/56/angus-beef.jpg?w=900&h=500&s=1",
+    "calificacion": 5,
+    "platillos": [
+      {
+        "id": 1,
+        "nombre": "Bife de Chorizo",
+        "descripcion": "Corte de carne argentino jugoso y tierno.",
+        "imgUrl": "https://example.com/bife_chorizo.jpg",
+        "precio": "$15.00"
+      },
+      {
+        "id": 2,
+        "nombre": "Empanadas Argentinas",
+        "descripcion": "Empanadas rellenas de carne y especias.",
+        "imgUrl": "https://example.com/empanadas.jpg",
+        "precio": "$4.00"
+      }
+    ]
+  },
+  {
+    "id": 3,
+    "nombre": "Sushi Saito",
+    "descripcion": "Deliciosos platillos japoneses con el mejor sushi de la ciudad.",
+    "imgUrl": "https://d267qvt8mf7rfa.cloudfront.net/restaurant/49/118.jpg",
+    "calificacion": 3,
+    "platillos": [
+      {
+        "id": 1,
+        "nombre": "Sushi de Salmón",
+        "descripcion": "Rollos de sushi con salmón fresco.",
+        "imgUrl": "https://example.com/sushi_salmon.jpg",
+        "precio": "$10.00"
+      },
+      {
+        "id": 2,
+        "nombre": "Tempura",
+        "descripcion": "Vegetales y camarones fritos al estilo japonés.",
+        "imgUrl": "https://example.com/tempura.jpg",
+        "precio": "$7.50"
+      }
+    ]
+  },
+  {
+    "id": 4,
+    "nombre": "La Trattoria Italiana",
+    "descripcion": "Saborea las mejores pastas y pizzas italianas.",
+    "imgUrl": "https://static.wixstatic.com/media/acd265_5c1f4a05bdad48afbec37054e03c9065~mv2.jpg/v1/crop/x_0,y_358,w_1241,h_985/fill/w_368,h_292,al_c,q_80,usm_0.66_1.00_0.01,enc_auto/Trattoria_Italiana_LOGOS%20(1).jpg",
+    "calificacion": 5,
+    "platillos": [
+      {
+        "id": 1,
+        "nombre": "Pasta Carbonara",
+        "descripcion": "Pasta con una rica salsa de queso y panceta.",
+        "imgUrl": "https://example.com/carbonara.jpg",
+        "precio": "$9.00"
+      },
+      {
+        "id": 2,
+        "nombre": "Pizza Margarita",
+        "descripcion": "Pizza clásica con tomate, mozzarella y albahaca.",
+        "imgUrl": "https://example.com/margarita.jpg",
+        "precio": "$12.00"
+      }
+    ]
+  },
+  {
+    "id": 5,
+    "nombre": "El Taco Feliz",
+    "descripcion": "Auténticos tacos mexicanos con un toque único.",
+    "imgUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTPfW0agWconUClZQocRwV6neXX5XoUxAAg-g&s",
+    "platillos": [
+      {
+        "id": 1,
+        "nombre": "Tacos al Pastor",
+        "descripcion": "Tacos de cerdo marinados con piña y cebolla.",
+        "imgUrl": "https://example.com/al_pastor.jpg",
+        "precio": "$6.00"
+      },
+      {
+        "id": 2,
+        "nombre": "Quesadillas",
+        "descripcion": "Quesadillas de queso con salsa de guacamole.",
+        "imgUrl": "https://example.com/quesadillas.jpg",
+        "precio": "$5.50"
+      }
+    ]
+  },
+  {
+    "id": 6,
+    "nombre": "Brasserie Bonaparte",
+    "descripcion": "Un toque de Francia con una vista espectacular.",
+    "imgUrl": "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/0a/f3/52/ec/frecnh-cheeses-at-le.jpg?w=1200&h=-1&s=1",
+    "platillos": [
+      {
+        "id": 1,
+        "nombre": "Quiche Lorraine",
+        "descripcion": "Tarta francesa de jamón y queso.",
+        "imgUrl": "https://example.com/quiche.jpg",
+        "precio": "$8.50"
+      },
+      {
+        "id": 2,
+        "nombre": "Croissant",
+        "descripcion": "Croissant recién horneado, perfecto para el desayuno.",
+        "imgUrl": "https://example.com/croissant.jpg",
+        "precio": "$3.00"
+      }
+    ]
+  },
+  {
+    "id": 7,
+    "nombre": "Green & Healthy",
+    "descripcion": "Restaurante vegano con opciones frescas y saludables.",
+    "imgUrl": "https://d2lswn7b0fl4u2.cloudfront.net/photos/pg-vegan-food-restaurant-1612289621.jpg",
+    "platillos": [
+      {
+        "id": 1,
+        "nombre": "Ensalada de Quinoa",
+        "descripcion": "Ensalada fresca de quinoa con vegetales.",
+        "imgUrl": "https://example.com/ensalada_quinoa.jpg",
+        "precio": "$7.00"
+      },
+      {
+        "id": 2,
+        "nombre": "Smoothie Verde",
+        "descripcion": "Smoothie nutritivo con espinaca, manzana y piña.",
+        "imgUrl": "https://example.com/smoothie.jpg",
+        "precio": "$5.50"
+      }
+    ]
+  },
+  {
+    "id": 8,
+    "nombre": "Pizzeria Napoli",
+    "descripcion": "La auténtica pizza napolitana horneada a la perfección.",
+    "imgUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT0b7_Gaa_QXVneFwObYsQfdrYyDowxj76awA&s",
+    "platillos": [
+      {
+        "id": 1,
+        "nombre": "Pizza Marinara",
+        "descripcion": "Pizza con ajo, orégano, tomate y aceite de oliva.",
+        "imgUrl": "https://example.com/pizza_marinara.jpg",
+        "precio": "$10.00"
+      },
+      {
+        "id": 2,
+        "nombre": "Calzone",
+        "descripcion": "Masa de pizza rellena de mozzarella y jamón.",
+        "imgUrl": "https://example.com/calzone.jpg",
+        "precio": "$12.00"
+      }
+    ]
+  },
+  {
+    "id": 9,
+    "nombre": "Burger Factory",
+    "descripcion": "Hamburguesas artesanales con ingredientes frescos.",
+    "imgUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTaukGiVUFUlJOq6ocdJrJIzPvo5cp7Lw9rYQ&s",
+    "platillos": [
+      {
+        "id": 1,
+        "nombre": "Hamburguesa Clásica",
+        "descripcion": "Carne de res con queso, lechuga, tomate y cebolla.",
+        "imgUrl": "https://example.com/hamburguesa_clasica.jpg",
+        "precio": "$8.00"
+      },
+      {
+        "id": 2,
+        "nombre": "Papas Fritas",
+        "descripcion": "Crujientes papas fritas con sal marina.",
+        "imgUrl": "https://example.com/papas_fritas.jpg",
+        "precio": "$3.00"
+      }
+    ]
+  },
+  {
+    "id": 10,
+    "nombre": "Cafe del Mar",
+    "descripcion": "Ambiente relajado con café de especialidad.",
+    "imgUrl": "https://jukeboxy-media.s3.amazonaws.com/blog/wp-content/uploads/2022/02/19095301/music-for-coffee-shop.jpg",
+    "platillos": [
+      {
+        "id": 1,
+        "nombre": "Café Americano",
+        "descripcion": "Café filtrado de alta calidad.",
+        "imgUrl": "https://example.com/cafe_americano.jpg",
+        "precio": "$2.50"
+      },
+      {
+        "id": 2,
+        "nombre": "Tostadas con Aguacate",
+        "descripcion": "Tostadas con aguacate fresco y especias.",
+        "imgUrl": "https://example.com/tostadas_aguacate.jpg",
+        "precio": "$5.00"
+      }
+    ]
+  },
+  {
+    "id": 11,
+    "nombre": "The Seafood Market",
+    "descripcion": "Mariscos frescos y platillos de alta calidad.",
+    "imgUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQCoecbzaNd23xTlUyrzg3hy31bHpqQ-R1ENg&s",
+    "platillos": [
+      {
+        "id": 1,
+        "nombre": "Ceviche Mixto",
+        "descripcion": "Ceviche de pescado y mariscos frescos.",
+        "imgUrl": "https://example.com/ceviche_mixto.jpg",
+        "precio": "$9.00"
+      },
+      {
+        "id": 2,
+        "nombre": "Camarones al Ajillo",
+        "descripcion": "Camarones salteados con ajo y perejil.",
+        "imgUrl": "https://example.com/camarones_ajillo.jpg",
+        "precio": "$11.00"
+      }
+    ]
+  },
+  {
+    "id": 12,
+    "nombre": "Bistro Central",
+    "descripcion": "Comida rápida con un toque gourmet.",
+    "imgUrl": "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/1b/09/47/e5/restaurante-bistro-central.jpg?w=1200&h=-1&s=1",
+    "platillos": [
+      {
+        "id": 1,
+        "nombre": "Sándwich de Pollo",
+        "descripcion": "Sándwich con pechuga de pollo y vegetales frescos.",
+        "imgUrl": "https://example.com/sandwich_pollo.jpg",
+        "precio": "$6.00"
+      },
+      {
+        "id": 2,
+        "nombre": "Ensalada César",
+        "descripcion": "Ensalada con lechuga romana, parmesano y crutones.",
+        "imgUrl": "https://example.com/ensalada_cesar.jpg",
+        "precio": "$7.00"
+      }
+    ]
+  },
+  {
+    "id": 13,
+    "nombre": "La Taberna Española",
+    "descripcion": "Tapas y paellas en un ambiente español auténtico.",
+    "imgUrl": "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/2c/6e/99/0c/caption.jpg?w=1200&h=-1&s=1",
+    "platillos": [
+      {
+        "id": 1,
+        "nombre": "Paella",
+        "descripcion": "Arroz con mariscos y especias españolas.",
+        "imgUrl": "https://example.com/paella.jpg",
+        "precio": "$15.00"
+      },
+      {
+        "id": 2,
+        "nombre": "Tortilla Española",
+        "descripcion": "Clásica tortilla de patatas y cebolla.",
+        "imgUrl": "https://example.com/tortilla.jpg",
+        "precio": "$4.50"
+      }
+    ]
+  },
+  {
+    "id": 14,
+    "nombre": "The Vegan Place",
+    "descripcion": "Deliciosas opciones veganas y vegetarianas.",
+    "imgUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRgFvgXN6KrzxsQy-aBuy_MbQSke6jz_SN2lQ&s",
+    "platillos": [
+      {
+        "id": 1,
+        "nombre": "Hamburguesa Vegana",
+        "descripcion": "Hamburguesa de lentejas y vegetales.",
+        "imgUrl": "https://example.com/hamburguesa_vegana.jpg",
+        "precio": "$8.00"
+      },
+      {
+        "id": 2,
+        "nombre": "Batido de Mango",
+        "descripcion": "Batido de mango natural sin azúcares añadidos.",
+        "imgUrl": "https://example.com/batido_mango.jpg",
+        "precio": "$4.50"
+      }
+    ]
+  },
+  {
+    "id": 15,
+    "nombre": "Churrascos Grill",
+    "descripcion": "Cortes de carne a la parrilla y comida brasileña.",
+    "imgUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTYQ_kTxz36Qysz1HrhrkrWSCY2KJ-5dgGyrQ&s",
+    "platillos": [
+      {
+        "id": 1,
+        "nombre": "Picanha",
+        "descripcion": "Corte de carne brasileño a la parrilla.",
+        "imgUrl": "https://example.com/picanha.jpg",
+        "precio": "$14.00"
+      },
+      {
+        "id": 2,
+        "nombre": "Chorizo Parrillero",
+        "descripcion": "Chorizo a la parrilla acompañado de chimichurri.",
+        "imgUrl": "https://example.com/chorizo.jpg",
+        "precio": "$6.50"
+      }
+    ]
+  }
+
+]

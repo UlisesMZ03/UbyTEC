@@ -1,57 +1,97 @@
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import './HeroSection.css';
+import '../App.css';
+import { Button } from './Button';
+import restaurantsData from './data/restaurants.json';
 
-
-import "./HeroSection.css";
-
-import "../App.css";
-
-import { Button } from "./Button";
-import { Link } from "react-router-dom";
-
-// Importa las imágenes locales (asegúrate de agregar imágenes relacionadas a dispositivos inteligentes)
-import smartHomeImage1 from "../images/casa.png";
-import smartHomeImage2 from "../images/berries.png";
 function HeroSection() {
   const [user, setUser] = useState(null);
+  const [restaurants, setRestaurants] = useState([]);
+  const [input, setInput] = useState('');
+  const [suggestions, setSuggestions] = useState([]);
+  const navigate = useNavigate();
 
   // Verificar si el usuario ha iniciado sesión
   useEffect(() => {
     const storedUser = localStorage.getItem('user');
     if (storedUser) {
-      setUser(JSON.parse(storedUser)); // Si el usuario está logueado, obtenemos su información
+      setUser(JSON.parse(storedUser));
+      navigate('/inicio'); // Redirigir si el usuario está logueado
+    } else {
+      setRestaurants(restaurantsData); // Cargar los restaurantes desde el JSON
     }
-  }, []);
+  }, [navigate]);
+
+  // Función para obtener sugerencias de Nominatim
+  const fetchSuggestions = async (query) => {
+    if (!query) {
+      setSuggestions([]);
+      return;
+    }
+    try {
+      const response = await fetch(
+        `https://nominatim.openstreetmap.org/search?format=json&q=${query}&countrycodes=CR&addressdetails=1&limit=5`
+      );
+      const data = await response.json();
+      if (data) {
+        setSuggestions(data.map(item => item.display_name));
+      } else {
+        setSuggestions([]);
+      }
+    } catch (error) {
+      console.error("Error fetching suggestions:", error);
+      setSuggestions([]);
+    }
+  };
+
+  // Función para actualizar las sugerencias basadas en la entrada
+  const handleInputChange = (e) => {
+    const value = e.target.value;
+    setInput(value);
+    fetchSuggestions(value);
+  };
+
+  // Función para seleccionar una sugerencia
+  const handleSuggestionClick = (suggestion) => {
+    setInput(suggestion);
+    setSuggestions([]);
+  };
+
+  if (user) {
+    return null; // O mostrar un loader si prefieres mientras redirige
+  }
 
   return (
     <div className="hero-container">
       <div className="welcome-message">
-        {user ? (
-          <>
-            <h2>Bienvenido de nuevo, {user.nombre}</h2>
-            <p>La plataforma que te permitirá gestionar todos tus dispositivos inteligentes.</p>
-          </>
-        ) : (
-          <>
-            <h2>Bienvenido a SmartHomeTEC!</h2>
-            <p>La plataforma que te permitirá gestionar todos tus dispositivos inteligentes desde un solo lugar.</p>
-          </>
-        )}
-      </div>
-
-      {/* Texto principal del Hero */}
-      <div className="hero-text">
-        <h1>Controla tu hogar inteligente de manera eficiente.</h1>
-        <p>¿Quieres administrar tus dispositivos de forma centralizada? Monitorea y controla todos tus dispositivos con SmartHomeTEC.</p>
-        <div className="hero-btns">
-          <Button className="btns" buttonStyle="btn--primary" buttonSize="btn--large">
-            EMPIEZA AHORA
-          </Button>
+        <h2>Entrega de pedidos cerca de ti</h2>
+        <p>Ingresa la dirección de entrega y encuentra las mejores opciones de comida a tu alcance.</p>
+        <div className="search-bar">
+          <div className="autocomplete">
+            <input
+              type="text"
+              placeholder="Ingresa la dirección de entrega"
+              value={input}
+              onChange={handleInputChange}
+            />
+            {suggestions.length > 0 && (
+              <ul className="suggestions">
+                {suggestions.map((suggestion, index) => (
+                  <li key={index} onClick={() => handleSuggestionClick(suggestion)}>
+                    {suggestion}
+                  </li>
+                ))}
+              </ul>
+            )}
+          </div>
+          <select>
+            <option>Entregar ahora</option>
+            <option>Programar entrega</option>
+          </select>
+          <Button buttonStyle="btn--primary">Buscar comida</Button>
         </div>
-      </div>
-
-      {/* Imágenes de apoyo */}
-      <div className="hero-images">
-        <img src={smartHomeImage1} alt="Dispositivo inteligente" className="hero-image" />
+        <p className="or-login">O <span className="login-link" onClick={() => navigate('/login')}>iniciar sesión</span></p>
       </div>
     </div>
   );

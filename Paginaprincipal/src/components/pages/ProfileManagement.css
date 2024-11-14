@@ -3,6 +3,7 @@
     max-width: 1200px; /* Aumentar el ancho máximo del contenedor */
     margin: 0 auto; /* Centrar el contenedor */
     padding: 20px; /* Espaciado interno */
+    min-height: 700px;
 }
 
 /* Estilos para las filas */
@@ -93,7 +94,7 @@ h4 {
 }
 
 .table th {
-    background-color: #007c7e; /* Color de fondo para encabezados */
+    background-color: #c03b1d; /* Color de fondo para encabezados */
     color: white; /* Color del texto del encabezado */
     font-weight: normal; /* Quitar negrita */
 }
@@ -110,7 +111,7 @@ h4 {
 .btn-edit {
     background: none; /* Sin fondo */
     border: none; /* Sin borde */
-    color: #007c7e; /* Color del ícono (verde) */
+    color: #c03b1d; /* Color del ícono (verde) */
     cursor: pointer; /* Cambia el cursor al pasar */
     font-size: 16px; /* Tamaño del ícono */
     padding: 0; /* Sin padding */
@@ -171,9 +172,6 @@ h4 {
     display: flex; /* Muestra los elementos de la lista en una fila */
 }
 
-.nav-tabs .nav-item {
-    margin-right: 15px; /* Espaciado entre elementos */
-}
 
 .nav-tabs .nav-link {
     cursor: pointer; /* Cambia el cursor a puntero cuando se pasa el mouse */
@@ -184,10 +182,11 @@ h4 {
 }
 
 .nav-tabs .nav-link:hover {
-    background-color: #f8f9fa; /* Cambia el fondo al pasar el mouse */
+    background-color: #ffffff; /* Cambia el fondo al pasar el mouse */
+    border-color: #ffffff;
 }
 
 .nav-tabs .nav-link.active {
-    background-color: #007c7e; /* Color de fondo para el elemento activo (verde) */
+    background-color: #c03b1d; /* Color de fondo para el elemento activo (verde) */
     color: white; /* Color del texto del elemento activo */
 }

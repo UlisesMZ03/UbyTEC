@@ -1,61 +1,61 @@
-import React from "react";
-import "./ArticleSection.css";
+import React, { useEffect, useState } from "react";
+import "./ArticleSection.css"; // Asegúrate de que el CSS esté bien aplicado
 
-// Importar las imágenes locales
-import smartDevicesImage from "../images/casa1.png";
-import energySavingImage from "../images/disp.png";
-import automationImage from "../images/casa2.png";
+function Footer() {
+  const [isPaddingNeeded, setIsPaddingNeeded] = useState(false);
 
-function ArticleSection() {
+  useEffect(() => {
+    // Revisar el tamaño del contenido cuando la página se carga o cambia
+    const checkPadding = () => {
+      const contentHeight = document.documentElement.scrollHeight;
+      const windowHeight = window.innerHeight;
+      // Si el contenido es menor que el tamaño de la ventana, agregamos padding al footer
+      setIsPaddingNeeded(contentHeight < windowHeight);
+    };
+
+    // Ejecutar la función al cargar la página
+    checkPadding();
+
+    // Agregar un listener para el cambio de tamaño de la ventana
+    window.addEventListener("resize", checkPadding);
+
+    // Limpiar el listener cuando el componente se desmonte
+    return () => window.removeEventListener("resize", checkPadding);
+  }, []); // Solo se ejecuta una vez al cargar
+
   return (
-    <div className="article-container">
-      <div className="article-hero">
-        <h1>La Importancia de un Hogar Inteligente</h1>
-        <p>Cómo los dispositivos inteligentes pueden mejorar tu calidad de vida y la eficiencia en tu hogar</p>
-      </div>
-
-      <div className="article-content">
-        <div className="article-section">
-          <img
-            src={smartDevicesImage}
-            alt="Dispositivos inteligentes"
-            className="article-image"
-          />
-          <h2>¿Qué es un hogar inteligente?</h2>
+    <footer className={`footer-container ${isPaddingNeeded ? "footer-padding" : ""}`}>
+      <div className="footer-content">
+        <div className="footer-section">
+          <h3>Sobre UBYTEC</h3>
           <p>
-            Un hogar inteligente utiliza dispositivos conectados a Internet para controlar y automatizar funciones como iluminación, calefacción, seguridad y electrodomésticos. Estos dispositivos permiten un mayor control, comodidad y ahorro energético.
+            UBYTEC es una plataforma dedicada a ofrecer soluciones de hogares inteligentes para mejorar tu calidad de vida y promover la eficiencia energética.
           </p>
         </div>
 
-        <div className="article-section">
-          <h2>Beneficios de los dispositivos inteligentes</h2>
-          <p>
-            Los dispositivos inteligentes no solo mejoran la comodidad, sino que también ayudan a reducir el consumo de energía. Gracias a la automatización y al control remoto, es posible ajustar el uso de dispositivos para que sean más eficientes y contribuyan a un estilo de vida sostenible.
-          </p>
-          <img
-            src={energySavingImage}
-            alt="Ahorro de energía"
-            className="article-image"
-          />
-        </div>
-
-        <div className="article-section">
-          <h2>Consejos para un hogar más eficiente</h2>
+        <div className="footer-section">
+          <h3>Enlaces útiles</h3>
           <ul>
-            <li>Utiliza termostatos inteligentes para regular la temperatura y reducir el consumo de energía.</li>
-            <li>Automatiza las luces para que se apaguen cuando no haya nadie en casa.</li>
-            <li>Instala cámaras de seguridad conectadas para monitorizar tu hogar desde cualquier lugar.</li>
-            <li>Configura rutinas para que los electrodomésticos funcionen en horarios de menor consumo.</li>
+            <li><a href="/about">Acerca de Nosotros</a></li>
+            <li><a href="/services">Servicios</a></li>
+            <li><a href="/contact">Contacto</a></li>
+            <li><a href="/privacy">Política de Privacidad</a></li>
           </ul>
-          <img
-            src={automationImage}
-            alt="Automatización del hogar"
-            className="article-image"
-          />
+        </div>
+
+        <div className="footer-section">
+          <h3>Contacto</h3>
+          <p>Email: contacto@ubytec.com</p>
+          <p>Teléfono: +506 1234 5678</p>
+          <p>Dirección: San José, Costa Rica</p>
         </div>
       </div>
-    </div>
+
+      <div className="footer-bottom">
+        <p>&copy; 2024 UBYTEC. Todos los derechos reservados.</p>
+      </div>
+    </footer>
   );
 }
 
-export default ArticleSection;
+export default Footer;
