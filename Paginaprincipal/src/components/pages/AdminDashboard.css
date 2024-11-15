@@ -4,8 +4,11 @@
 }
 
 .sidebar {
-  width: 250px; /* Ancho fijo del sidebar */
+  width: 300px; /* Ancho fijo del sidebar */
   transition: width 0.3s ease; /* Transición suave al abrir/cerrar */
+  height: 100%; /* Asegura que el sidebar ocupe toda la altura */
+  display: flex;
+  flex-direction: column; /* Para organizar los elementos del sidebar verticalmente */
 }
 
 .sidebar-header {
@@ -23,20 +26,28 @@
 
 .nav-link {
   display: flex;
-  align-items: center;
+  align-items: center; /* Asegura que los elementos estén alineados verticalmente */
+  justify-content: flex-start; /* Alinear los elementos a la izquierda */
   padding: 15px 20px; /* Aumentar el padding para mayor tamaño */
   color: #333;
   transition: background-color 0.2s ease;
   font-size: 1.2rem; /* Aumentar el tamaño de fuente */
+  width: 100%;
+  text-align: left; /* Asegura que el texto esté alineado a la izquierda */
+}
+
+.nav-link .mr-2 { /* Asegura que el icono y el texto estén alineados correctamente */
+  margin-right: 10px; /* Espaciado entre el icono y el texto */
 }
 
 .nav-link:hover {
-  background-color: #00796b; /* Color de fondo al pasar el mouse */
+  border-radius: 0px; /* Bordes redondeados */
+  background-color: #f04e23; /* Color de fondo al pasar el mouse */
   color: #fff; /* Cambiar color del texto al pasar el mouse */
 }
 
 .nav-link.active {
-  background-color: #00796b; /* Fondo activo */
+  background-color: #f04e23; /* Fondo activo */
   color: #fff; /* Color de texto activo */
 }
 
@@ -44,7 +55,7 @@
   flex: 1;
   padding: 20px; /* Espacio interno para el contenido */
   background-color: #f4f4f4; /* Fondo del contenido */
-  border-left: 1px solid #00796b; /* Línea divisoria entre el sidebar y el contenido */
+  border-left: 1px solid #f04e23; /* Línea divisoria entre el sidebar y el contenido */
 }
 
 .content h1 {
@@ -69,16 +80,16 @@
 
 /* Estilos para botones */
 .btn-primary, .btn-secondary {
-  background-color: #00796b; /* Color de fondo del botón primario */
+  background-color: #f04e23; /* Color de fondo del botón primario */
   border: none; /* Sin borde */
 }
 
 .btn-primary:hover, .btn-secondary:hover {
-  background-color: #005f54; /* Color de fondo al pasar el mouse para botones */
+  background-color: #f04e23; /* Color de fondo al pasar el mouse para botones */
 }
 
 .btn-secondary {
-  background-color: #6c757d; /* Color de fondo para botón secundario */
+  background-color: #f04e23; /* Color de fondo para botón secundario */
 }
 
 .list-group-item {
@@ -94,6 +105,7 @@
 .d-flex .btn {
   margin-right: 10px; /* Espaciado entre los botones */
 }
+
 .chart-grid {
   display: grid; /* Utiliza grid para organizar los gráficos */
   grid-template-columns: repeat(auto-fill, minmax(500px, 1fr)); /* Cambiar el ancho mínimo a 500px */
@@ -126,6 +138,3 @@ canvas {
   border-radius: 10px; /* Bordes redondeados para el gráfico */
   box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.2); /* Sombra interna para efecto 3D */
 }
-
-
-

@@ -12,16 +12,7 @@ function HeroSection() {
   const [suggestions, setSuggestions] = useState([]);
   const navigate = useNavigate();
 
-  // Verificar si el usuario ha iniciado sesión
-  useEffect(() => {
-    const storedUser = localStorage.getItem('user');
-    if (storedUser) {
-      setUser(JSON.parse(storedUser));
-      navigate('/inicio'); // Redirigir si el usuario está logueado
-    } else {
-      setRestaurants(restaurantsData); // Cargar los restaurantes desde el JSON
-    }
-  }, [navigate]);
+
 
   // Función para obtener sugerencias de Nominatim
   const fetchSuggestions = async (query) => {
@@ -89,7 +80,9 @@ function HeroSection() {
             <option>Entregar ahora</option>
             <option>Programar entrega</option>
           </select>
-          <Button buttonStyle="btn--primary">Buscar comida</Button>
+          <button className="login-btn-hero" onClick={() => navigate('/delivery')}>
+          Buscar
+        </button>
         </div>
         <p className="or-login">O <span className="login-link" onClick={() => navigate('/login')}>iniciar sesión</span></p>
       </div>

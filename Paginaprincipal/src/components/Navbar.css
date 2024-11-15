@@ -15,7 +15,7 @@
 }
 
 .navbar.scrolled {
-  background-color: #c03b1dc4; /* Fondo semi-transparente al hacer scroll */
+  background-color: #c03b1de7; /* Fondo semi-transparente al hacer scroll */
 }
 
 .navbar-container {
@@ -78,7 +78,12 @@
   border-radius: 5px;
   transition: background-color 0.3s ease;
 }
-
+/* Contenedor común para los iconos de perfil y carrito */
+.nav-item.profile-cart-container {
+  display: flex;  /* Alineación horizontal */
+  align-items: center;  /* Alineación vertical */
+  gap: 20px;  /* Espaciado entre los íconos */
+}
 /* Estilo para el icono de perfil */
 .profile-icon {
   position: relative;
@@ -177,7 +182,10 @@
   display: flex;
   align-items: center;
 }
+.cart-icon:hover i {
 
+  transform: scale(1.15);
+}
 .cart-count {
   background-color: #f04e23; /* Color del contador */
   color: white;
@@ -192,16 +200,17 @@
 .cart-dropdown {
   position: fixed;
   top: 0;
-  right: -300px; /* Fuera de la vista por defecto */
-  width: 300px;
+  right: -400px; /* Fuera de la vista por defecto */
+  width: 350px;
   height: 100%;
   background-color: white;
   box-shadow: -2px 0 5px rgba(0, 0, 0, 0.3);
   z-index: 999;
   transition: right 0.3s ease-in-out;
-  padding: 20px;
+  padding-left: 10px;
   display: flex;
   flex-direction: column; /* Organiza los elementos en columna */
+  
 }
 
 .cart-dropdown.active {
@@ -218,25 +227,117 @@
   margin-top: 10px;
 }
 
+/* Título de Carrito de compras */
+.cart-title {
+  font-size: 1.3rem;
+  font-weight: bold;
+  color:#c03b1d;
+  padding-top: 10px;
+  padding-bottom: 10px; /* Espacio entre el título y el contenido */
+  border-bottom: 1px solid #ddd;
+  margin-bottom: 10px; /* Espacio debajo del título */
+}
 
-/* Estilo para el botón de Ver carrito */
+
+.view-cart-button:hover {
+  background-color: #f04e23;
+}
+/* Estilo para los productos en el carrito (uso de Grid) */
+.cart-dropdown-items {
+  display: grid;
+  
+  gap: 15px; /* Espaciado entre las filas y columnas */
+  max-height: calc(100% - 20px); /* Ocupa todo el espacio menos el espacio para el botón */
+  overflow-y: auto; /* Permite desplazarse si el contenido es muy largo */
+  padding: 0 10px; /* Padding entre el contenido del carrito y el borde */
+
+}
+
+.cart-item {
+  display: grid;
+  grid-template-columns: 1fr 1fr; /* Dos columnas: una para el nombre y otra para cantidad/precio */
+  gap: 10px;
+  padding: 10px 0;
+  border-bottom: 1px solid #ddd;
+}
+
+.cart-item-name {
+  font-size: 1rem;
+  color: #333;
+  font-weight: bold;
+  grid-column: span 2; /* El nombre ocupa ambas columnas */
+}
+
+.cart-item-quantity {
+  font-size: 1rem;
+  color: #333;
+  
+  text-align: left;
+}
+
+.cart-item-price {
+  font-size: 1rem;
+  color: #333;
+  text-align: right;
+}
+
+.cart-quantity-input {
+  width: 60px;
+  padding: 5px;
+  margin-left: 5px;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+/* Total del carrito */
+.cart-total {
+  border-top: 1px solid #ddd;
+  font-weight: bold;
+  margin-top: 15px;
+  padding-top: 20px;
+  font-size: 1.2rem;
+}
+
+/* Estilo del botón Ver carrito */
 .view-cart-button {
   display: block;
-  margin-top: 10px; /* Añadimos un pequeño margen al botón */
+  margin-top: 15px;
+  margin-bottom: 15px;
+  margin-right: 15px;
   text-align: center;
   padding: 10px;
-  background-color: #28a745; /* Color del botón */
+  background-color: #f04e23; /* Color del botón */
   color: white;
   font-weight: bold;
   text-decoration: none;
   border-radius: 0 0 5px 5px;
   transition: background-color 0.3s ease;
+  
 }
 
 .view-cart-button:hover {
-  background-color: #218838;
+  background-color: #c03b1d;
 }
-
+/* Estilo para la capa oscura detrás del carrito */
+.cart-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.404); /* Color negro semi-transparente */
+  z-index: 998; /* Asegura que esté detrás del carrito */
+  transition: background-color 0.3s ease; /* Transición suave */
+}
+/* Contenedor para el área desplazable del carrito */
+.cart-dropdown-wrapper {
+  max-height: calc(100% - 60px); /* Deja espacio para el botón */
+  overflow-y: auto; /* Hace que solo el contenido del carrito se desplace */
+  flex-grow: 1; /* Permite que esta área crezca y ocupe el espacio disponible */
+  
+  
+}
 /* Responsivo */
 @media screen and (max-width: 960px) {
   .nav-menu {

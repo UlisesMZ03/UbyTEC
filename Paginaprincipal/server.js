@@ -7,9 +7,7 @@ const app = express();
 const port = 5000;
 
 // URL de conexión de MongoDB Atlas
-const url = "mongodb+srv://sebashb1405:hola@cluster0.k6vkv.mongodb.net/UbyTEC?retryWrites=true&w=majority&tls=true";
-
-
+const url = "mongodb+srv://sebashb1405:hola@cluster0.k6vkv.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
 
 app.use(cors());
 app.use(bodyParser.json());

@@ -1,3 +1,4 @@
+// AuthContext.js
 import React, { createContext, useState, useEffect, useContext } from "react";
 
 // Crea el contexto de autenticación
@@ -7,6 +8,7 @@ const AuthContext = createContext();
 export function AuthProvider({ children }) {
   const [loggedIn, setLoggedIn] = useState(false);
   const [user, setUser] = useState(null); // Estado del usuario
+  const [loading, setLoading] = useState(true); // Estado de carga
 
   // Efecto para cargar la sesión de localStorage si está disponible
   useEffect(() => {
@@ -15,6 +17,7 @@ export function AuthProvider({ children }) {
       setUser(JSON.parse(storedUser));  // Restaura la sesión
       setLoggedIn(true);
     }
+    setLoading(false); // Marca como no cargando una vez que el efecto termina
   }, []); // Solo se ejecuta una vez al montar
 
   // Función para iniciar sesión
@@ -27,10 +30,14 @@ export function AuthProvider({ children }) {
   // Función para cerrar sesión
   const logout = () => {
     localStorage.removeItem("user");
-    
     setUser(null);
     setLoggedIn(false);  // Actualizar el estado global de autenticación
   };
+
+  // Mientras se está cargando la sesión, no renderizar nada
+  if (loading) {
+    return null;  // Puedes retornar un loading spinner aquí si lo deseas
+  }
 
   return (
     <AuthContext.Provider value={{ loggedIn, user, login, logout }}>

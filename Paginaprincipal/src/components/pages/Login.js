@@ -16,14 +16,33 @@ export default function Login() {
 
   const [errorMessage, setErrorMessage] = useState('');
 
-  // Usuario de prueba
-  const testUser = {
-    email: 'usuario@prueba.com',
-    password: '123456',
-    userId: 'testUser123',
-    nombre: 'Usuario de Prueba',
-    token: 'fakeToken12345'
-  };
+  // Usuarios de prueba con roles
+  const testUsers = [
+    {
+      email: 'admin@prueba.com',
+      password: 'admin123',
+      userId: 'adminUser123',
+      nombre: 'Administrador de Prueba',
+      token: 'fakeTokenAdmin123',
+      role: 'admin' // Rol de administrador
+    },
+    {
+      email: 'affiliate@prueba.com',
+      password: 'affiliate123',
+      userId: 'affiliateUser123',
+      nombre: 'Afiliado de Prueba',
+      token: 'fakeTokenAffiliate123',
+      role: 'affiliate' // Rol de afiliado
+    },
+    {
+      email: 'client@prueba.com',
+      password: 'client123',
+      userId: 'clientUser123',
+      nombre: 'Cliente de Prueba',
+      token: 'fakeTokenClient123',
+      role: 'client' // Rol de cliente
+    }
+  ];
 
   const handleInputChange = (e) => {
     const { id, value } = e.target;
@@ -36,14 +55,26 @@ export default function Login() {
   const handleSubmit2 = async (e) => {
     e.preventDefault();
 
-    // Verifica si los datos coinciden con el usuario de prueba
-    if (formData.email === testUser.email && formData.password === testUser.password) {
+    // Verifica si los datos coinciden con alguno de los usuarios de prueba
+    const user = testUsers.find(u => u.email === formData.email && u.password === formData.password);
+
+    if (user) {
+      // Inicia sesión con el rol correspondiente
       login({
-        userId: testUser.userId,
-        nombre: testUser.nombre,
-        token: testUser.token
+        userId: user.userId,
+        nombre: user.nombre,
+        token: user.token,
+        role: user.role
       });
-      navigate("/delivery");
+
+      // Redirige al usuario según su rol
+      if (user.role === 'admin') {
+        navigate("/");
+      } else if (user.role === 'affiliate') {
+        navigate("/affiliate");
+      } else if (user.role === 'client') {
+        navigate("/");
+      }
     } else {
       setErrorMessage("Email o contraseña incorrectos");
     }

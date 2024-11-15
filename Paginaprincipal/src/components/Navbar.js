@@ -5,17 +5,12 @@ import { useCart } from '../CartContext';
 import "./Navbar.css";
 
 function Navbar() {
-  const { loggedIn, logout } = useAuth();
-  const { cart, updateCartItemQuantity } = useCart();  // Necesitarás una función updateCartItemQuantity
+  const { loggedIn, logout, role } = useAuth();
+  const { cart, updateCartItemQuantity } = useCart();  
   const navigate = useNavigate();
-  const [click, setClick] = useState(false);
-  const [button, setButton] = useState(true);
   const [showDropdown, setShowDropdown] = useState(false);
   const [showCartDropdown, setShowCartDropdown] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-
-  const handleClick = () => setClick(!click);
-  const closeMobileMenu = () => setClick(false);
 
   const toggleDropdown = (e) => {
     e.stopPropagation();
@@ -29,25 +24,20 @@ function Navbar() {
 
   const handleLogoClick = () => {
     if (loggedIn) {
-      navigate("/delivery");
+      if (role === 'cliente') {
+        navigate("/delivery");  
+      } else {
+        navigate("/");  
+      }
     } else {
-      navigate("/"); 
+      navigate("/");  
     }
-    closeMobileMenu();
   };
 
   const closeDropdownOnClickOutside = (e) => {
     if (!e.target.closest('.profile-menu') && !e.target.closest('.cart-menu')) {
       setShowDropdown(false);
       setShowCartDropdown(false);
-    }
-  };
-
-  const showButton = () => {
-    if (window.innerWidth <= 960) {
-      setButton(false);
-    } else {
-      setButton(true);
     }
   };
 
@@ -62,14 +52,20 @@ function Navbar() {
   };
 
   useEffect(() => {
-    showButton();
     document.addEventListener("click", closeDropdownOnClickOutside);
     window.addEventListener("scroll", handleScroll);
+    
+    if (showCartDropdown) {
+      document.body.style.overflow = 'hidden'; 
+    } else {
+      document.body.style.overflow = 'auto'; 
+    }
+
     return () => {
       document.removeEventListener("click", closeDropdownOnClickOutside);
       window.removeEventListener("scroll", handleScroll);
     };
-  }, []);
+  }, [showCartDropdown]);
 
   return (
     <nav className={`navbar ${scrolled ? 'scrolled' : ''}`}>
@@ -77,81 +73,80 @@ function Navbar() {
         <div className="navbar-logo" onClick={handleLogoClick}>
           UBYTEC
         </div>
-        <div className="menu-icon" onClick={handleClick}>
-          <i className={click ? "fas fa-times" : "fas fa-bars"} />
-        </div>
         {loggedIn ? (
-          <ul className={click ? "nav-menu active" : "nav-menu"}>
+          <ul className="nav-menu">
             <li>
-              <Link to="/reports" className="nav-links special-link" onClick={closeMobileMenu}>
+              <Link to="/reports" className="nav-links special-link">
                 Reportes de Uso
               </Link>
             </li>
             <li>
-              <Link to="/tienda" className="nav-links special-link" onClick={closeMobileMenu}>
+              <Link to="/tienda" className="nav-links special-link">
                 Tienda en Línea
               </Link>
             </li>
-
-            {/* Cart icon and menu */}
-            <li className="nav-item cart-menu">
-              <div className="cart-icon" onClick={toggleCartDropdown}>
-                <i className="fas fa-shopping-cart"></i>
-                {cart.length > 0 && <span className="cart-count">{cart.length}</span>}
-              </div>
-              <div className={`cart-dropdown ${showCartDropdown ? 'active' : ''}`}>
-                {cart.length === 0 ? (
-                  <p className="dropdown-item">El carrito está vacío</p>
-                ) : (
-                  <div className="cart-dropdown-items">
-                    {cart.map((item) => (
-                      <div key={item.id} className="dropdown-item">
-                        <div className="cart-item-details">
-                          <span>{item.nombre}</span>
-                          <span>₡{item.precio} x 
-                            <input 
-                              type="number" 
-                              value={item.cantidad} 
-                              min="1" 
-                              onChange={(e) => handleQuantityChange(item.id, parseInt(e.target.value))} 
-                              className="cart-quantity-input" 
-                            />
-                          </span>
-                        </div>
-                      </div>
-                    ))}
-                    <div className="cart-total">
-                      Total: ₡{cart.reduce((total, item) => total + item.precio * item.cantidad, 0)}
-                    </div>
-                    <Link to="/carrito" className="view-cart-button" onClick={closeMobileMenu}>
-                      Ver carrito
-                    </Link>
+            <li className="nav-item profile-cart-container">
+              <div className="cart-menu">
+                <div className="cart-icon" onClick={toggleCartDropdown}>
+                  <i className="fas fa-shopping-cart"></i>
+                  {cart.length > 0 && <span className="cart-count">{cart.length}</span>}
+                </div>
+                {showCartDropdown && <div className="cart-overlay" onClick={toggleCartDropdown}></div>}
+                <div className={`cart-dropdown ${showCartDropdown ? 'active' : ''}`}>
+                  <div className="cart-title">
+                    Carrito de compras
                   </div>
-                )}
+                  {cart.length === 0 ? (
+                    <p className="dropdown-item">El carrito está vacío</p>
+                  ) : (
+                    <div className="cart-dropdown-wrapper">
+                      <div className="cart-dropdown-items">
+                        {cart.map((item) => (
+                          <div key={item.id} className="cart-item">
+                            <div className="cart-item-name">{item.nombre}</div>
+                            <div className="cart-item-quantity">
+                              <input 
+                                type="number" 
+                                value={item.cantidad} 
+                                min="1" 
+                                onChange={(e) => handleQuantityChange(item.id, parseInt(e.target.value))}
+                                className="cart-quantity-input"
+                              />
+                            </div>
+                            <div className="cart-item-price">₡{item.precio}</div>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+                  <div className="cart-total">
+                    Total: ₡{cart.reduce((total, item) => total + item.precio * item.cantidad, 0)}
+                  </div>
+                  <Link to="/carrito" className="view-cart-button">
+                    Ver carrito
+                  </Link>
+                </div>
               </div>
-            </li>
 
-            {/* Profile dropdown */}
-            <li className="nav-item profile-menu">
-              <div className="profile-icon" onClick={toggleDropdown}>
-                <i className="fas fa-user-circle"></i>
-              </div>
-              <div className={`dropdown-menu ${showDropdown ? 'active' : ''}`}>
-                <Link to="/profile" className="dropdown-item" onClick={closeMobileMenu}>
-                  Mi Perfil
-                </Link>
-                <Link to="/" className="dropdown-item" onClick={logout}>
-                  Cerrar Sesión
-                </Link>
+              <div className="profile-menu">
+                <div className="profile-icon" onClick={toggleDropdown}>
+                  <i className="fas fa-user-circle"></i>
+                </div>
+                <div className={`dropdown-menu ${showDropdown ? 'active' : ''}`}>
+                  <Link to="/profile" className="dropdown-item">
+                    Mi Perfil
+                  </Link>
+                  <Link to="/" className="dropdown-item" onClick={logout}>
+                    Cerrar Sesión
+                  </Link>
+                </div>
               </div>
             </li>
           </ul>
         ) : (
-          button && (
-            <Link to="/login">
-              <button className="btn-login">INICIA SESIÓN</button>
-            </Link>
-          )
+          <Link to="/login">
+            <button className="btn-login">INICIA SESIÓN</button>
+          </Link>
         )}
       </div>
     </nav>

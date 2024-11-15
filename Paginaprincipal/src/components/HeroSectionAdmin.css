@@ -1,0 +1,84 @@
+/* HeroSectionAdmin.css */
+
+/* Estilo general del contenedor */
+.admin-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-image: url('../images/HEROSECTIONBG.webp'); /* Imagen de fondo */
+    background-size: cover;
+    background-position: center;
+    color: #000;
+    height: 100vh;
+    text-align: center;
+    padding: 20px;
+  }
+  
+  /* Estilo del mensaje de bienvenida */
+  .welcome-message {
+    
+    text-align: center;
+    
+    padding: 20px;
+    border-radius: 8px;
+    
+    max-width: 600px;
+    width: 100%;
+  }
+  
+  .welcomee-message h2 {
+    font-size: 2.5rem;
+    font-weight: bold;
+    margin-bottom: 1.5rem;
+    text-align: center;
+    color: #fff;
+  }
+  
+  .welcomee-message p {
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+    color: #fff;
+  }
+  
+  /* Estilo del botón */
+  .my-button {
+    padding: 15px 20px;
+    font-size: 1.5rem;
+    background-color: #f04e23;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .my-button:hover {
+    background-color: #c03b1d;
+  }
+  
+  .my-button:focus {
+    outline: none; /* Eliminar el contorno al hacer clic */
+  }
+  
+  /* Estilo para el enlace de iniciar sesión */
+  .hero-container .login-link {
+    font-size: 0.9rem;
+    margin-top: 1rem;
+    color: #000;
+    text-decoration: none;
+  }
+  
+  .hero-container .login-link:hover {
+    text-decoration: underline;
+  }
+  
+  /* Estilo para la opción "O iniciar sesión" */
+  .or-login {
+    font-size: 1rem;
+    color: #333;
+    margin-top: 1rem;
+    cursor: pointer;
+    text-decoration: underline;
+  }
+  

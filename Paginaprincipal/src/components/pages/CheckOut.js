@@ -19,8 +19,23 @@ const Checkout = () => {
     return restaurant ? restaurant.nombre : "Restaurante desconocido";
   };
 
-  const calcularTotal = () => {
+  // Función para calcular el total antes de IVA
+  const calcularTotalBase = () => {
     return productos.reduce((total, item) => total + parseFloat(item.precio) * item.cantidad, 0);
+  };
+
+  // Función para calcular el IVA (5%)
+  const calcularIVA = (totalBase) => {
+    return totalBase * 0.05;
+  };
+
+
+
+  // Función para calcular el total con IVA incluido y costos adicionales
+  const calcularTotalConIVA = () => {
+    const totalBase = calcularTotalBase();
+    const iva = calcularIVA(totalBase);
+    return totalBase + iva ;
   };
 
   const handlePaymentMethodChange = (event) => {
@@ -44,19 +59,19 @@ const Checkout = () => {
       alert("Por favor, escribe un comentario antes de enviar.");
       return;
     }
-  
+
     try {
-      const response = await fetch("http://localhost:5000/feedback", {
+      const response = await fetch("https://apimongo-c5esbwe4bfhxf2gy.canadacentral-01.azurewebsites.net/api/feedback", { 
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ feedback }), // Enviar el feedback como JSON
+        body: JSON.stringify({ feedback }), 
       });
-  
+
       if (response.ok) {
         alert("Gracias por tu feedback");
-        setFeedback(""); // Limpiar el campo de texto después de enviar
+        setFeedback(""); 
       } else {
         alert("Hubo un problema al enviar el feedback");
       }
@@ -73,20 +88,46 @@ const Checkout = () => {
       
       <div className="checkout-products-summary">
         {productos.length > 0 ? (
-          productos.map((item) => (
-            <div key={`${item.id}-${restaurantId}`} className="checkout-product-item">
-              <h3>{item.nombre}</h3>
-              <p>Cantidad: {item.cantidad}</p>
-              <p>Precio: ₡ {item.precio}</p>
-            </div>
-          ))
+          <table className="checkout-product-table">
+            <thead>
+              <tr>
+                <th>Nombre</th>
+                <th>Cantidad</th>
+                <th>Precio</th>
+                <th>Total</th>
+              </tr>
+            </thead>
+            <tbody>
+              {productos.map((item) => (
+                <tr key={`${item.id}-${restaurantId}`}>
+                  <td>{item.nombre}</td>
+                  <td>{item.cantidad}</td>
+                  <td>₡ {item.precio}</td>
+                  <td>₡ {(item.precio * item.cantidad).toLocaleString()}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
         ) : (
           <p>No hay productos de este restaurante en el carrito.</p>
         )}
       </div>
 
+      {/* Toda la sección de resumen de costos dentro de checkout-total */}
       <div className="checkout-total">
-        <h3>Total: ₡ {calcularTotal().toLocaleString()}</h3>
+        <div className="checkout-summary-item">
+          <span>Subtotal</span>
+          <span>₡ {calcularTotalBase().toLocaleString()}</span>
+        </div>
+
+        <div className="checkout-summary-item">
+          <span>IVA (5%)</span>
+          <span>₡ {calcularIVA(calcularTotalBase()).toLocaleString()}</span>
+        </div>
+        <div className="checkout-summary-item">
+          <h3>Total del pedido</h3>
+          <h3>₡ {calcularTotalConIVA().toLocaleString()}</h3>
+        </div>
       </div>
 
       <div className="checkout-payment-method">
@@ -101,7 +142,6 @@ const Checkout = () => {
 
       <button className="checkout-button" onClick={handlePayment}>Realizar Pago</button>
 
-      {/* Sección de comentario del pedido */}
       <div className="checkout-comment">
         <h3>Comentario del pedido:</h3>
         <textarea
