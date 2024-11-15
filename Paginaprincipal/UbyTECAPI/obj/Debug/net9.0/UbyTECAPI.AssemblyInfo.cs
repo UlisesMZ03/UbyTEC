@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("UbyTECAPI")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+eeac5e27cd158899f117bcbe4191f8de184cb366")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+131d840c44a016500b4282b8def59356b478815d")]
 [assembly: System.Reflection.AssemblyProductAttribute("UbyTECAPI")]
 [assembly: System.Reflection.AssemblyTitleAttribute("UbyTECAPI")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

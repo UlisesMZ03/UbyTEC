@@ -21,6 +21,7 @@ import { AuthProvider } from "./AuthContext";  // Asegúrate de que el contexto 
 import { CartProvider } from "./CartContext";  // Importa el proveedor del carrito de compras
 import ArticleSection from "./components/ArticleSection";  // Importa el footer aquí
 import PrivateRoute from './components/PrivateRoute';  // Importamos el componente PrivateRoute
+import RegistroComercio from "./components/pages/RegistroComercio";
 
 function App() {
   return (
@@ -57,6 +58,8 @@ function App() {
                 <Route path="/restaurant/:id" element={<RestaurantDetail />} />
                 <Route path="/carrito" element={<PrivateRoute element={<CarritoPage />} role="client" />} />
                 <Route path="/checkout" element={<PrivateRoute element={<CheckOut />} role="client" />} />
+                <Route path="/rcomercio" element={<RegistroComercio />} />
+
               </Routes>
             </div>
             <ArticleSection /> {/* El footer siempre estará al final */}
