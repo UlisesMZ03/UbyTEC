@@ -34,6 +34,10 @@ CREATE TABLE Comercios (
     FOREIGN KEY (TipoID) REFERENCES TipoDeComercio(ID)
 );
 
+ALTER TABLE Comercios
+ALTER COLUMN CorreoAdmin NVARCHAR(255) NOT NULL;
+
+
 CREATE TABLE TelefonosComercio (
     ID INT PRIMARY KEY IDENTITY(1,1),
     CorreoComercio NVARCHAR(255),
