@@ -218,3 +218,116 @@ BEGIN
         THROW 50000, @ErrorMensaje, 1;
     END CATCH;
 END;
+go;
+
+ALTER PROCEDURE [dbo].[InsertarComercio]
+    @Correo NVARCHAR(255),
+    @Nombre NVARCHAR(255),
+    @CedulaJuridica NVARCHAR(50),
+    @NumeroSINPE NVARCHAR(50),
+    @CorreoAdmin NVARCHAR(255),
+    @TipoID INT,
+    @Provincia NVARCHAR(255),
+    @Canton NVARCHAR(255),
+    @Distrito NVARCHAR(255),
+    @Imagen NVARCHAR(500)
+AS
+BEGIN
+    INSERT INTO Comercios (Correo, Nombre, CedulaJuridica, NumeroSINPE, CorreoAdmin, TipoID, Provincia, Canton, Distrito, Imagen)
+    VALUES (@Correo, @Nombre, @CedulaJuridica, @NumeroSINPE, @CorreoAdmin, @TipoID, @Provincia, @Canton, @Distrito, @Imagen);
+END;
+go;
+
+
+CREATE PROCEDURE InsertarProductoConFoto
+    @Precio DECIMAL(10, 2),
+    @Categoria NVARCHAR(255),
+    @Nombre NVARCHAR(255),
+    @CorreoComercio NVARCHAR(255),
+    @Foto NVARCHAR(500)
+AS
+BEGIN
+    BEGIN TRY
+        BEGIN TRANSACTION;
+
+        -- Insertar el producto
+        INSERT INTO Productos (Precio, Categoria, Nombre, CorreoComercio)
+        VALUES (@Precio, @Categoria, @Nombre, @CorreoComercio);
+
+        -- Obtener el ID del producto recién insertado
+        DECLARE @ProductoID INT = SCOPE_IDENTITY();
+
+        -- Insertar la foto asociada al producto
+        INSERT INTO FotosProducto (ProductID, Foto)
+        VALUES (@ProductoID, @Foto);
+
+        COMMIT TRANSACTION;
+
+        SELECT 'Producto y foto agregados correctamente' AS Resultado;
+    END TRY
+    BEGIN CATCH
+        ROLLBACK TRANSACTION;
+
+        -- Capturar el error y lanzar el mensaje
+        DECLARE @ErrorMensaje NVARCHAR(4000) = ERROR_MESSAGE();
+        THROW 50000, @ErrorMensaje, 1;
+    END CATCH;
+END;
+go;
+
+CREATE PROCEDURE [dbo].[VerificarCorreoYPasswordCliente]
+    @Correo NVARCHAR(255),
+    @Password NVARCHAR(255)
+AS
+BEGIN
+    IF EXISTS (
+        SELECT 1
+        FROM Cliente
+        WHERE Correo = @Correo AND Password = @Password
+    )
+    BEGIN
+        SELECT 'Credenciales válidas' AS Resultado;
+    END
+    ELSE
+    BEGIN
+        SELECT 'Credenciales inválidas' AS Resultado;
+    END
+END;
+;
+go;
+
+CREATE PROCEDURE [dbo].[InsertarCarritoDeCompras]
+    @CorreoCliente NVARCHAR(255),
+    @ProductID INT,
+    @Cantidad INT
+AS
+BEGIN
+    IF EXISTS (
+        SELECT 1
+        FROM CarritoDeCompras
+        WHERE CorreoCliente = @CorreoCliente AND ProductID = @ProductID
+    )
+    BEGIN
+        -- Si ya existe, aumenta la cantidad
+        UPDATE CarritoDeCompras
+        SET Cantidad = Cantidad + @Cantidad
+        WHERE CorreoCliente = @CorreoCliente AND ProductID = @ProductID;
+    END
+    ELSE
+    BEGIN
+        -- Si no existe, inserta un nuevo registro
+        INSERT INTO CarritoDeCompras (CorreoCliente, ProductID, Cantidad)
+        VALUES (@CorreoCliente, @ProductID, @Cantidad);
+    END
+END;
+;go;
+
+CREATE PROCEDURE [dbo].[EliminarProductoCarrito]
+    @CorreoCliente NVARCHAR(255),
+    @ProductID INT
+AS
+BEGIN
+    -- Eliminar el producto específico del cliente en el carrito
+    DELETE FROM CarritoDeCompras
+    WHERE CorreoCliente = @CorreoCliente AND ProductID = @ProductID;
+END;
