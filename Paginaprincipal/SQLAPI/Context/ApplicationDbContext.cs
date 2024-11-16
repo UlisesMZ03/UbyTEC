@@ -20,4 +20,17 @@ public class ApplicationDbContext : DbContext
             comercio.TipoID
         );
     }
+
+    // Método para verificar las credenciales usando el procedimiento almacenado
+    public async Task<string> VerificarCredencialesAsync(string correo, string password)
+    {
+        // Usamos FromSqlRaw para obtener el resultado del procedimiento almacenado
+        var result = await Database.SqlQuery<string>(
+            "EXEC [dbo].[VerificarCorreoYPasswordCliente] @Correo = {0}, @Password = {1}",
+            correo,
+            password
+        ).FirstOrDefaultAsync(); // Obtenemos el primer (y único) valor del resultado
+
+        return result;
+    }
 }

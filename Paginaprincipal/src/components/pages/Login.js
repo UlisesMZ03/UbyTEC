@@ -16,34 +16,6 @@ export default function Login() {
 
   const [errorMessage, setErrorMessage] = useState('');
 
-  // Usuarios de prueba con roles
-  const testUsers = [
-    {
-      email: 'admin@prueba.com',
-      password: 'admin123',
-      userId: 'adminUser123',
-      nombre: 'Administrador de Prueba',
-      token: 'fakeTokenAdmin123',
-      role: 'admin' // Rol de administrador
-    },
-    {
-      email: 'affiliate@prueba.com',
-      password: 'affiliate123',
-      userId: 'affiliateUser123',
-      nombre: 'Afiliado de Prueba',
-      token: 'fakeTokenAffiliate123',
-      role: 'affiliate' // Rol de afiliado
-    },
-    {
-      email: 'client@prueba.com',
-      password: 'client123',
-      userId: 'clientUser123',
-      nombre: 'Cliente de Prueba',
-      token: 'fakeTokenClient123',
-      role: 'client' // Rol de cliente
-    }
-  ];
-
   const handleInputChange = (e) => {
     const { id, value } = e.target;
     setFormData({
@@ -52,38 +24,48 @@ export default function Login() {
     });
   };
 
-  const handleSubmit2 = async (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Verifica si los datos coinciden con alguno de los usuarios de prueba
-    const user = testUsers.find(u => u.email === formData.email && u.password === formData.password);
-
-    if (user) {
-      // Inicia sesión con el rol correspondiente
-      login({
-        userId: user.userId,
-        nombre: user.nombre,
-        token: user.token,
-        role: user.role
+    try {
+      // Hacer la solicitud al servidor para verificar las credenciales
+      const response = await fetch('https://apisql-cwbndbaagqerg7dw.canadacentral-01.azurewebsites.net/api/users/login', {  // Asegúrate de poner la URL correcta de tu API
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          email: formData.email,
+          password: formData.password
+        })
       });
 
-      // Redirige al usuario según su rol
-      if (user.role === 'admin') {
+      const data = await response.json();
+
+      if (response.ok) {
+        // Si la respuesta es exitosa, iniciar sesión con el token
+        login({
+          userId: formData.email, // Puedes cambiar esto según la respuesta de la API
+          nombre: 'Usuario', // Aquí también puedes incluir el nombre si lo recibes en la respuesta
+          token: data.token, // Si la API devuelve un token JWT
+          role: 'client' // Define el rol dependiendo de la lógica que necesites
+        });
+
+        // Redirigir al usuario según su rol (por ejemplo, en este caso 'client')
         navigate("/");
-      } else if (user.role === 'affiliate') {
-        navigate("/affiliate");
-      } else if (user.role === 'client') {
-        navigate("/");
+      } else {
+        // Mostrar mensaje de error si las credenciales son incorrectas
+        setErrorMessage(data.message || "Email o contraseña incorrectos");
       }
-    } else {
-      setErrorMessage("Email o contraseña incorrectos");
+    } catch (error) {
+      setErrorMessage("Hubo un error al intentar iniciar sesión. Intenta de nuevo.");
     }
   };
 
   return (
     <div className="iniciar-sesion">
       <h1 className="login">INICIAR SESIÓN</h1>
-      <form onSubmit={handleSubmit2}>
+      <form onSubmit={handleSubmit}>
         <div className="input-container">
           <label htmlFor="email">Email</label>
           <input
