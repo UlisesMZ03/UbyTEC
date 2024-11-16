@@ -8,6 +8,7 @@ public class ApplicationDbContext : DbContext
     {
     }
 
+    // Método para insertar comercio
     public async Task InsertarComercioAsync(ComercioRequest comercio)
     {
         await Database.ExecuteSqlRawAsync(
@@ -25,12 +26,19 @@ public class ApplicationDbContext : DbContext
     public async Task<string> VerificarCredencialesAsync(string correo, string password)
     {
         // Usamos FromSqlRaw para obtener el resultado del procedimiento almacenado
-        var result = await Database.SqlQuery<string>(
+        var result = await this.Set<Resultado>().FromSqlRaw(
             "EXEC [dbo].[VerificarCorreoYPasswordCliente] @Correo = {0}, @Password = {1}",
             correo,
             password
-        ).FirstOrDefaultAsync(); // Obtenemos el primer (y único) valor del resultado
+        ).ToListAsync();
 
-        return result;
+        // Devuelve el resultado obtenido (asumiendo que el procedimiento devuelve una fila con el valor)
+        return result.FirstOrDefault()?.Resultado;
     }
+}
+
+// Clase que representa el resultado esperado del procedimiento almacenado
+public class Resultado
+{
+    public string Resultado { get; set; }
 }
