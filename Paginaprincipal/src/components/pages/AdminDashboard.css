@@ -1,6 +1,22 @@
+@font-face {
+  font-family: 'UberMoveMedium';
+  src: url('../fonts/UberMoveMedium.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'UberMoveBold';
+  src: url('../fonts/UberMoveBold.otf') format('opentype');
+  font-weight: bold;
+  font-style: normal;
+}
+
+/* Estilo general del dashboard */
 .dashboard-container {
   display: flex;
   width: 100%;
+  font-family: 'UberMoveMedium', sans-serif;  /* Fuente predeterminada para todo el dashboard */
 }
 
 .sidebar {
@@ -9,6 +25,7 @@
   height: 100%; /* Asegura que el sidebar ocupe toda la altura */
   display: flex;
   flex-direction: column; /* Para organizar los elementos del sidebar verticalmente */
+  font-family: 'UberMoveMedium', sans-serif;  /* Fuente normal para los elementos del sidebar */
 }
 
 .sidebar-header {
@@ -22,6 +39,7 @@
 .sidebar-header h3 {
   margin: 0;
   font-size: 1.5rem; /* Aumentar el tamaño del título */
+  font-family: 'UberMoveBold', sans-serif;  /* Usamos la fuente bold para el título del sidebar */
 }
 
 .nav-link {
@@ -34,6 +52,7 @@
   font-size: 1.2rem; /* Aumentar el tamaño de fuente */
   width: 100%;
   text-align: left; /* Asegura que el texto esté alineado a la izquierda */
+  font-family: 'UberMoveMedium', sans-serif;  /* Fuente normal para los enlaces de navegación */
 }
 
 .nav-link .mr-2 { /* Asegura que el icono y el texto estén alineados correctamente */
@@ -56,10 +75,12 @@
   padding: 20px; /* Espacio interno para el contenido */
   background-color: #f4f4f4; /* Fondo del contenido */
   border-left: 1px solid #f04e23; /* Línea divisoria entre el sidebar y el contenido */
+  font-family: 'UberMoveMedium', sans-serif;  /* Fuente normal para el contenido */
 }
 
 .content h1 {
   margin-bottom: 20px;
+  font-family: 'UberMoveBold', sans-serif;  /* Usamos la fuente bold para el título principal del contenido */
 }
 
 .section {
@@ -68,20 +89,24 @@
   border-radius: 5px; /* Bordes redondeados */
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Sombra suave */
   margin-bottom: 20px; /* Espacio entre secciones */
+  font-family: 'UberMoveMedium', sans-serif;  /* Fuente normal para el contenido de las secciones */
 }
 
 .form-group label {
   font-weight: bold; /* Negrita para las etiquetas */
+  font-family: 'UberMoveBold', sans-serif;  /* Usamos la fuente bold para las etiquetas */
 }
 
 .text-danger {
   font-weight: bold; /* Negrita para mensajes de error */
+  font-family: 'UberMoveBold', sans-serif;  /* Fuente bold para los mensajes de error */
 }
 
 /* Estilos para botones */
 .btn-primary, .btn-secondary {
   background-color: #f04e23; /* Color de fondo del botón primario */
   border: none; /* Sin borde */
+  font-family: 'UberMoveMedium', sans-serif;  /* Fuente normal para los botones */
 }
 
 .btn-primary:hover, .btn-secondary:hover {
@@ -101,7 +126,6 @@
   flex: 1; /* Asegurar que cada item del sidebar ocupe el mismo espacio */
 }
 
-/* Espaciado entre botones */
 .d-flex .btn {
   margin-right: 10px; /* Espaciado entre los botones */
 }
@@ -125,7 +149,6 @@
   transition: transform 0.3s ease, box-shadow 0.3s ease; /* Transición suave para efectos de hover */
 }
 
-/* Efecto de hover para el contenedor del gráfico */
 .chart-container:hover {
   transform: translateY(-10px) scale(1.01) rotate(0deg); /* Eleva y escala el contenedor más al pasar el mouse */
   box-shadow: 0 16px 32px rgba(0, 0, 0, 0.3), 0 8px 8px rgba(0, 0, 0, 0.15); /* Aumenta la sombra al pasar el mouse */

@@ -1,120 +1,148 @@
+@font-face {
+  font-family: 'UberMoveMedium';
+  src: url('../fonts/UberMoveMedium.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'UberMoveBold';
+  src: url('../fonts/UberMoveBold.otf') format('opentype');
+  font-weight: bold;
+  font-style: normal;
+}
+
 /* Estilo general de la página de carrito */
+body {
+  font-family: 'UberMoveMedium', sans-serif;  /* Fuente predeterminada */
+}
+
 h1 {
-    text-align: center;
-    font-size: 2rem;
-    margin-bottom: 20px;
-  }
-  
-  .pedido-por-restaurante {
-    border: 1px solid #ffffff;
-    border-radius: 8px;
-    margin-bottom: 20px;
-    overflow: hidden;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-  }
-  
-  .resumen-restaurante {
-    padding: 16px;
-    background-color: #ffffff;
-    cursor: pointer;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-  
-  .resumen-restaurante h2 {
-    font-size: 1.5rem;
-    margin: 0;
-  }
-  
-  .resumen-restaurante p {
-    margin: 4px 0;
-    font-size: 1rem;
-  }
-  
-  .resumen-restaurante:hover {
-    background-color: #ffffff;
-  }
-  
-  .productos {
-    padding: 16px;
-    background-color: #ffffff;
-  }
-  
-  .productos div {
-    border-bottom: 1px solid #d43939;
-    padding: 10px 0;
-  }
-  
-  .productos div:last-child {
-    border-bottom: none;
-  }
-  
-  .productos h3 {
-    font-size: 1.2rem;
-    margin: 0 0 8px 0;
-  }
-  
-  .productos p {
-    margin: 4px 0;
-    font-size: 1rem;
-  }
-  
-  label {
-    display: flex;
-    align-items: center;
-    margin-top: 8px;
-  }
-  
-  input[type="number"] {
-    width: 60px;
-    margin-left: 8px;
-    padding: 4px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-  }
-  
-  button {
-    margin-top: 10px;
-    padding: 8px 12px;
-    background-color: #ff6347;
-    color: #fff;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-  }
-  
-  button:hover {
-    background-color: #e5533d;
-  }
-  
-  button:disabled {
-    background-color: #ddd;
-    cursor: not-allowed;
-  }
-  
-  .total-section {
-    text-align: center;
-    font-size: 1.5rem;
-    margin-top: 20px;
-  }
-  
-  .proceder-pago-btn {
-    display: block;
-    width: 100%;
-    max-width: 200px;
-    margin: 20px auto;
-    padding: 10px;
-    background-color: #28a745;
-    color: #fff;
-    border: none;
-    border-radius: 4px;
-    font-size: 1rem;
-    cursor: pointer;
-    text-align: center;
-  }
-  
-  .proceder-pago-btn:hover {
-    background-color: #218838;
-  }
-  
+  text-align: center;
+  font-size: 2rem;
+  margin-top: 30px;
+  margin-bottom: 20px;
+  font-family: 'UberMoveBold', sans-serif;  /* Usamos la fuente bold para el título principal */
+}
+
+.pedido-por-restaurante {
+  border: 1px solid #ffffff;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  overflow: hidden;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.resumen-restaurante {
+  padding: 16px;
+  background-color: #ffffff;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.resumen-restaurante h2 {
+  font-size: 1.5rem;
+  margin: 0;
+  text-align: left;
+  font-family: 'UberMoveBold', sans-serif;  /* Fuente bold para los subtítulos */
+}
+
+.resumen-restaurante p {
+  margin: 4px 0;
+  font-size: 1rem;
+  font-family: 'UberMoveMedium', sans-serif;  /* Fuente normal para los párrafos */
+}
+
+.resumen-restaurante:hover {
+  background-color: #ffffff;
+}
+
+.productos {
+  padding: 16px;
+  background-color: #ffffff;
+}
+
+.productos div {
+  border-bottom: 1px solid #d43939;
+  padding: 10px 0;
+}
+
+.productos div:last-child {
+  border-bottom: none;
+}
+
+.productos h3 {
+  font-size: 1.2rem;
+  margin: 0 0 8px 0;
+  font-family: 'UberMoveBold', sans-serif;  /* Fuente bold para los títulos de productos */
+}
+
+.productos p {
+  margin: 4px 0;
+  font-size: 1rem;
+  font-family: 'UberMoveMedium', sans-serif;  /* Fuente normal para los descripciones de productos */
+}
+
+label {
+  display: flex;
+  align-items: center;
+  margin-top: 8px;
+  font-family: 'UberMoveMedium', sans-serif;  /* Fuente normal para etiquetas */
+}
+
+input[type="number"] {
+  width: 60px;
+  margin-left: 8px;
+  padding: 4px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+button {
+  margin-top: 10px;
+  padding: 8px 12px;
+  background-color: #ff6347;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-family: 'UberMoveBold', sans-serif;  /* Fuente bold para los botones */
+}
+
+button:hover {
+  background-color: #e5533d;
+}
+
+button:disabled {
+  background-color: #ddd;
+  cursor: not-allowed;
+}
+
+.total-section {
+  text-align: center;
+  font-size: 1.5rem;
+  margin-top: 20px;
+  font-family: 'UberMoveMedium', sans-serif;  /* Fuente normal para la sección de total */
+}
+
+.proceder-pago-btn {
+  display: block;
+  width: 100%;
+  max-width: 200px;
+  margin: 20px auto;
+  padding: 10px;
+  background-color: #ff6347;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  font-size: 1rem;
+  cursor: pointer;
+  text-align: center;
+  font-family: 'UberMoveBold', sans-serif;  /* Fuente bold para el botón de pago */
+}
+
+.proceder-pago-btn:hover {
+  background-color: #e5533d;
+}

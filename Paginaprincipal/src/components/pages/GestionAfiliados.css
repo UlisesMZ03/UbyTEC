@@ -1,0 +1,135 @@
+.gestion-afiliados {
+    font-family: Arial, sans-serif;
+    padding: 20px;
+    background-color: #f4f4f4;
+  }
+  
+  h2 {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .form-container {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+  }
+  
+  .form-container input {
+    width: 100%;
+    padding: 10px;
+    margin: 5px 0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  input[style*="border-color: red"] {
+    border-color: red; /* Red border when there is an error */
+  }
+  
+  small.error-message {
+    color: red;
+    font-size: 12px;
+    margin-top: 5px;
+  }
+  
+  button {
+    padding: 10px 15px;
+    background-color: #f04e23;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: 10px;
+  }
+  
+  button:hover {
+    background-color: #e5533d;
+  }
+  
+  button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+  }
+  
+  .afiliados-list {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .afiliados-list ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .afiliados-list li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+  
+  .afiliados-list button {
+    background-color: #f04e23;
+  }
+  
+  .afiliados-list button:hover {
+    background-color: #c03b1d;
+  }
+  
+  .suggestions-list {
+    position: absolute;
+    top: 100%; /* Se posiciona justo debajo del campo de texto */
+    left: 0;
+    width: 100%; /* Ocupa el ancho completo del campo de texto */
+    background-color: white;
+    border: 1px solid #ccc;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Agregar sombra */
+    max-height: 200px; /* Limitar la altura máxima */
+    overflow-y: auto; /* Hacer scroll si hay muchas sugerencias */
+    z-index: 9999; /* Asegura que las sugerencias estén por encima de otros elementos */
+  }
+  
+  .dropdown-container {
+    position: relative;
+  }
+  
+  .dropdown-list {
+    position: absolute; /* Posición absoluta para que se muestre encima del input */
+    top: 100%; /* Se posiciona justo debajo del campo de texto */
+    left: 0;
+    width: 100%;
+    background-color: white;
+    border: 1px solid #ccc;
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    max-height: 200px;
+    overflow-y: auto;
+    z-index: 9999; /* Asegura que el dropdown esté por encima de otros elementos */
+  }
+  
+  .dropdown-list li {
+    padding: 8px;
+    cursor: pointer;
+  }
+  
+  .dropdown-list li:hover {
+    background-color: #f0f0f0;
+  }
+  
+  /* Estilo para los campos de entrada con bordes rojos cuando hay error */
+  input[type="text"]:invalid,
+  input[type="email"]:invalid {
+    border-color: red;
+  }
+  
+  input[type="text"]:valid,
+  input[type="email"]:valid {
+  
+  }
+  

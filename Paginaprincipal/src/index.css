@@ -1,13 +1,32 @@
+/* Definir las fuentes personalizadas */
+@font-face {
+  font-family: 'UberMoveMedium';
+  src: url('./components/fonts/UberMoveMedium.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'UberMoveBold';
+  src: url('./components/fonts/UberMoveBold.otf') format('opentype');
+  font-weight: bold;
+  font-style: normal;
+}
+
+/* Estilos globales */
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  font-family: 'UberMoveMedium', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
+/* Aplicar fuente en negrita cuando se use strong o b */
+strong, b {
+  font-family: 'UberMoveBold', sans-serif;
+}
+
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
 }

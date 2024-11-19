@@ -24,7 +24,7 @@
   }
   
   .file-upload button {
-    background-color: #00796b;
+    background-color: #c03b1d;
     color: white;
     border: none;
     padding: 10px 20px;
@@ -36,7 +36,7 @@
   }
   
   .file-upload button:hover {
-    background-color: #004d40;
+    background-color: #c03b1d;
   }
   
   .products-list {
@@ -58,7 +58,7 @@
   }
   
   .products-list th {
-    background-color: #00796b;
+    background-color: #c03b1d;
     color: white;
   }
   

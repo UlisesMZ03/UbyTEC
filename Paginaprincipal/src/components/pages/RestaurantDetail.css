@@ -1,3 +1,25 @@
+@font-face {
+  font-family: 'UberMoveMedium';
+  src: url('../fonts/UberMoveMedium.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'UberMoveBold';
+  src: url('../fonts/UberMoveBold.otf') format('opentype');
+  font-weight: bold;
+  font-style: normal;
+}
+
+body {
+  font-family: 'UberMoveMedium', sans-serif;  /* Se aplica la fuente por defecto */
+}
+
+h2, h4, .categoria-button.seleccionado {
+  font-family: 'UberMoveBold', sans-serif;  /* Usamos la fuente bold para títulos y categorías seleccionadas */
+}
+
 .restaurant-detail {
   padding: 20px;
   max-width: 900px;
@@ -35,11 +57,36 @@
   text-align: left;
 }
 
+/* Filtro de categorías con scroll snap */
+.filtro-categorias {
+  display: flex;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  margin-bottom: 20px;
+}
+
+.categoria-button {
+  padding: 10px 20px;
+  margin-right: 10px;
+  background-color: #f0f0f0;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+  scroll-snap-align: start;
+  max-width: 150px;
+}
+
+.categoria-button.seleccionado {
+  background-color: #c03b1d;
+  color: white;
+}
+
 .platillos {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 20px;
-  justify-content: center;
+  grid-template-columns: repeat(2, 1fr);  /* 2 columnas */
+  grid-template-rows: repeat(auto-fill, 130px);  /* Fila de 130px de altura */
+  gap: 30px;  /* Espacio de 30px entre los elementos */
+  justify-items: center;  /* Centra los items horizontalmente */
   margin-top: 30px;
   min-height: 700px;
 }
@@ -50,10 +97,11 @@
   justify-content: space-between;
   background-color: #f9f9f9;
   border-radius: 2px;
-  width: 440px;
-  height: 130px;
+  width: 100%;  /* Los items ocuparán todo el ancho de su celda */
+  max-width: 440px;  /* Mantén el ancho máximo */
+  height: 130px;  /* Establece la altura fija */
   transition: transform 0.1s ease;
-  padding: 0 0px;
+  padding: 0 10px;
   cursor: pointer;
 }
 
@@ -76,7 +124,6 @@
   object-fit: cover; /* Ajusta la imagen para que siempre ocupe el contenedor */
   border-radius: 3px;
 }
-
 
 .add-button {
   position: absolute;
@@ -113,13 +160,19 @@
   margin: 0;
   text-align: left;
   padding-left: 10px;
-  
 }
 
 .platillo-info .precio {
-  font-size: 14px;
+  font-size: 16px;
   color: #666;
   margin-top: 5px;
+  padding-left: 10px;
+}
+
+.platillo-info .categoria {
+  font-size: 14px;
+  color: #888;
+  margin-top: 1px;
   padding-left: 10px;
 }
 
@@ -146,4 +199,25 @@
 
 .action-button:hover {
   background-color: #c03b1d;
+}
+
+.error-message-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 70vh; /* Ocupa toda la altura de la ventana */
+  text-align: center;
+  color: #fff; /* Texto blanco */
+  padding: 20px;
+  border-radius: 10px;
+}
+
+.error-message-container p {
+  font-size: 24px; /* Aumenta el tamaño de la fuente */
+  margin: 10px 0;
+}
+
+.error-message-container p:first-child {
+  font-weight: bold; /* Hace más grueso el primer párrafo */
 }

@@ -22,7 +22,7 @@ import { CartProvider } from "./CartContext";  // Importa el proveedor del carri
 import ArticleSection from "./components/ArticleSection";  // Importa el footer aquí
 import PrivateRoute from './components/PrivateRoute';  // Importamos el componente PrivateRoute
 import RegistroComercio from "./components/pages/RegistroComercio";
-
+import PedidoPage from "./components/pages/Pedidos";
 function App() {
   return (
     <AuthProvider>
@@ -41,7 +41,7 @@ function App() {
                 
                 {/* Ruta protegida para Cliente */}
                 <Route path="/client" element={<PrivateRoute element={<ClientView />} role="client" />} />
-                
+                <Route path="/pedidos" element={<PrivateRoute element={<PedidoPage />} role="client" />} />
                 <Route path="/tienda" element={<OnlineStore />} />
                 <Route path="/producto/:id" element={<ProductDetails />} />
                 

@@ -6,7 +6,7 @@ import "./Navbar.css";
 
 function Navbar() {
   const { loggedIn, logout, role } = useAuth();
-  const { cart, updateCartItemQuantity } = useCart();  
+  const { cart, updateCartItemQuantity, setCart } = useCart();  
   const navigate = useNavigate();
   const [showDropdown, setShowDropdown] = useState(false);
   const [showCartDropdown, setShowCartDropdown] = useState(false);
@@ -45,9 +45,14 @@ function Navbar() {
     setScrolled(window.scrollY > 0);
   };
 
-  const handleQuantityChange = (id, newQuantity) => {
+  const handleQuantityChange = (productoID, newQuantity) => {
     if (newQuantity >= 1) {
-      updateCartItemQuantity(id, newQuantity);
+      // Actualiza la cantidad del producto en el carrito directamente
+      setCart(
+        cart.map((item) => 
+          item.productoID === productoID ? { ...item, cantidad: newQuantity } : item
+        )
+      );
     }
   };
 
@@ -76,15 +81,11 @@ function Navbar() {
         {loggedIn ? (
           <ul className="nav-menu">
             <li>
-              <Link to="/reports" className="nav-links special-link">
-                Reportes de Uso
+              <Link to="/pedidos" className="nav-links special-link">
+                Pedidos
               </Link>
             </li>
-            <li>
-              <Link to="/tienda" className="nav-links special-link">
-                Tienda en Línea
-              </Link>
-            </li>
+
             <li className="nav-item profile-cart-container">
               <div className="cart-menu">
                 <div className="cart-icon" onClick={toggleCartDropdown}>
@@ -102,14 +103,14 @@ function Navbar() {
                     <div className="cart-dropdown-wrapper">
                       <div className="cart-dropdown-items">
                         {cart.map((item) => (
-                          <div key={item.id} className="cart-item">
-                            <div className="cart-item-name">{item.nombre}</div>
+                          <div key={item.productoID} className="cart-item">
+                            <div className="cart-item-name">{item.nombreProducto}</div>
                             <div className="cart-item-quantity">
                               <input 
                                 type="number" 
                                 value={item.cantidad} 
                                 min="1" 
-                                onChange={(e) => handleQuantityChange(item.id, parseInt(e.target.value))}
+                                onChange={(e) => handleQuantityChange(item.productoID, parseInt(e.target.value))}
                                 className="cart-quantity-input"
                               />
                             </div>

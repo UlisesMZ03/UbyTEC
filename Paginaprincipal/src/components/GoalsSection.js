@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "./GoalsSection.css";
-import citiesData from "./data/cities.json"; // Ajusta la ruta si es necesario
+import citiesData from "./data/cities.json"; // Asegúrate de que la ruta sea correcta
 
 function GoalsSection() {
   const [cities, setCities] = useState([]);

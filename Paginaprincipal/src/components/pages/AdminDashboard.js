@@ -5,7 +5,9 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHome } from '@fortawesome/free-solid-svg-icons';
 import { Nav } from 'react-bootstrap';
 import './AdminDashboard.css';
-
+import GoalsSection from '../GoalsSection';
+import GestionAdminEmpl from './GestionAdminEmpl';
+import GestionAfiliados from './GestionAfiliados';
 const Sidebar = ({ sections, activeSection, setActiveSection, isOpen, toggle }) => (
   <div className={`sidebar bg-light border-right ${isOpen ? 'is-open' : ''}`} style={{ minHeight: '100vh' }}>
     <div className="sidebar-header"></div>
@@ -130,147 +132,36 @@ export default function AdminDashboard() {
         <h1 className="dashboard-title">Dashboard del Administrador</h1>
 
         {/* Contenido basado en la sección activa */}
-        {activeSection === 'Gestión de Administradores/Empleados' && (
-          <section className="section">
-            <h2>Gestión de Administradores/Empleados</h2>
-            <form onSubmit={handleAddAdmin}>
-              <div className="form-group">
-                <label>Número Cédula</label>
-                <input 
-                  type="text" 
-                  className="form-control" 
-                  value={newAdmin.cedula} 
-                  onChange={(e) => setNewAdmin({ ...newAdmin, cedula: e.target.value })} 
-                />
-              </div>
-              <div className="form-group">
-                <label>Nombre Completo</label>
-                <input 
-                  type="text" 
-                  className="form-control" 
-                  value={newAdmin.nombre} 
-                  onChange={(e) => setNewAdmin({ ...newAdmin, nombre: e.target.value })} 
-                />
-              </div>
-              <div className="form-group">
-                <label>Dirección</label>
-                <input 
-                  type="text" 
-                  className="form-control" 
-                  value={newAdmin.direccion} 
-                  onChange={(e) => setNewAdmin({ ...newAdmin, direccion: e.target.value })} 
-                />
-              </div>
-              <div className="form-group">
-                <label>Teléfonos</label>
-                <input 
-                  type="text" 
-                  className="form-control" 
-                  value={newAdmin.telefono} 
-                  onChange={(e) => setNewAdmin({ ...newAdmin, telefono: e.target.value })} 
-                />
-              </div>
-              <div className="form-group">
-                <label>Usuario</label>
-                <input 
-                  type="text" 
-                  className="form-control" 
-                  value={newAdmin.usuario} 
-                  onChange={(e) => setNewAdmin({ ...newAdmin, usuario: e.target.value })} 
-                />
-              </div>
-              <div className="form-group">
-                <label>Password</label>
-                <input 
-                  type="password" 
-                  className="form-control" 
-                  value={newAdmin.password} 
-                  onChange={(e) => setNewAdmin({ ...newAdmin, password: e.target.value })} 
-                />
-              </div>
-              <button type="submit" className="btn btn-primary">Agregar Administrador</button>
-            </form>
-          </section>
-        )}
+        {activeSection === 'Gestión de Administradores/Empleados' && <GestionAdminEmpl />}
 
-        {activeSection === 'Gestión de Afiliados' && (
+        {activeSection === 'Gestión de Afiliados' && <GestionAfiliados />}
+        {activeSection === 'Gestión de Tipos de Comercio' && (
           <section className="section">
-            <h2>Gestión de Afiliados</h2>
-            <form onSubmit={handleAddAffiliate}>
+            <h2>Gestión de Tipos de Comercio</h2>
+            <form onSubmit={handleAddTypeOfCommerce}>
               <div className="form-group">
-                <label>Número Cédula Jurídica</label>
+                <label>Nombre del Tipo de Comercio</label>
                 <input 
                   type="text" 
                   className="form-control" 
-                  value={newAffiliate.cedulaJuridica} 
-                  onChange={(e) => setNewAffiliate({ ...newAffiliate, cedulaJuridica: e.target.value })} 
+                  value={newTypeOfCommerce.nombre} 
+                  onChange={(e) => setNewTypeOfCommerce({ ...newTypeOfCommerce, nombre: e.target.value })} 
                 />
               </div>
               <div className="form-group">
-                <label>Nombre del Comercio</label>
+                <label>Descripción</label>
                 <input 
                   type="text" 
                   className="form-control" 
-                  value={newAffiliate.nombreComercio} 
-                  onChange={(e) => setNewAffiliate({ ...newAffiliate, nombreComercio: e.target.value })} 
+                  value={newTypeOfCommerce.descripcion} 
+                  onChange={(e) => setNewTypeOfCommerce({ ...newTypeOfCommerce, descripcion: e.target.value })} 
                 />
               </div>
-              <div className="form-group">
-                <label>Tipo de Comercio</label>
-                <input 
-                  type="text" 
-                  className="form-control" 
-                  value={newAffiliate.tipoComercio} 
-                  onChange={(e) => setNewAffiliate({ ...newAffiliate, tipoComercio: e.target.value })} 
-                />
-              </div>
-              <div className="form-group">
-                <label>Dirección</label>
-                <input 
-                  type="text" 
-                  className="form-control" 
-                  value={newAffiliate.direccion} 
-                  onChange={(e) => setNewAffiliate({ ...newAffiliate, direccion: e.target.value })} 
-                />
-              </div>
-              <div className="form-group">
-                <label>Teléfonos</label>
-                <input 
-                  type="text" 
-                  className="form-control" 
-                  value={newAffiliate.telefono} 
-                  onChange={(e) => setNewAffiliate({ ...newAffiliate, telefono: e.target.value })} 
-                />
-              </div>
-              <div className="form-group">
-                <label>Correo Electrónico</label>
-                <input 
-                  type="email" 
-                  className="form-control" 
-                  value={newAffiliate.correo} 
-                  onChange={(e) => setNewAffiliate({ ...newAffiliate, correo: e.target.value })} 
-                />
-              </div>
-              <div className="form-group">
-                <label>Sinpe Móvil</label>
-                <input 
-                  type="text" 
-                  className="form-control" 
-                  value={newAffiliate.sinpe} 
-                  onChange={(e) => setNewAffiliate({ ...newAffiliate, sinpe: e.target.value })} 
-                />
-              </div>
-              <div className="form-group">
-                <label>Administrador del Comercio</label>
-                <input 
-                  type="text" 
-                  className="form-control" 
-                  value={newAffiliate.administrador} 
-                  onChange={(e) => setNewAffiliate({ ...newAffiliate, administrador: e.target.value })} 
-                />
-              </div>
-              <button type="submit" className="btn btn-primary">Agregar Afiliado</button>
+              <button type="submit" className="btn btn-primary">Agregar Tipo de Comercio</button>
             </form>
+
+            {/* Aquí agregamos el componente GoalsSection */}
+            <GestionAdminEmpl />
           </section>
         )}
 

@@ -32,7 +32,7 @@ input {
 }
 
 input:focus {
-  border-color: #00796b; /* Cambiado el color del borde al color principal */
+  border-color: #c03b1d; /* Cambiado el color del borde al color principal */
   outline: none;
 }
 

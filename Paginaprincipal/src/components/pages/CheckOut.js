@@ -1,37 +1,49 @@
-import React, { useState } from 'react';
-import { useLocation } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom'; // Importamos useNavigate
 import { useCart } from '../../CartContext';
-import restaurants from '../data/restaurants.json';
+import { useAuth } from '../../AuthContext';  // Importamos el hook useAuth
 import './CheckOut.css';
 
 const Checkout = () => {
   const { state } = useLocation();
-  const { cart } = useCart();
-  const { restaurantId } = state;
+  const { cart, setCart, actualizarCarritoEnBaseDeDatos } = useCart();  // Destructura setCart y actualizarCarritoEnBaseDeDatos desde useCart
+  const { user, loggedIn } = useAuth();  // Usamos useAuth para acceder a los datos del usuario
+  const navigate = useNavigate();  // Inicializamos el hook useNavigate
+
+  const { restaurantName } = state;
 
   const [paymentMethod, setPaymentMethod] = useState('');
   const [feedback, setFeedback] = useState('');
+  const [isLoading, setIsLoading] = useState(false);  // Estado para controlar la pantalla de carga
+  const [paymentStatus, setPaymentStatus] = useState(null);  // Estado para el resultado del pago
+  const [statusMessage, setStatusMessage] = useState('');  // Mensaje de estado
 
-  const productos = cart.filter(item => item.restaurantId === parseInt(restaurantId));
+  // Filtrar los productos que corresponden al restaurante actual
+  const productos = cart.filter(item => item.nombreComercio === restaurantName);
 
-  const getRestaurantName = (restaurantId) => {
-    const restaurant = restaurants.find((r) => r.id === parseInt(restaurantId));
-    return restaurant ? restaurant.nombre : "Restaurante desconocido";
+  // Imprimir todos los productos del carrito en consola
+  useEffect(() => {
+    console.log('Datos del carrito:', cart);
+  }, [cart]);
+
+  // Imprimir lo que hay dentro de userAuth en consola
+  useEffect(() => {
+    console.log('Datos del usuario autenticado:', user);  // Imprime los datos del usuario
+    console.log('¿Está logueado?', loggedIn);  // Imprime si el usuario está logueado
+  }, [user, loggedIn]); // Se ejecuta cuando user o loggedIn cambian
+
+  const getRestaurantName = () => {
+    return restaurantName || "Restaurante desconocido";
   };
 
-  // Función para calcular el total antes de IVA
   const calcularTotalBase = () => {
     return productos.reduce((total, item) => total + parseFloat(item.precio) * item.cantidad, 0);
   };
 
-  // Función para calcular el IVA (5%)
   const calcularIVA = (totalBase) => {
     return totalBase * 0.05;
   };
 
-
-
-  // Función para calcular el total con IVA incluido y costos adicionales
   const calcularTotalConIVA = () => {
     const totalBase = calcularTotalBase();
     const iva = calcularIVA(totalBase);
@@ -46,12 +58,91 @@ const Checkout = () => {
     setFeedback(event.target.value);
   };
 
-  const handlePayment = () => {
+  const handlePayment = async () => {
     if (paymentMethod === '') {
       alert('Por favor, elige un método de pago.');
-    } else {
-      alert(`Pago realizado con éxito utilizando ${paymentMethod}.`);
+      return;
     }
+  
+    // Mostrar "Verificando Pedido" y la rueda de carga durante 2 segundos
+    setStatusMessage('Verificando Pedido');
+    setPaymentStatus(null);  // Reseteamos el estado del pago
+    setIsLoading(true);  // Mostrar la pantalla de carga
+  
+    // Esperar 2 segundos para mostrar "Verificando Pedido" antes de continuar
+    setTimeout(async () => {
+      const totalPedido = calcularTotalConIVA(); // Total con IVA calculado
+      const productosParaEnviar = productos.map(item => ({
+        ProductID: item.productoID,
+        Cantidad: item.cantidad,
+      }));
+  
+      const pedidoData = {
+        Estado: "Pendiente",
+        CorreoCliente: user.userId,
+        CorreoComercio: null,
+        CorreoMensajero: null,
+        Provincia: "San José",
+        Canton: "Central",
+        Distrito: "Catedral",
+        Productos: JSON.stringify(productosParaEnviar),
+        Total: totalPedido,
+      };
+  
+      console.log('Datos del pedido:', JSON.stringify(pedidoData, null, 2));
+  
+      try {
+        const response = await fetch('http://localhost:5133/api/pedidos/realizar', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(pedidoData),
+        });
+  
+        if (response.ok) {
+          const data = await response.json();
+          setStatusMessage(`Pago realizado con éxito.`);
+          setPaymentStatus('success');  // Cambio al estado de éxito
+  
+          // Eliminar los productos del carrito después de realizar el pago
+          const productosRestantes = cart.filter(item => item.nombreComercio !== restaurantName);
+          setCart(productosRestantes); // Actualizar el carrito en el estado local
+  
+          // Eliminar el carrito en la base de datos haciendo una solicitud al API
+          const eliminarCarritoResponse = await fetch(`http://localhost:5133/api/carrito/eliminar`, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ CorreoCliente: user.userId, ProductIDs: productos.map(item => item.productoID) }),
+          });
+  
+          if (eliminarCarritoResponse.ok) {
+            console.log('Carrito eliminado exitosamente de la base de datos');
+          } else {
+            console.error('Hubo un problema al eliminar el carrito de la base de datos');
+          }
+  
+          // Actualizar el carrito en la base de datos después de eliminar los productos
+          actualizarCarritoEnBaseDeDatos(productosRestantes);
+          
+          // Redirigir a la página de pedidos después de que el pago se haya completado
+          setTimeout(() => {
+            navigate('/pedidos'); // Redirige a /pedidos
+          }, 2000); // Espera 2 segundos antes de la redirección
+        } else {
+          setStatusMessage('Hubo un problema al procesar el pago.');
+          setPaymentStatus('error');  // Cambio al estado de error
+        }
+      } catch (error) {
+        setStatusMessage('Error al realizar el pago.');
+        setPaymentStatus('error');  // Cambio al estado de error
+      } finally {
+        // Esperar 2 segundos antes de ocultar el overlay
+        setTimeout(() => setIsLoading(false), 2000);  // Cambio a 2000 milisegundos (2 segundos)
+      }
+    }, 2000);  // Esperar 2 segundos antes de continuar con el pago
   };
 
   const dejarFeedback = async () => {
@@ -84,8 +175,26 @@ const Checkout = () => {
   return (
     <div className="checkout-page-container">
       <h1>Checkout</h1>
-      <h2>{`Restaurante: ${getRestaurantName(restaurantId)}`}</h2>
-      
+      <h2>{`Restaurante: ${getRestaurantName()}`}</h2>
+
+      {/* Pantalla de carga */}
+      {isLoading && (
+  <div className="loading-overlay">
+    <div className="loading-content">
+      <p>{statusMessage}</p>
+      {paymentStatus === 'success' && (
+        <div className="check-icon">&#10004;</div>  // Check icon
+      )}
+      {paymentStatus === 'error' && (
+        <div className="error-icon">&#10060;</div>  // Error icon
+      )}
+      {paymentStatus === null && (
+        <div className="loader"></div>  // Loading wheel
+      )}
+    </div>
+  </div>
+)}
+
       <div className="checkout-products-summary">
         {productos.length > 0 ? (
           <table className="checkout-product-table">
@@ -99,8 +208,8 @@ const Checkout = () => {
             </thead>
             <tbody>
               {productos.map((item) => (
-                <tr key={`${item.id}-${restaurantId}`}>
-                  <td>{item.nombre}</td>
+                <tr key={`${item.productoID}-${restaurantName}`}>
+                  <td>{item.nombreProducto}</td>
                   <td>{item.cantidad}</td>
                   <td>₡ {item.precio}</td>
                   <td>₡ {(item.precio * item.cantidad).toLocaleString()}</td>
@@ -113,7 +222,6 @@ const Checkout = () => {
         )}
       </div>
 
-      {/* Toda la sección de resumen de costos dentro de checkout-total */}
       <div className="checkout-total">
         <div className="checkout-summary-item">
           <span>Subtotal</span>

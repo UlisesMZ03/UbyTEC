@@ -1,3 +1,17 @@
+
+@font-face {
+  font-family: 'UberMoveMedium';
+  src: url('../components/fonts/UberMoveMedium.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'UberMoveBold';
+  src: url('../components/fonts/UberMoveBold.otf') format('opentype');
+  font-weight: bold;
+  font-style: normal;
+}
 /* General del Navbar */
 .navbar {
   background-color: #c03b1d; /* Fondo verde azulado inicial */
@@ -12,6 +26,7 @@
   padding: 0 20px; /* Ajustar el espaciado interno */
   box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1); /* Sombra ligera */
   transition: background-color 0.3s ease;
+  font-family: 'UberMoveBold';
 }
 
 .navbar.scrolled {
@@ -45,6 +60,7 @@
   border-radius: 4px;
   font-size: 1rem;
   cursor: pointer;
+  font-family: 'UberMoveBold';
 }
 
 .btn-login:hover {
@@ -59,6 +75,7 @@
   justify-content: flex-start; /* Alinear a la izquierda */
   width: auto; /* Ajustar ancho */
   margin: 0; /* Eliminar margen */
+  font-family: 'UberMoveBold';
 }
 
 .nav-links {
@@ -70,6 +87,7 @@
   display: flex;
   align-items: center;
   height: 60px; /* Ajustar altura para que coincida con el navbar */
+  font-family: 'UberMoveBold';
 }
 
 .nav-links:hover {
@@ -83,6 +101,7 @@
   display: flex;  /* Alineación horizontal */
   align-items: center;  /* Alineación vertical */
   gap: 20px;  /* Espaciado entre los íconos */
+  font-family: 'UberMoveBold';
 }
 /* Estilo para el icono de perfil */
 .profile-icon {
@@ -94,6 +113,7 @@
   display: flex;
   align-items: center;
   height: 60px; /* Asegura que el ícono esté alineado con el navbar */
+  
 }
 
 .profile-icon i {
@@ -102,6 +122,7 @@
   padding: 8px; /* Ajustar padding si es necesario */
   font-size: 20px; /* Ajustar tamaño de icono si prefieres algo más pequeño */
   transition: background-color 0.3s ease, transform 0.3s ease;
+  
 }
 
 .profile-icon:hover i {
@@ -124,6 +145,7 @@
   flex-direction: column;
   text-align: left;
   padding: 10px 0;
+  font-family: 'UberMoveMedium';
 }
 
 .dropdown-menu.active {
@@ -136,6 +158,7 @@
   color: black;
   text-decoration: none;
   font-size: 15px;
+  font-family: 'UberMoveBold';
 }
 
 .dropdown-item:hover {
@@ -181,6 +204,7 @@
   color: white;
   display: flex;
   align-items: center;
+  font-family: 'UberMoveMedium';
 }
 .cart-icon:hover i {
 
@@ -195,6 +219,7 @@
   position: absolute;
   top: -10px;
   right: -10px;
+  font-family: 'UberMoveMedium';
 }
 
 .cart-dropdown {
@@ -210,7 +235,7 @@
   padding-left: 10px;
   display: flex;
   flex-direction: column; /* Organiza los elementos en columna */
-  
+  font-family: 'UberMoveMedium';
 }
 
 .cart-dropdown.active {
@@ -225,6 +250,7 @@
 .cart-total {
   font-weight: bold;
   margin-top: 10px;
+  font-family: 'UberMoveMedium';
 }
 
 /* Título de Carrito de compras */
@@ -236,6 +262,7 @@
   padding-bottom: 10px; /* Espacio entre el título y el contenido */
   border-bottom: 1px solid #ddd;
   margin-bottom: 10px; /* Espacio debajo del título */
+  font-family: 'UberMoveBold';
 }
 
 
@@ -259,6 +286,7 @@
   gap: 10px;
   padding: 10px 0;
   border-bottom: 1px solid #ddd;
+  
 }
 
 .cart-item-name {
@@ -266,6 +294,7 @@
   color: #333;
   font-weight: bold;
   grid-column: span 2; /* El nombre ocupa ambas columnas */
+  font-family: 'UberMoveBold';
 }
 
 .cart-item-quantity {
@@ -273,6 +302,7 @@
   color: #333;
   
   text-align: left;
+  font-family: 'UberMoveMedium';
 }
 
 .cart-item-price {
@@ -297,6 +327,7 @@
   margin-top: 15px;
   padding-top: 20px;
   font-size: 1.2rem;
+  font-family: 'UberMoveBold';
 }
 
 /* Estilo del botón Ver carrito */
@@ -335,7 +366,7 @@
   max-height: calc(100% - 60px); /* Deja espacio para el botón */
   overflow-y: auto; /* Hace que solo el contenido del carrito se desplace */
   flex-grow: 1; /* Permite que esta área crezca y ocupe el espacio disponible */
-  
+  font-family: 'UberMoveMedium';
   
 }
 /* Responsivo */

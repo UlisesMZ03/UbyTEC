@@ -32,12 +32,12 @@
   }
   
   .device-item.selected {
-    border: 2px solid #00796b;
+    border: 2px solid #c03b1d;
   }
   
   .device-item h3 {
     font-size: 1.5rem;
-    color: #00796b;
+    color: #c03b1d;
     margin-bottom: 10px;
   }
   
@@ -48,7 +48,7 @@
   
   /* Botón de confirmar pedido */
   .btn-confirm {
-    background-color: #00796b;
+    background-color: #c03b1d;
     color: white;
     border: none;
     padding: 10px 20px;
@@ -60,7 +60,7 @@
   }
   
   .btn-confirm:hover {
-    background-color: #004d40;
+    background-color: #c03b1d;
   }
   
   /* Detalles del pedido */
@@ -74,7 +74,7 @@
   
   .order-details h2 {
     font-size: 1.8rem;
-    color: #00796b;
+    color: #c03b1d;
     margin-bottom: 15px;
   }
   

@@ -1,0 +1,169 @@
+.pedido-container {
+    padding: 20px;
+    font-family: 'UberMoveMedium', sans-serif;
+ 
+    width: 70%; /* Ocupa el 80% del ancho de la ventana */
+    margin: 0 auto; /* Centra el contenedor horizontalmente */
+  
+  }
+  
+  h2 {
+    text-align: center;
+    margin-bottom: 30px;
+    font-family: 'UberMoveBold', sans-serif;
+    font-size: 32px;
+  }
+  
+  .pedido-item {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 3px;
+    margin-bottom: 0px;
+    display: grid;
+    grid-template-columns: 1fr 2fr 1fr;
+    gap: 20px;
+    border-bottom: 2px solid #f0f0f0; /* Línea divisoria entre los elementos */
+  }
+  
+  .pedido-item:last-child {
+    border-bottom: none; /* Eliminar la línea divisoria en el último elemento */
+  }
+  
+  
+  .restaurante-logo-container {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+  }
+  
+  .restaurante-logo {
+    width: 100%;
+    max-width: 301px;
+    aspect-ratio: 301 / 143;
+    object-fit: cover;
+  }
+  
+  .pedido-info {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .pedido-info h3 {
+    margin: 0;
+    font-size: 28px;
+    font-weight: bold;
+    font-family: 'UberMoveBold', sans-serif;
+  }
+  
+  .pedido-info .pedido-details {
+    margin: 5px 0;
+    font-size: 16px;
+    color: #333;
+  }
+  
+  .pedido-info p {
+    margin: 5px 0;
+    font-size: 14px;
+    font-family: 'UberMoveMedium', sans-serif;
+  }
+  
+  .estado {
+    font-weight: bold;
+    color: rgb(0, 0, 0);
+    font-family: 'UberMoveBold', sans-serif;
+    font-size: 22px !important;
+  }
+  
+  .productos ul {
+    list-style-type: none;
+    padding: 0;
+    
+  }
+  
+  .productos li {
+    margin-bottom: 10px;
+    font-size: 16px;
+    font-family: 'UberMoveMedium', sans-serif;
+    border-bottom: 2px solid #f0f0f0; /* Línea divisoria entre los elementos */
+  }
+  .productos li:last-child {
+    border-bottom: none; /* Eliminar la línea divisoria en el último elemento */
+  }
+  /* Estilos para el contenedor del botón "Mostrar más" */
+  .mostrar-mas {
+    margin-top: 10px;
+  }
+  
+/* Estilo para el botón nativo de React */
+.mostrar-mas-button {
+    padding: 0px 0px;
+    background-color: transparent !important;  /* Fondo transparente */
+    color: #6b6c6e !important;  /* Color del texto azul */
+
+    border-radius: 20px !important;  /* Bordes redondeados */
+    font-size: 14px !important;
+    font-weight: bold !important;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+  
+
+  
+  .mostrar-mas-button svg {
+    margin-left: 8px;
+    transition: transform 0.3s ease;
+  }
+  
+  .mostrar-mas-button:hover svg {
+    transform: rotate(180deg); /* Rotar la flecha cuando el botón se activa */
+  }
+  
+  /* Estilo para las acciones */
+  .acciones {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .acciones button {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-family: 'UberMoveMedium', sans-serif;
+  }
+  
+  .ver-tienda {
+    background-color: #f04e23;
+    color: white;
+  }
+  
+  .ver-tienda:hover {
+    background-color: #c03b1d;
+  }
+  
+  .calificar {
+    background-color: #f0f0f0;
+    color: black;
+  }
+  
+  .calificar:hover {
+    background-color: #ccc;
+  }
+  
+  /* Estilo para la cantidad dentro de un cuadro */
+  .cantidad {
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    background-color: #f04e23;
+    color: white;
+    border-radius: 50%;
+    text-align: center;
+    line-height: 30px;
+    margin-right: 10px;
+  }
+  

@@ -68,7 +68,7 @@ h1 {
 }
 
 .buy-button {
-    background-color: #00796b; /* Color de fondo del botón */
+    background-color: #c03b1d; /* Color de fondo del botón */
     color: white; /* Color del texto del botón */
     border: none; /* Sin borde */
     border-radius: 5px; /* Bordes redondeados */
@@ -79,7 +79,7 @@ h1 {
 }
 
 .buy-button:hover {
-    background-color: #049988; /* Color más oscuro al pasar el ratón */
+    background-color: #f04e23; /* Color más oscuro al pasar el ratón */
 }
 
 .related-devices-list {
