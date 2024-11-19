@@ -1,0 +1,91 @@
+/* Responsividad para las ciudades */
+
+.ubbytec-cities {
+  margin-top: 80px;
+  padding: 0 20px;
+}
+
+.ubbytec-cities h2 {
+  font-size: 1.8em;
+  font-weight: bold;
+  margin-bottom: 20px;
+  text-align: left;
+
+}
+
+.city-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 50px 50px; /* Espacio vertical y horizontal entre las ciudades */
+  text-align: left;
+  padding-left: 50px;
+  padding-bottom: 50px;
+}
+
+.city-item {
+  font-size: 1em;
+}
+
+/* Responsividad con media queries */
+
+@media (max-width: 1024px) {
+  .ubbytec-cities h2 {
+    font-size: 1.6em; /* Reducir el tamaño del título en pantallas medianas */
+    padding-left: 30px; /* Reducir padding en pantallas más pequeñas */
+  }
+
+  .city-list {
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); /* Reducir el tamaño de las columnas en pantallas medianas */
+    gap: 30px 30px; /* Reducir el espacio entre las ciudades */
+    padding-left: 30px; /* Reducir el padding de izquierda */
+  }
+
+  .city-item {
+    font-size: 0.9em; /* Reducir el tamaño de la fuente en pantallas medianas */
+  }
+}
+
+@media (max-width: 768px) {
+  .ubbytec-cities {
+    margin-top: 60px; /* Reducir el margen superior */
+    padding: 0 10px; /* Reducir el padding horizontal */
+  }
+
+  .ubbytec-cities h2 {
+    font-size: 1.4em; /* Reducir el tamaño del título en pantallas pequeñas */
+    padding-left: 20px; /* Reducir el padding de izquierda */
+  }
+
+  .city-list {
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); /* Ajustar el tamaño de las columnas para pantallas más pequeñas */
+    gap: 20px 20px; /* Reducir el espacio entre las ciudades */
+    padding-left: 20px; /* Reducir el padding de izquierda */
+  }
+
+  .city-item {
+    font-size: 0.8em; /* Reducir el tamaño de la fuente */
+  }
+}
+
+@media (max-width: 480px) {
+  .ubbytec-cities {
+    margin-top: 40px; /* Reducir aún más el margen superior */
+    padding: 0 10px; /* Mantener el padding reducido */
+  }
+
+  .ubbytec-cities h2 {
+    font-size: 1.2em; /* Ajustar el tamaño del título para pantallas más pequeñas */
+    padding-left: 10px; /* Eliminar el padding de izquierda */
+
+  }
+
+  .city-list {
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)); /* Ajustar el tamaño de las columnas para pantallas más pequeñas */
+    gap: 15px 15px; /* Reducir el espacio entre las ciudades */
+    padding-left: 10px; /* Reducir aún más el padding de izquierda */
+  }
+
+  .city-item {
+    font-size: 0.75em; /* Reducir aún más el tamaño de la fuente */
+  }
+}

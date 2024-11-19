@@ -1,0 +1,393 @@
+/* Estilo para el contenedor principal */
+.container {
+    max-width: 100%; /* Aumentar el ancho máximo del contenedor */
+    margin: 0 auto; /* Centrar el contenedor */
+    padding: 20px; /* Espaciado interno */
+    min-height: 800px;
+
+ 
+}
+
+/* Estilos para las filas */
+.row {
+    display: flex;
+    justify-content: center; /* Centra el contenido horizontalmente */
+    
+    
+    
+}
+
+/* Estilos para las columnas */
+.col-md-3 {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Centra los elementos dentro de la columna */
+    background-color: #ebebebb2;
+    
+}
+
+.col-md-5 {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start; /* Alinea el contenido a la izquierda */
+    margin-left: 0px; /* Margen entre imagen y profile settings */
+    background-color: #ebebebb2;
+    min-height: 800px;
+    border-left: 2px double #dfd7d7; /* Línea vertical punteada */
+}
+
+/* Línea separadora */
+.separator {
+    border-left: 2px dotted #ccc; /* Línea vertical punteada */
+    height: 100%; /* Altura completa del contenedor */
+    margin: 0 0px; /* Espaciado horizontal */
+}
+
+/* Estilo para títulos */
+h1 {
+    text-align: center;
+    color: #333;
+}
+
+h4 {
+    text-align: center; /* Centra el título */
+}
+
+/* Estilo para la información del perfil */
+.profile-info {
+    margin-bottom: 10px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #ccc; /* Línea de separación */
+}
+
+.profile-info p {
+    margin: 10px 0;
+    font-size: 16px;
+    line-height: 1.5;
+}
+
+/* Estilo para las etiquetas */
+.labels {
+    font-weight: bold; /* Negrita para las etiquetas */
+}
+
+/* Estilo para botones secundarios */
+.btn-secondary {
+    background-color: #6c757d; /* Color de fondo para botones secundarios */
+    color: white;
+    padding: 5px 10px; /* Tamaño más pequeño */
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    font-size: 14px; /* Tamaño de fuente más pequeño */
+}
+
+.btn-secondary:hover {
+    background-color: #5a6268; /* Color de fondo al pasar el ratón */
+}
+
+/* Estilo para tablas de información */
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+    background-color: #f8f9fa; /* Color de fondo gris claro */
+    border-radius: 8px; /* Bordes redondeados */
+    overflow: hidden; /* Asegura que los bordes redondeados funcionen */
+}
+
+.table th, .table td {
+    padding: 10px; /* Espaciado interno */
+    text-align: left;
+    border-bottom: 1px solid #ccc; /* Línea de separación entre filas */
+}
+
+.table th {
+    background-color: #c03b1d; /* Color de fondo para encabezados */
+    color: white; /* Color del texto del encabezado */
+    font-weight: normal; /* Quitar negrita */
+}
+
+.table tbody tr:nth-child(even) {
+    background-color: #e9ecef; /* Color de fondo para filas pares */
+}
+
+.table tbody tr:hover {
+    background-color: #d1e7dd; /* Color de fondo al pasar el ratón */
+}
+
+/* Estilo para el botón de editar */
+.btn-edit {
+    background: none; /* Sin fondo */
+    border: none; /* Sin borde */
+    color: #c03b1d; /* Color del ícono (verde) */
+    cursor: pointer; /* Cambia el cursor al pasar */
+    font-size: 16px; /* Tamaño del ícono */
+    padding: 0; /* Sin padding */
+    margin-left: 10px; /* Espacio a la izquierda del ícono */
+    transition: color 0.3s; /* Transición suave al cambiar color */
+}
+
+.btn-edit:hover {
+    color: #f04e23; /* Cambia el color al pasar el ratón */
+}
+
+/* Estilos generales para las columnas */
+
+  
+  /* Estilo para los campos de texto dentro de .col-md-6 */
+  .input-group {
+    width: 100%; /* Asegura que los campos de entrada ocupen el 100% del ancho de la columna */
+    margin-bottom: 15px; /* Espaciado inferior entre los campos */
+  }
+  
+  .input-group input,
+  .input-group select {
+    width: 100%; /* Asegura que el campo de texto ocupe todo el ancho disponible */
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box; /* Asegura que el padding no afecte el ancho */
+  }
+  
+  .input-group label {
+    font-weight: bold;
+    margin-bottom: 5px;
+    display: block; /* Hace que la etiqueta se muestre en una nueva línea */
+  }
+/* Contenedor de botones */
+.button-container {
+    display: flex;
+    justify-content: center; /* Centrar el botón */
+    margin-top: 20px; /* Separar del formulario */
+}
+
+/* Estilos para el formulario de contraseña */
+.password-form {
+    margin-top: 30px;
+}
+
+.password-form h2 {
+    margin-bottom: 15px;
+    font-size: 20px;
+    color: #333;
+}
+
+.password-form .input-group {
+    margin-bottom: 20px;
+}
+/* Estilos generales */
+.nav {
+    width: 100%;
+    height: auto;
+    padding-top: 20px;
+    opacity: 1;
+    transition: all 5s ease;
+}
+
+.links {
+    list-style-type: none;
+    padding: 0;
+    margin: 10;
+    display: flex;
+    justify-content: space-around; /* Espacia los elementos horizontalmente */
+}
+
+.links li {
+    display: inline-block;
+}
+
+.links li .btn {
+    font-weight: 700;
+    text-transform: uppercase;
+    font-size: 16px;
+    text-align: center;
+    color: #f04e23;
+    padding: 10px 15px;
+    border-radius: 0px;
+    border: 1px solid transparent;
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+    cursor: pointer;
+    display: block;
+    width: 100%;
+}
+
+/* Estilo para los botones activos */
+.links .btn.active {
+    background-color: #f04e23; /* Fondo azul para el estado activo */
+    color: #f04e23;
+    border-color: #f04e23;
+}
+
+/* Estilo para los botones inactivos */
+.links .btn:not(.active) {
+    background-color: transparent; /* Fondo transparente cuando no está activo */
+    color: #000000; /* Color de texto más tenue */
+}
+
+/* Efecto hover */
+.links .btn:hover {
+
+    color: #c03b1d;
+
+}
+
+/* Estilo para los items de la lista */
+.profileSettings-active a, .direcciones-inactive a, .seguridad-inactive a {
+    padding-bottom: 0;
+    color: rgba(255,255,255,.3);
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.profileSettings-active.active a,
+.direcciones-inactive.active a,
+.seguridad-inactive.active a {
+    color: #f04e23;
+    border-bottom: solid 3px #f04e23; /* Añadir una línea de color en el fondo activo */
+}
+
+/* Para mantener la alineación visual de los botones */
+.links li {
+    margin-right: 20px;
+}
+
+/* Estilos generales para los divs */
+.direcciones, .seguridad, .general {
+    margin-top: 20px;
+
+
+}
+
+/* Media Queries para hacerlo responsive */
+@media screen and (max-width: 1115px) {
+    /* Ajustar el contenedor principal */
+    .container {
+      width: 90%; /* Reducir el ancho del contenedor */
+    }
+
+
+  
+    .col-md-3, .col-md-5 {
+      width: 100%; /* Hacer que las columnas ocupen el 100% */
+      margin: 10px 0; /* Añadir espacio entre columnas */
+    }
+  
+    .separator {
+      display: none; /* Ocultar la línea separadora en pantallas pequeñas */
+    }
+  
+    /* Reducir el tamaño de los títulos */
+    h1 {
+      font-size: 24px; /* Reducir tamaño del título */
+    }
+  
+    h4 {
+      font-size: 18px; /* Reducir tamaño del subtítulo */
+    }
+  
+    /* Ajustar los tamaños de los botones */
+    .btn-secondary, .btn-edit {
+      font-size: 14px; /* Reducir el tamaño de los botones */
+    }
+  
+    /* Asegurarse de que las tablas sean más legibles en pantallas pequeñas */
+    .table {
+      font-size: 14px; /* Reducir tamaño de la fuente en la tabla */
+    }
+  
+    .table th, .table td {
+      padding: 8px; /* Reducir el padding en las celdas de la tabla */
+    }
+  
+    /* Hacer que los campos de entrada se ajusten al 100% */
+    .input-group input, .input-group select {
+      width: 100%; /* Asegurar que los campos de entrada ocupen todo el ancho */
+    }
+  
+    .button-container {
+      flex-direction: column; /* Apilar los botones en pantallas pequeñas */
+    }
+
+      
+      .col-md-6 .form-control .label{
+        width: 80vw; /* El ancho será el 50% del ancho de la ventana */
+        position: absolute; /* Posiciona el botón de forma independiente */
+        left: 50%; /* Coloca el borde izquierdo del botón en el centro de la pantalla */
+        transform: translateX(-50%); /* Ajusta para que el centro del botón esté en el centro de la pantalla */
+        margin-bottom: 20px; /* Añadir espacio entre las columnas */
+      }
+      .mt-3{
+        width: 80vw; /* El ancho será el 50% del ancho de la ventana */
+
+        margin-bottom: 20px; /* Añadir espacio entre las columnas */
+      }
+      .mt-5 .btnn {
+        width: 80vw; /* El ancho será el 50% del ancho de la ventana */
+        position: absolute; /* Posiciona el botón de forma independiente */
+        left: 50%; /* Coloca el borde izquierdo del botón en el centro de la pantalla */
+        transform: translateX(-50%); /* Ajusta para que el centro del botón esté en el centro de la pantalla */
+        margin-top: -20px; /* Opcional, para añadir un margen superior si lo necesitas */
+      }
+      
+  }
+  
+  /* Media Queries para pantallas pequeñas (por debajo de 480px) */
+  @media screen and (max-width: 530px) {
+    /* Ajustar aún más los tamaños para dispositivos muy pequeños */
+    .container {
+      padding: 10px;
+    }
+    
+    .profile-info p {
+      font-size: 14px; /* Reducir el tamaño del texto del perfil */
+    }
+  
+    .password-form h2 {
+      font-size: 18px;
+
+    }
+
+    
+      .links li {
+        margin: 0px 0; /* Espacio entre los elementos */
+        margin-right: auto;
+      }
+    
+      .links li .btn {
+        width: 70%; /* Hacer que los botones ocupen todo el ancho */
+        text-align: center; /* Centrar el texto */
+        
+      }
+      .links {
+        width: 70%; /* Hacer que los botones ocupen todo el ancho */
+      }
+    .col-md-6 {
+        display: block; /* Asegura que el div ocupe todo el espacio disponible */
+        text-align: left; /* Centra el contenido (el input) horizontalmente */
+        width: 80vw; /* El ancho será el 50% del ancho de la ventana */
+        margin-right: auto; /* Centra el input dentro de su contenedor */
+      }
+      
+      .col-md-6 .form-control {
+        width: 80vw; /* El ancho será el 50% del ancho de la ventana */
+        margin: 0 auto; /* Centra el input dentro de su contenedor */
+        margin-bottom: 20px; /* Añadir espacio entre las columnas */
+      }
+
+      .mt-5 .btnn {
+        width: 80vw; /* El ancho será el 50% del ancho de la ventana */
+        position: absolute; /* Posiciona el botón de forma independiente */
+        left: 50%; /* Coloca el borde izquierdo del botón en el centro de la pantalla */
+        transform: translateX(-50%); /* Ajusta para que el centro del botón esté en el centro de la pantalla */
+        margin-top: -20px; /* Opcional, para añadir un margen superior si lo necesitas */
+      }
+      
+
+      .mt-3{
+        width: 80vw; /* El ancho será el 50% del ancho de la ventana */
+
+        margin-bottom: 20px; /* Añadir espacio entre las columnas */
+      }
+  }

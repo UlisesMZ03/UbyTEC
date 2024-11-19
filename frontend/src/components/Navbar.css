@@ -1,0 +1,433 @@
+
+@font-face {
+  font-family: 'UberMoveMedium';
+  src: url('../components/fonts/UberMoveMedium.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'UberMoveBold';
+  src: url('../components/fonts/UberMoveBold.otf') format('opentype');
+  font-weight: bold;
+  font-style: normal;
+}
+/* General del Navbar */
+.navbar {
+  background-color: #c03b1d; /* Fondo verde azulado inicial */
+  height: 60px; /* Ajustar la altura para hacerlo más delgado */
+  display: flex;
+  justify-content: space-between; /* Espacio entre el logo y el menú */
+  align-items: center; /* Centrado vertical */
+  font-size: 1.2rem;
+  position: sticky;
+  top: 0;
+  z-index: 999;
+  padding: 0 20px; /* Ajustar el espaciado interno */
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1); /* Sombra ligera */
+  transition: background-color 0.3s ease;
+  font-family: 'UberMoveBold';
+}
+
+.navbar.scrolled {
+  background-color: #c03b1de7; /* Fondo semi-transparente al hacer scroll */
+}
+
+.navbar-container {
+  display: flex;
+  justify-content: space-between; /* Espacio entre el logo y el menú */
+  align-items: center; /* Centrado vertical */
+  width: 100%;
+  max-width: 2000px; /* Ancho máximo */
+}
+
+.navbar-logo {
+  color: white;
+  cursor: pointer;
+  text-decoration: none;
+  font-size: 2rem; /* Ajustar tamaño de fuente si deseas un logo más pequeño */
+  font-weight: bold;
+  display: flex;
+  align-items: center; /* Centrado vertical */
+}
+
+/* Estilo personalizado para el botón de inicio de sesión */
+.btn-login {
+  background-color: #c03b1d; /* Color de fondo */
+  color: white; /* Color del texto */
+  padding: 5px 10px;
+  border: 1px solid #c03b1d; /* Color de borde */
+  border-radius: 4px;
+  font-size: 1rem;
+  cursor: pointer;
+  font-family: 'UberMoveBold';
+}
+
+.btn-login:hover {
+  background-color: #b43113; /* Color al pasar el cursor */
+  color: #ffffff;
+}
+
+/* Menú */
+.nav-menu {
+  display: flex;
+  list-style: none;
+  justify-content: flex-start; /* Alinear a la izquierda */
+  width: auto; /* Ajustar ancho */
+  margin: 0; /* Eliminar margen */
+  font-family: 'UberMoveBold';
+}
+
+.nav-links {
+  color: white;
+  text-decoration: none;
+  padding: 1rem 1.5rem;
+  transition: background-color 0.3s ease;
+  font-size: 1.1rem;
+  display: flex;
+  align-items: center;
+  height: 60px; /* Ajustar altura para que coincida con el navbar */
+  font-family: 'UberMoveBold';
+}
+
+.nav-links:hover {
+  background-color: #8a2e15; /* Fondo verde oscuro en hover */
+  color: white;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+/* Contenedor común para los iconos de perfil y carrito */
+.nav-item.profile-cart-container {
+  display: flex;  /* Alineación horizontal */
+  align-items: center;  /* Alineación vertical */
+  gap: 20px;  /* Espaciado entre los íconos */
+  font-family: 'UberMoveBold';
+}
+/* Estilo para el icono de perfil */
+.profile-icon {
+  position: relative;
+  cursor: pointer;
+  font-size: 24px;
+  color: white;
+  margin-left: 20px;
+  display: flex;
+  align-items: center;
+  height: 60px; /* Asegura que el ícono esté alineado con el navbar */
+  
+}
+
+.profile-icon i {
+  background-color: #c03b1d;
+  border-radius: 50%;
+  padding: 8px; /* Ajustar padding si es necesario */
+  font-size: 20px; /* Ajustar tamaño de icono si prefieres algo más pequeño */
+  transition: background-color 0.3s ease, transform 0.3s ease;
+  
+}
+
+.profile-icon:hover i {
+  background-color: #8a2e15;
+  transform: scale(1.1);
+}
+
+/* Menú desplegable del perfil */
+.dropdown-menu {
+  position: absolute;
+  top: 60px; /* Debajo del ícono de perfil */
+  right: 10px;
+  background-color: white;
+  color: black;
+  border-radius: 8px;
+  box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+  z-index: 100;
+  min-width: 160px;
+  display: none;
+  flex-direction: column;
+  text-align: left;
+  padding: 10px 0;
+  font-family: 'UberMoveMedium';
+}
+
+.dropdown-menu.active {
+  display: flex;
+}
+
+.dropdown-item {
+  padding: 10px 15px;
+  display: block;
+  color: black;
+  text-decoration: none;
+  font-size: 15px;
+  font-family: 'UberMoveBold';
+}
+
+.dropdown-item:hover {
+  background-color: #f1f1f1;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.dropdown-menu .dropdown-item:first-child {
+  font-weight: bold;
+}
+
+.dropdown-menu .dropdown-item:last-child {
+  color: red;
+}
+
+.dropdown-menu .dropdown-item:last-child:hover {
+  background-color: #ffcccc;
+}
+
+/* Estilo para enlaces especiales */
+.nav-links.special-link {
+  color: #ffffff;
+}
+
+.nav-links.special-link:hover {
+  background-color: #c03b1d;
+  color: rgb(228, 199, 199);
+  border-radius: 5px;
+  transition: all 0.3s ease;
+}
+
+/* Estilo para el icono de carrito */
+.cart-menu {
+  position: relative;
+  margin-left: 20px;
+  cursor: pointer;
+}
+
+.cart-icon {
+  position: relative;
+  font-size: 24px;
+  color: white;
+  display: flex;
+  align-items: center;
+  font-family: 'UberMoveMedium';
+}
+.cart-icon:hover i {
+
+  transform: scale(1.15);
+}
+.cart-count {
+  background-color: #f04e23; /* Color del contador */
+  color: white;
+  border-radius: 50%;
+  padding: 2px 8px;
+  font-size: 12px;
+  position: absolute;
+  top: -10px;
+  right: -10px;
+  font-family: 'UberMoveMedium';
+}
+
+.cart-dropdown {
+  position: fixed;
+  top: 0;
+  right: -400px; /* Fuera de la vista por defecto */
+  width: 350px;
+  height: 100%;
+  background-color: white;
+  box-shadow: -2px 0 5px rgba(0, 0, 0, 0.3);
+  z-index: 999;
+  transition: right 0.3s ease-in-out;
+  padding-left: 10px;
+  display: flex;
+  flex-direction: column; /* Organiza los elementos en columna */
+  font-family: 'UberMoveMedium';
+}
+
+.cart-dropdown.active {
+  right: 0; /* Mueve el carrito hacia la vista cuando se active */
+}
+
+.cart-dropdown-items {
+  max-height: calc(100% - 60px); /* Ocupa todo el espacio menos el espacio para el botón */
+  overflow-y: auto;
+  flex-grow: 1; /* Permite que esta área crezca y ocupe el espacio disponible */
+}
+.cart-total {
+  font-weight: bold;
+  margin-top: 10px;
+  font-family: 'UberMoveMedium';
+}
+
+/* Título de Carrito de compras */
+.cart-title {
+  font-size: 1.3rem;
+  font-weight: bold;
+  color:#c03b1d;
+  padding-top: 10px;
+  padding-bottom: 10px; /* Espacio entre el título y el contenido */
+  border-bottom: 1px solid #ddd;
+  margin-bottom: 10px; /* Espacio debajo del título */
+  font-family: 'UberMoveBold';
+}
+
+
+.view-cart-button:hover {
+  background-color: #f04e23;
+}
+/* Estilo para los productos en el carrito (uso de Grid) */
+.cart-dropdown-items {
+  display: grid;
+  
+  gap: 15px; /* Espaciado entre las filas y columnas */
+  max-height: calc(100% - 20px); /* Ocupa todo el espacio menos el espacio para el botón */
+  overflow-y: auto; /* Permite desplazarse si el contenido es muy largo */
+  padding: 0 10px; /* Padding entre el contenido del carrito y el borde */
+
+}
+
+.cart-item {
+  display: grid;
+  grid-template-columns: 1fr 1fr; /* Dos columnas: una para el nombre y otra para cantidad/precio */
+  gap: 10px;
+  padding: 10px 0;
+  border-bottom: 1px solid #ddd;
+  
+}
+
+.cart-item-name {
+  font-size: 1rem;
+  color: #333;
+  font-weight: bold;
+  grid-column: span 2; /* El nombre ocupa ambas columnas */
+  font-family: 'UberMoveBold';
+}
+
+.cart-item-quantity {
+  font-size: 1rem;
+  color: #333;
+  
+  text-align: left;
+  font-family: 'UberMoveMedium';
+}
+
+.cart-item-price {
+  font-size: 1rem;
+  color: #333;
+  text-align: right;
+}
+
+.cart-quantity-input {
+  width: 60px;
+  padding: 5px;
+  margin-left: 5px;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+/* Total del carrito */
+.cart-total {
+  border-top: 1px solid #ddd;
+  font-weight: bold;
+  margin-top: 15px;
+  padding-top: 20px;
+  font-size: 1.2rem;
+  font-family: 'UberMoveBold';
+}
+
+/* Estilo del botón Ver carrito */
+.view-cart-button {
+  display: block;
+  margin-top: 15px;
+  margin-bottom: 15px;
+  margin-right: 15px;
+  text-align: center;
+  padding: 10px;
+  background-color: #f04e23; /* Color del botón */
+  color: white;
+  font-weight: bold;
+  text-decoration: none;
+  border-radius: 0 0 5px 5px;
+  transition: background-color 0.3s ease;
+  
+}
+
+.view-cart-button:hover {
+  background-color: #c03b1d;
+}
+/* Estilo para la capa oscura detrás del carrito */
+.cart-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.404); /* Color negro semi-transparente */
+  z-index: 998; /* Asegura que esté detrás del carrito */
+  transition: background-color 0.3s ease; /* Transición suave */
+}
+/* Contenedor para el área desplazable del carrito */
+.cart-dropdown-wrapper {
+  max-height: calc(100% - 60px); /* Deja espacio para el botón */
+  overflow-y: auto; /* Hace que solo el contenido del carrito se desplace */
+  flex-grow: 1; /* Permite que esta área crezca y ocupe el espacio disponible */
+  font-family: 'UberMoveMedium';
+  
+}
+@media screen and (max-width: 960px) {
+  .menu-icon {
+    display: block;
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    font-size: 1.8rem;
+    cursor: pointer;
+    color: white;
+  }
+
+  /* El menú hamburguesa estará a la derecha en pantallas pequeñas */
+  .nav-menu {
+    display: flex;
+    flex-direction: column;
+    max-width: 150px;
+    min-width: 130px;
+    width: 40%; /* Ancho del menú desde la derecha */
+    position: absolute;
+    top: 60px;
+    right: -50%; /* Alineado a la derecha */
+    background-color: #c03b1da6;
+    opacity: 0;
+    transition: all 0.5s ease;
+  }
+
+  .nav-menu.active {
+    opacity: 1;
+    right: 0;
+  }
+
+  .nav-links {
+    text-align: right; /* Alinear los enlaces a la derecha */
+    padding: 0rem;
+    width: 100%;
+    font-size: 1.2rem;
+    border-bottom: 1px solid #8a2e15; /* Línea divisora pequeña */
+  }
+
+  .profile-icon, .cart-icon {
+    font-size: 1.5rem;
+    margin-left: 0px;
+    
+  }
+  .cart-menu {
+    
+    margin-left: 0px;
+    
+  }
+  /* Ocultar el ícono de menú cuando la pantalla es grande */
+  .menu-icon {
+    display: block;
+  }
+  
+}
+
+@media screen and (min-width: 961px) {
+  /* Eliminar el menú hamburguesa en pantallas grandes */
+  .menu-icon {
+    display: none;
+  }
+}
