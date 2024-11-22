@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import axios from 'axios';
 import './Form.css';
 
 const AdministradorForm = ({ onNextStep }) => {
@@ -18,6 +19,8 @@ const AdministradorForm = ({ onNextStep }) => {
     });
 
     const [step, setStep] = useState(0); // 0: pantalla inicial, 1: crear admin, 2: verificar admin existente
+    const [message, setMessage] = useState('');
+    const [status, setStatus] = useState('');
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
@@ -26,8 +29,6 @@ const AdministradorForm = ({ onNextStep }) => {
 
     const handleSubmitAdmin = (e) => {
         e.preventDefault();
-
-        // Si es un administrador nuevo, generamos una contraseña aleatoria y enviamos la solicitud al backend
         const generatedPassword = Math.random().toString(36).slice(-8); // Genera una contraseña aleatoria
         console.log('Creando administrador', { ...adminData, password: generatedPassword });
 
@@ -35,23 +36,43 @@ const AdministradorForm = ({ onNextStep }) => {
         setStep(2); // Cambiar al paso 2 (verificación del administrador existente)
     };
 
-    const handleSendVerificationEmail = (e) => {
+    const handleSendVerificationEmail = async (e) => {
         e.preventDefault();
 
-        // Aquí iría la llamada al backend para enviar el código de verificación al correo
-        console.log('Enviando correo de verificación a:', adminData.email);
+        try {
+            const response = await axios.post('https://miappnode.azurewebsites.net/send-verification', { email: adminData.email });
+            setMessage('Correo de verificación enviado con éxito');
+            setAdminData({ ...adminData, isEmailSent: true });
+        } catch (error) {
+            setMessage('Hubo un error al enviar el correo');
+        }
 
-        alert('Correo de verificación enviado. Espera a que el administrador verifique el código.');
-        setAdminData({ ...adminData, isEmailSent: true });
         setStep(2); // Cambiar a paso 2 (verificación del código)
+    };
+
+    const checkVerificationStatus = async () => {
+        try {
+            const response = await axios.get(`https://miappnode.azurewebsites.net/check-verification?email=${adminData.email}`);
+            setStatus(response.data);
+
+            // Verificar si la verificación fue exitosa (estado "accepted")
+            if (response.data.includes('accepted')) {
+                setAdminData({ ...adminData, isVerified: true });
+                alert('Administrador verificado correctamente');
+                onNextStep(); // Paso a la siguiente etapa de solicitud del negocio
+            } else {
+                alert('La verificación no fue aceptada, intente nuevamente');
+            }
+        } catch (error) {
+            setStatus('Error al consultar el estado de verificación');
+        }
     };
 
     const handleVerification = (e) => {
         e.preventDefault();
-        // Llamada al backend para verificar el código enviado por correo
-        console.log('Verificando código:', adminData.verificationCode);
 
-        // Simulación de validación del código
+        // Aquí iría la lógica para verificar el código ingresado con el backend
+        console.log('Verificando código:', adminData.verificationCode);
         if (adminData.verificationCode === '123456') {
             setAdminData({ ...adminData, isVerified: true });
             alert('Administrador verificado correctamente');
@@ -158,7 +179,7 @@ const AdministradorForm = ({ onNextStep }) => {
             ) : (
                 <div>
                     {adminData.isEmailSent ? (
-                        <form onSubmit={handleVerification}>
+                        <div>
                             <h2>Verificar Administrador</h2>
                             <label>Código de Verificación:</label>
                             <input
@@ -168,8 +189,12 @@ const AdministradorForm = ({ onNextStep }) => {
                                 onChange={handleInputChange}
                                 required
                             />
-                            <button type="submit">Verificar Código</button>
-                        </form>
+                            <button onClick={handleVerification}>Verificar Código</button>
+
+                            <h3>Consultar estado de la verificación</h3>
+                            <button onClick={checkVerificationStatus}>Consultar estado</button>
+                            <p>{status}</p>
+                        </div>
                     ) : (
                         <form onSubmit={handleSendVerificationEmail}>
                             <h2>Verificar Administrador</h2>
@@ -186,6 +211,7 @@ const AdministradorForm = ({ onNextStep }) => {
                     )}
                 </div>
             )}
+            {message && <p>{message}</p>}
         </div>
     );
 };

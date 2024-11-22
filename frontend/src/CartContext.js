@@ -17,7 +17,7 @@ export const CartProvider = ({ children }) => {
       const fetchCartFromDatabase = async () => {
         try {
           const correoCliente = user.userId; // Aquí obtienes el correo del cliente desde AuthContext
-          const response = await fetch(`http://localhost:5133/api/carrito/buscarCarrito?correoCliente=${correoCliente}`);
+          const response = await fetch(`https://apisql-cwbndbaagqerg7dw.canadacentral-01.azurewebsites.net/api/carrito/buscarCarrito?correoCliente=${correoCliente}`);
           
           if (response.ok) {
             const data = await response.json();
@@ -82,7 +82,7 @@ export const CartProvider = ({ children }) => {
     }));
 
     try {
-      const response = await fetch('http://localhost:5133/api/carrito/actualizar', {
+      const response = await fetch('https://apisql-cwbndbaagqerg7dw.canadacentral-01.azurewebsites.net/api/carrito/actualizar', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

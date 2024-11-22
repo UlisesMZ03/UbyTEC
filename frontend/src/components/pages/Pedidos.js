@@ -16,7 +16,7 @@ const PedidoPage = () => {
       const fetchPedidos = async () => {
         try {
           console.log("Usuario: " + user.userId);
-          const response = await fetch(`http://localhost:5133/api/pedidos/obtenerPorCorreo?correoCliente=${user.userId}`);
+          const response = await fetch(`https://apisql-cwbndbaagqerg7dw.canadacentral-01.azurewebsites.net/api/pedidos/obtenerPorCorreo?correoCliente=${user.userId}`);
           const data = await response.json();
 
           // Verifica si la respuesta tiene los datos esperados

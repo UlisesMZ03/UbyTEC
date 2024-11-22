@@ -5,11 +5,15 @@ using System.Data;
 using System.Collections.Generic;
 using System.Text.Json;
 
+using System.Text;
+
 public class ApplicationDbContext : DbContext
 {
+    private readonly HttpClient _httpClient;
     public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
         : base(options)
     {
+
     }
 
     // Método para insertar comercio
@@ -445,6 +449,64 @@ public async Task<PedidoClienteDto> ObtenerPedidosPorCorreoClienteAsync(string c
 
 
 
+
+
+
+
+
+    // Método para insertar un administrador afiliado
+    public async Task<string> InsertarAdministradorAfiliadoAsync(AdministradorAfiliadoRequest request, string password)
+    {
+        try
+        {
+            await Database.ExecuteSqlRawAsync(
+                "EXEC [dbo].[RegistrarAdministradorAfiliado] @Correo = {0}, @Nombre = {1}, @Apellido1 = {2}, @Apellido2 = {3}, @Usuario = {4}, @Password = {5}, @Provincia = {6}, @Canton = {7}, @Distrito = {8}",
+                request.Correo,
+                request.Nombre,
+                request.Apellido1,
+                request.Apellido2,
+                request.Usuario,
+                password,
+                request.Provincia,
+                request.Canton,
+                request.Distrito
+            );
+            
+            return "Administrador afiliado insertado con éxito.";
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error al insertar el administrador afiliado: {ex.Message}");
+            return "Error al insertar el administrador afiliado.";
+        }
+    }
+
+public async Task<string> InsertarRepartidorAsync(RepartidorRequest request, string password)
+{
+    try
+    {
+        await Database.ExecuteSqlRawAsync(
+            "EXEC [dbo].[RegistrarRepartidor] @Correo = {0}, @Nombre = {1}, @Apellido1 = {2}, @Apellido2 = {3}, @Usuario = {4}, @Password = {5}, @Provincia = {6}, @Canton = {7}, @Distrito = {8}, @Estado = {9}",
+            request.Correo,
+            request.Nombre,
+            request.Apellido1,
+            request.Apellido2,
+            request.Usuario,
+            password,
+            request.Provincia,
+            request.Canton,
+            request.Distrito,
+            request.Estado
+        );
+
+        return "Repartidor registrado con éxito.";
+    }
+    catch (Exception ex)
+    {
+        Console.WriteLine($"Error al insertar el repartidor: {ex.Message}");
+        return "Error al insertar el repartidor.";
+    }
+}
 
 
 }

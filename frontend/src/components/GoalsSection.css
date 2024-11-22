@@ -1,3 +1,117 @@
+/* Estilo general para las opciones */
+.options {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 40px;
+  gap: 30px;
+}
+
+.option-item {
+  background-color: #ffffff;
+  border-radius: 8px;
+  padding: 20px;
+  margin:5%;
+  margin-top: 1%;
+  width: 45%;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+  text-align: center;
+}
+
+.option-item:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.option-item h3 {
+  font-size: 1.6em;
+  margin-bottom: 10px;
+  color: #333;
+}
+
+.option-item p {
+  font-size: 1.1em;
+  color: #666;
+  margin-bottom: 20px;
+}
+
+.option-item button {
+  background-color: #f04e23;
+  color: white;
+  border: none;
+  padding: 12px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1.2rem;
+  transition: background-color 0.3s ease;
+}
+
+.option-item button:hover {
+  background-color: #c03b1d;
+}
+
+/* Responsividad para pantallas medianas y pequeñas */
+@media (max-width: 1024px) {
+  .options {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .option-item {
+    width: 80%;
+    margin-bottom: 20px;
+  }
+
+  .option-item h3 {
+    font-size: 1.4em;
+  }
+
+  .option-item p {
+    font-size: 1em;
+  }
+
+  .option-item button {
+    font-size: 1.1rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .option-item {
+    width: 100%;
+    margin-bottom: 20px;
+  }
+
+  .option-item h3 {
+    font-size: 1.3em;
+  }
+
+  .option-item p {
+    font-size: 0.95em;
+  }
+
+  .option-item button {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .option-item {
+    width: 100%;
+    padding: 15px;
+  }
+
+  .option-item h3 {
+    font-size: 1.2em;
+  }
+
+  .option-item p {
+    font-size: 0.9em;
+  }
+
+  .option-item button {
+    font-size: 1rem;
+  }
+}
 /* Responsividad para las ciudades */
 
 .ubbytec-cities {

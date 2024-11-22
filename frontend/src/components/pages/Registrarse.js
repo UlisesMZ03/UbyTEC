@@ -29,7 +29,7 @@ export default function Registrarse() {
   // Función para enviar los datos a la API
   const handleClick = async () => {
     try {
-      const response = await fetch("https://localhost:5555/api/users", {
+      const response = await fetch("https://apisql-cwbndbaagqerg7dw.canadacentral-01.azurewebsites.net/api/users", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

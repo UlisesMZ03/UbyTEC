@@ -8,7 +8,7 @@ import { Link } from "react-router-dom";
 export default function Login() {
   const navigate = useNavigate();
   const { login } = useAuth(); // Usar la función login del contexto
-  const urlAPI = "http://localhost:5133"; // URL base de la API
+  const urlAPI = "https://apisql-cwbndbaagqerg7dw.canadacentral-01.azurewebsites.net"; // URL base de la API
 
   const [formData, setFormData] = useState({
     correo: '',

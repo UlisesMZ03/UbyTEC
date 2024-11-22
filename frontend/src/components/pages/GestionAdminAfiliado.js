@@ -6,14 +6,12 @@ const GestionEmpleados = () => {
   const [formData, setFormData] = useState({
     correo: '',
     nombre: '',
-    cedulaJuridica: '',
-    numeroSINPE: '',
-    correoAdmin: '',
-    tipoID: '',
-    provincia: '',
-    canton: '',
-    distrito: '',
-    imagen: ''
+    apellido1: '',
+    apellido2: '',
+    usuario: '',
+    direccionProvincia: '',
+    direccionCanton: '',
+    direccionDistrito: '',
   });
   const [direccionProvinciaId, setDireccionProvinciaId] = useState('');
   const [direccionCantonId, setDireccionCantonId] = useState('');
@@ -38,12 +36,12 @@ const GestionEmpleados = () => {
   const handleInputChange = (e) => {
     const { name, value } = e.target;
 
-    if (name === 'provincia') {
+    if (name === 'direccionProvincia') {
       setFormData((prevState) => ({
         ...prevState,
-        provincia: value,
-        canton: '',
-        distrito: ''
+        direccionProvincia: value,
+        direccionCanton: '',
+        direccionDistrito: ''
       }));
       setDireccionProvinciaId(value);
       setDireccionCantonId('');
@@ -76,7 +74,7 @@ const GestionEmpleados = () => {
 
   // Obtener sugerencias de provincias
   useEffect(() => {
-    if (formData.provincia.length > 0) {
+    if (formData.direccionProvincia.length > 0) {
       fetch(`https://ubicaciones.paginasweb.cr/provincias.json`)
         .then((response) => response.json())
         .then((data) => {
@@ -92,24 +90,24 @@ const GestionEmpleados = () => {
           setProvincias([]);
         });
     }
-  }, [formData.provincia]);
+  }, [formData.direccionProvincia]);
 
   // Filtrar provincias según lo que escribe el usuario
   useEffect(() => {
-    if (formData.provincia) {
+    if (formData.direccionProvincia) {
       setFilteredProvincias(
         provincias.filter((provincia) =>
           provincia.nombre
             .toLowerCase()
-            .includes(formData.provincia.toLowerCase())
+            .includes(formData.direccionProvincia.toLowerCase())
         )
       );
     }
-  }, [formData.provincia, provincias]);
+  }, [formData.direccionProvincia, provincias]);
 
   // Obtener sugerencias de cantones
   useEffect(() => {
-    if (direccionProvinciaId && formData.canton.length > 0) {
+    if (direccionProvinciaId && formData.direccionCanton.length > 0) {
       fetch(`https://ubicaciones.paginasweb.cr/provincia/${direccionProvinciaId}/cantones.json`)
         .then((response) => response.json())
         .then((data) => {
@@ -125,24 +123,24 @@ const GestionEmpleados = () => {
           setCantones([]);
         });
     }
-  }, [formData.canton, direccionProvinciaId]);
+  }, [formData.direccionCanton, direccionProvinciaId]);
 
   // Filtrar cantones según lo que escribe el usuario
   useEffect(() => {
-    if (formData.canton) {
+    if (formData.direccionCanton) {
       setFilteredCantones(
         cantones.filter((canton) =>
           canton.nombre
             .toLowerCase()
-            .includes(formData.canton.toLowerCase())
+            .includes(formData.direccionCanton.toLowerCase())
         )
       );
     }
-  }, [formData.canton, cantones]);
+  }, [formData.direccionCanton, cantones]);
 
   // Obtener sugerencias de distritos
   useEffect(() => {
-    if (direccionProvinciaId && direccionCantonId && formData.distrito.length > 0) {
+    if (direccionProvinciaId && direccionCantonId && formData.direccionDistrito.length > 0) {
       fetch(`https://ubicaciones.paginasweb.cr/provincia/${direccionProvinciaId}/canton/${direccionCantonId}/distritos.json`)
         .then((response) => response.json())
         .then((data) => {
@@ -158,20 +156,20 @@ const GestionEmpleados = () => {
           setDistritos([]);
         });
     }
-  }, [formData.distrito, direccionCantonId, direccionProvinciaId]);
+  }, [formData.direccionDistrito, direccionCantonId, direccionProvinciaId]);
 
   // Filtrar distritos según lo que escribe el usuario
   useEffect(() => {
-    if (formData.distrito) {
+    if (formData.direccionDistrito) {
       setFilteredDistritos(
         distritos.filter((distrito) =>
           distrito.nombre
             .toLowerCase()
-            .includes(formData.distrito.toLowerCase())
+            .includes(formData.direccionDistrito.toLowerCase())
         )
       );
     }
-  }, [formData.distrito, distritos]);
+  }, [formData.direccionDistrito, distritos]);
 
   // Validaciones antes de agregar o actualizar empleado
   const validateForm = () => {
@@ -185,23 +183,20 @@ const GestionEmpleados = () => {
       errors.nombre = 'El nombre es obligatorio.';
     }
 
-    if (!formData.cedulaJuridica) {
-      errors.cedulaJuridica = 'La cédula jurídica es obligatoria.';
+    if (!formData.apellido1) {
+      errors.apellido1 = 'El primer apellido es obligatorio.';
     }
 
-    if (!formData.numeroSINPE) {
-      errors.numeroSINPE = 'El número SINPE es obligatorio.';
+    if (!formData.apellido2) {
+      errors.apellido2 = 'El segundo apellido es obligatorio.';
     }
 
-    if (!formData.correoAdmin) {
-      errors.correoAdmin = 'El correo del administrador es obligatorio.';
+    if (!formData.usuario || formData.usuario.length < 4) {
+      errors.usuario =
+        'El nombre de usuario debe tener al menos 4 caracteres y solo puede contener letras y números.';
     }
 
-    if (!formData.tipoID) {
-      errors.tipoID = 'El tipo de identificación es obligatorio.';
-    }
-
-    if (!formData.provincia || !formData.canton || !formData.distrito) {
+    if (!formData.direccionProvincia || !formData.direccionCanton || !formData.direccionDistrito) {
       errors.direccion =
         'Debe completar todos los campos de dirección (provincia, cantón y distrito).';
     }
@@ -225,14 +220,12 @@ const GestionEmpleados = () => {
     setFormData({
       correo: '',
       nombre: '',
-      cedulaJuridica: '',
-      numeroSINPE: '',
-      correoAdmin: '',
-      tipoID: '',
-      provincia: '',
-      canton: '',
-      distrito: '',
-      imagen: ''
+      apellido1: '',
+      apellido2: '',
+      usuario: '',
+      direccionProvincia: '',
+      direccionCanton: '',
+      direccionDistrito: '',
     });
     setDireccionProvinciaId('');
     setDireccionCantonId('');
@@ -269,14 +262,12 @@ const GestionEmpleados = () => {
     setFormData({
       correo: '',
       nombre: '',
-      cedulaJuridica: '',
-      numeroSINPE: '',
-      correoAdmin: '',
-      tipoID: '',
-      provincia: '',
-      canton: '',
-      distrito: '',
-      imagen: ''
+      apellido1: '',
+      apellido2: '',
+      usuario: '',
+      direccionProvincia: '',
+      direccionCanton: '',
+      direccionDistrito: '',
     });
     setDireccionProvinciaId('');
     setDireccionCantonId('');
@@ -293,12 +284,43 @@ const GestionEmpleados = () => {
 
   return (
     <div className="gestion-empleados">
-      <h2>Gestión de Comercios</h2>
+      <h2>Gestión de Administradores de Comercios</h2>
       <div className="form-container">
+        <div>
+          <label>Nombre Completo</label>
+          <input
+            type="text"
+            name="nombre"
+            placeholder="Nombre"
+            value={formData.nombre}
+            onChange={handleInputChange}
+            style={{ borderColor: errors.nombre ? 'red' : '' }}
+          />
+          <input
+            type="text"
+            name="apellido1"
+            placeholder="Primer Apellido"
+            value={formData.apellido1}
+            onChange={handleInputChange}
+            style={{ borderColor: errors.apellido1 ? 'red' : '' }}
+          />
+          <input
+            type="text"
+            name="apellido2"
+            placeholder="Segundo Apellido"
+            value={formData.apellido2}
+            onChange={handleInputChange}
+            style={{ borderColor: errors.apellido2 ? 'red' : '' }}
+          />
+          {errors.nombre && <small className="error-message">{errors.nombre}</small>}
+          {errors.apellido1 && <small className="error-message">{errors.apellido1}</small>}
+          {errors.apellido2 && <small className="error-message">{errors.apellido2}</small>}
+        </div>
+
         <div>
           <label>Correo</label>
           <input
-            type="text"
+            type="email"
             name="correo"
             placeholder="Correo"
             value={formData.correo}
@@ -309,78 +331,13 @@ const GestionEmpleados = () => {
         </div>
 
         <div>
-          <label>Nombre</label>
-          <input
-            type="text"
-            name="nombre"
-            placeholder="Nombre"
-            value={formData.nombre}
-            onChange={handleInputChange}
-            style={{ borderColor: errors.nombre ? 'red' : '' }}
-          />
-          {errors.nombre && <small className="error-message">{errors.nombre}</small>}
-        </div>
-
-        <div>
-          <label>Cédula Jurídica</label>
-          <input
-            type="text"
-            name="cedulaJuridica"
-            placeholder="Cédula Jurídica"
-            value={formData.cedulaJuridica}
-            onChange={handleInputChange}
-            style={{ borderColor: errors.cedulaJuridica ? 'red' : '' }}
-          />
-          {errors.cedulaJuridica && <small className="error-message">{errors.cedulaJuridica}</small>}
-        </div>
-
-        <div>
-          <label>Número SINPE</label>
-          <input
-            type="text"
-            name="numeroSINPE"
-            placeholder="Número SINPE"
-            value={formData.numeroSINPE}
-            onChange={handleInputChange}
-            style={{ borderColor: errors.numeroSINPE ? 'red' : '' }}
-          />
-          {errors.numeroSINPE && <small className="error-message">{errors.numeroSINPE}</small>}
-        </div>
-
-        <div>
-          <label>Correo Admin</label>
-          <input
-            type="text"
-            name="correoAdmin"
-            placeholder="Correo Admin"
-            value={formData.correoAdmin}
-            onChange={handleInputChange}
-            style={{ borderColor: errors.correoAdmin ? 'red' : '' }}
-          />
-          {errors.correoAdmin && <small className="error-message">{errors.correoAdmin}</small>}
-        </div>
-
-        <div>
-          <label>Tipo de ID</label>
-          <input
-            type="text"
-            name="tipoID"
-            placeholder="Tipo de ID"
-            value={formData.tipoID}
-            onChange={handleInputChange}
-            style={{ borderColor: errors.tipoID ? 'red' : '' }}
-          />
-          {errors.tipoID && <small className="error-message">{errors.tipoID}</small>}
-        </div>
-
-        <div>
           <label>Dirección</label>
           <div className="dropdown-container" ref={provinceRef}>
             <input
               type="text"
-              name="provincia"
+              name="direccionProvincia"
               placeholder="Provincia"
-              value={formData.provincia}
+              value={formData.direccionProvincia}
               onChange={handleInputChange}
               onFocus={() => setIsProvinceDropdownOpen(true)}
               style={{ borderColor: errors.direccion ? 'red' : '' }}
@@ -394,7 +351,7 @@ const GestionEmpleados = () => {
                     onClick={() => {
                       setFormData((prevState) => ({
                         ...prevState,
-                        provincia: provincia.nombre,
+                        direccionProvincia: provincia.nombre,
                       }));
                       setDireccionProvinciaId(provincia.id);
                       setIsProvinceDropdownOpen(false);
@@ -410,9 +367,9 @@ const GestionEmpleados = () => {
           <div className="dropdown-container" ref={cantonRef}>
             <input
               type="text"
-              name="canton"
+              name="direccionCanton"
               placeholder="Cantón"
-              value={formData.canton}
+              value={formData.direccionCanton}
               onChange={handleInputChange}
               onFocus={() => setIsCantonDropdownOpen(true)}
             />
@@ -424,7 +381,7 @@ const GestionEmpleados = () => {
                     onClick={() => {
                       setFormData((prevState) => ({
                         ...prevState,
-                        canton: canton.nombre,
+                        direccionCanton: canton.nombre,
                       }));
                       setDireccionCantonId(canton.id);
                       setIsCantonDropdownOpen(false);
@@ -440,9 +397,9 @@ const GestionEmpleados = () => {
           <div className="dropdown-container" ref={distritoRef}>
             <input
               type="text"
-              name="distrito"
+              name="direccionDistrito"
               placeholder="Distrito"
-              value={formData.distrito}
+              value={formData.direccionDistrito}
               onChange={handleInputChange}
               onFocus={() => setIsDistritoDropdownOpen(true)}
             />
@@ -454,7 +411,7 @@ const GestionEmpleados = () => {
                     onClick={() => {
                       setFormData((prevState) => ({
                         ...prevState,
-                        distrito: distrito.nombre,
+                        direccionDistrito: distrito.nombre,
                       }));
                       setDireccionDistritoId(distrito.id);
                       setIsDistritoDropdownOpen(false);
@@ -469,30 +426,32 @@ const GestionEmpleados = () => {
         </div>
 
         <div>
-          <label>Imagen</label>
+          <label>Nombre De Usuario</label>
           <input
             type="text"
-            name="imagen"
-            placeholder="Imagen URL"
-            value={formData.imagen}
+            name="usuario"
+            placeholder="Usuario"
+            value={formData.usuario}
             onChange={handleInputChange}
+            style={{ borderColor: errors.usuario ? 'red' : '' }}
           />
+          {errors.usuario && <small className="error-message">{errors.usuario}</small>}
         </div>
 
         {editing ? (
-          <button onClick={handleUpdateEmployee}>Actualizar Comercio</button>
+          <button onClick={handleUpdateEmployee}>Actualizar Empleado</button>
         ) : (
-          <button onClick={handleAddEmployee}>Agregar Comercio</button>
+          <button onClick={handleAddEmployee}>Agregar Empleado</button>
         )}
       </div>
 
       <div className="empleados-list">
-        <h3>Lista de Comercios</h3>
+        <h3>Lista de Empleados</h3>
         <ul>
           {empleados.map((empleado, index) => (
             <li key={index}>
               <span>
-                {empleado.nombre} - {empleado.cedulaJuridica} - {empleado.numeroSINPE}
+                {empleado.nombre} {empleado.apellido1} {empleado.apellido2} - {empleado.correo}
               </span>
               <button onClick={() => handleEditEmployee(index)}>Editar</button>
               <button onClick={() => handleDeleteEmployee(index)}>Eliminar</button>

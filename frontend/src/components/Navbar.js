@@ -78,87 +78,88 @@ function Navbar() {
 
   return (
     <nav className={`navbar ${scrolled ? 'scrolled' : ''}`}>
-  <div className="navbar-container">
-    <div className="navbar-logo" onClick={handleLogoClick}>
-      UBYTEC
-    </div>
-    {/* El ícono del menú solo aparecerá en pantallas pequeñas */}
-    {loggedIn && (
-      <div className="menu-icon" onClick={toggleMenu}>
-        <i className="fas fa-bars"></i> {/* Ícono del menú */}
-      </div>
-    )}
-
-    {loggedIn ? (
-      <ul className={`nav-menu ${menuActive ? 'active' : ''}`}>
-        <li>
-          <Link to="/pedidos" className="nav-links special-link">
-            Pedidos
-          </Link>
-        </li>
-
-        {/* Carrito y perfil solo visibles cuando el usuario está logueado */}
-        <li className="nav-item profile-cart-container">
-          <div className="cart-menu">
-            <div className="cart-icon" onClick={toggleCartDropdown}>
-              <i className="fas fa-shopping-cart"></i>
-              {cart.length > 0 && <span className="cart-count">{cart.length}</span>}
-            </div>
-            {showCartDropdown && <div className="cart-overlay" onClick={toggleCartDropdown}></div>}
-            <div className={`cart-dropdown ${showCartDropdown ? 'active' : ''}`}>
-              <div className="cart-title">Carrito de compras</div>
-              {cart.length === 0 ? (
-                <p className="dropdown-item">El carrito está vacío</p>
-              ) : (
-                <div className="cart-dropdown-wrapper">
-                  <div className="cart-dropdown-items">
-                    {cart.map((item) => (
-                      <div key={item.productoID} className="cart-item">
-                        <div className="cart-item-name">{item.nombreProducto}</div>
-                        <div className="cart-item-quantity">
-                          <input
-                            type="number"
-                            value={item.cantidad}
-                            min="1"
-                            onChange={(e) => handleQuantityChange(item.productoID, parseInt(e.target.value))}
-                            className="cart-quantity-input"
-                          />
-                        </div>
-                        <div className="cart-item-price">₡{item.precio}</div>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              )}
-              <div className="cart-total">
-                Total: ₡{cart.reduce((total, item) => total + item.precio * item.cantidad, 0)}
-              </div>
-              <Link to="/carrito" className="view-cart-button">
-                Ver carrito
+      <div className="navbar-container">
+        <div className="navbar-logo" onClick={handleLogoClick}>
+          UBYTEC
+        </div>
+        {loggedIn && ( // Solo mostrar el ícono de menú si el usuario está logueado
+          <div className="menu-icon" onClick={toggleMenu}> 
+            <i className="fas fa-bars"></i> {/* Ícono del menú */}
+          </div>
+        )}
+        {loggedIn ? (
+          <ul className={`nav-menu ${menuActive ? 'active' : ''}`}>
+            <li>
+              <Link to="/pedidos" className="nav-links special-link">
+                Pedidos
               </Link>
-            </div>
-          </div>
+            </li>
 
-          {/* Menú de perfil con opciones */}
-          <div className="profile-menu">
-            <div className="profile-icon" onClick={toggleDropdown}>
-              <i className="fas fa-user-circle"></i>
-            </div>
-            <div className={`dropdown-menu ${showDropdown ? 'active' : ''}`}>
-              <Link to="/profile" className="dropdown-item">Mi Perfil</Link>
-              <Link to="/" className="dropdown-item" onClick={logout}>Cerrar Sesión</Link>
-            </div>
-          </div>
-        </li>
-      </ul>
-    ) : (
-      <Link to="/login">
-        <button className="btn-login">INICIA SESIÓN</button>
-      </Link>
-    )}
-  </div>
-</nav>
+            <li className="nav-item profile-cart-container">
+              <div className="cart-menu">
+                <div className="cart-icon" onClick={toggleCartDropdown}>
+                  <i className="fas fa-shopping-cart"></i>
+                  {cart.length > 0 && <span className="cart-count">{cart.length}</span>}
+                </div>
+                {showCartDropdown && <div className="cart-overlay" onClick={toggleCartDropdown}></div>}
+                <div className={`cart-dropdown ${showCartDropdown ? 'active' : ''}`}>
+                  <div className="cart-title">
+                    Carrito de compras
+                  </div>
+                  {cart.length === 0 ? (
+                    <p className="dropdown-item">El carrito está vacío</p>
+                  ) : (
+                    <div className="cart-dropdown-wrapper">
+                      <div className="cart-dropdown-items">
+                        {cart.map((item) => (
+                          <div key={item.productoID} className="cart-item">
+                            <div className="cart-item-name">{item.nombreProducto}</div>
+                            <div className="cart-item-quantity">
+                              <input 
+                                type="number" 
+                                value={item.cantidad} 
+                                min="1" 
+                                onChange={(e) => handleQuantityChange(item.productoID, parseInt(e.target.value))}
+                                className="cart-quantity-input"
+                              />
+                            </div>
+                            <div className="cart-item-price">₡{item.precio}</div>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+                  <div className="cart-total">
+                    Total: ₡{cart.reduce((total, item) => total + item.precio * item.cantidad, 0)}
+                  </div>
+                  <Link to="/carrito" className="view-cart-button">
+                    Ver carrito
+                  </Link>
+                </div>
+              </div>
 
+              <div className="profile-menu">
+                <div className="profile-icon" onClick={toggleDropdown}>
+                  <i className="fas fa-user-circle"></i>
+                </div>
+                <div className={`dropdown-menu ${showDropdown ? 'active' : ''}`}>
+                  <Link to="/profile" className="dropdown-item">
+                    Mi Perfil
+                  </Link>
+                  <Link to="/" className="dropdown-item" onClick={logout}>
+                    Cerrar Sesión
+                  </Link>
+                </div>
+              </div>
+            </li>
+          </ul>
+        ) : (
+          <Link to="/login">
+            <button className="btn-login">INICIA SESIÓN</button>
+          </Link>
+        )}
+      </div>
+    </nav>
   );
 }
 

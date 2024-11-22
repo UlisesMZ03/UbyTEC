@@ -24,7 +24,7 @@ const CarritoPage = () => {
   const eliminarProducto = async (productoID) => {
     // Eliminar producto del carrito en la base de datos
     try {
-      const response = await fetch('http://localhost:5133/api/carrito/eliminar', {
+      const response = await fetch('https://apisql-cwbndbaagqerg7dw.canadacentral-01.azurewebsites.net/api/carrito/eliminar', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

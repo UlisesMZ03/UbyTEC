@@ -7,6 +7,7 @@ import AdminDashboard from "./AdminDashboard";
 import { useAuth } from "../../AuthContext"; // Importa el hook useAuth
 import HeroSectionAdmin from "../HeroSectionAdmin";
 import HeroSectionNL from "../HeroSectionNL";
+import GoalsSectionNL from "../GoalsSectionNL"
 function Home() {
   const { user } = useAuth(); // Obtén el usuario desde el AuthContext
 
@@ -28,7 +29,7 @@ function Home() {
         <>
         
         <HeroSectionNL /> 
-        <GoalsSection />
+        <GoalsSectionNL />
         </>
       )}
     </>

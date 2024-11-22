@@ -26,6 +26,9 @@ import PedidoPage from "./components/pages/Pedidos";
 import AgregarComercio from "./components/pages/AgregarComercio";
 import VerificationForm from "./components/pages/VerificationForm";
 import Verify from "./components/pages/Verify";
+import RegistrarAfiliado from "./components/pages/RegistrarAfiliado";
+import RegistrarRepartidor from "./components/pages/RegistrarRepartidor";
+
 function App() {
   return (
     <AuthProvider>
@@ -39,6 +42,9 @@ function App() {
                 <Route path="/login" element={<Login />} />
                 <Route path="/registrarse" element={<Registrarse />} />
                 <Route path="/reg-comercio" element={<AgregarComercio />} />
+                <Route path="/reg-afiliado" element={<RegistrarAfiliado />} />
+                <Route path="/reg-repartidor" element={<RegistrarRepartidor />} />
+            
                 {/* Ruta protegida para Admin */}
                 <Route path="/admin-dashboard" element={<PrivateRoute element={<AdminDashboard />} role="admin" />} />
                 <Route path="/verify" element={<Verify />} />

@@ -1,0 +1,197 @@
+.app-container {
+    font-family: Arial, sans-serif;
+    padding: 20px;
+  }
+  
+  /* Estilos para los radio button-afiliados y etiquetas */
+  .form-radio-container {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+  }
+  
+  .form-radio-container label {
+    font-size: 16px;
+    display: flex;
+    
+    align-items: center; /* Alineación correcta del radio button-afiliado con el texto */
+    margin-bottom: 10px;
+  }
+  
+  .form-radio-container input[type="radio"] {
+    margin-right: 10px;
+    width: 20px; /* Tamaño más grande para el radio button-afiliado */
+    height: 20px; /* Tamaño más grande para el radio button-afiliado */
+    accent-color: #f04e23; /* Cambiar el color de los radio button-afiliados */
+  }
+  
+  .form-radio-container .radio-option {
+    margin-bottom: 15px;
+  }
+  
+  .form-radio-container .radio-option:hover {
+    cursor: pointer;
+    color: #f04e23;
+    font-weight: bold;
+  }
+  
+  .form-radio-container input[type="radio"]:checked {
+    background-color: #f04e23;
+  }
+  
+  .form-radio-container input[type="radio"]:focus {
+    outline: none; /* Elimina el borde al hacer focus en el radio button-afiliado */
+    box-shadow: 0 0 5px rgba(240, 78, 35, 0.5); /* Añadir sombra al foco */
+  }
+  
+  /* Estilos para el nav menu */
+  .nav-menu-afiliado {
+    background-color: white;
+    padding: 10px 0;
+    margin-left: 1%;
+  }
+  
+  .nav-menu-afiliado ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    justify-content: flex-start; /* Alineación a la izquierda */
+  }
+  
+  .nav-menu-afiliado li {
+    padding: 10px 20px;
+    color: #000;
+    cursor: pointer;
+    transition: border-bottom 0.3s, color 0.3s;
+  }
+  
+  .nav-menu-afiliado li:hover {
+    color: #f04e23;
+  }
+  
+  .nav-menu-afiliado li.active {
+    border-bottom: 3px solid #f04e23;
+    font-weight: bold;
+  }
+  
+  /* Estilos para el contenido */
+
+  
+  form {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  form div {
+    margin-bottom: 10px;
+  }
+  
+  input {
+    padding: 8px;
+    margin-top: 5px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+  }
+  
+  button-afiliado {
+    background-color: #f04e23;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  button-afiliado:hover {
+    background-color: #c03b1d;
+  }
+
+
+  /* Estilos para el contenedor de finalizar */
+.finalizar-container {
+    padding: 20px;
+    background-color: #f4f4f4;
+    border-radius: 5px;
+  }
+  
+  .finalizar-container h3 {
+    color: #333;
+    margin-bottom: 10px;
+  }
+  
+  .finalizar-container h5 {
+    color: #666;
+    margin-bottom: 10px;
+  }
+  
+  /* Estilos para la tabla de datos en columnas */
+  .finalizar-grid {
+    display: grid;
+    grid-template-columns: 1fr 2fr; /* 1fr para las etiquetas y 2fr para los valores */
+    gap: 10px 20px; /* Espaciado entre las filas y columnas */
+    font-size: 16px;
+  }
+  
+  .finalizar-grid .label {
+    font-weight: bold;
+    color: #333;
+  }
+  
+  .finalizar-grid .value {
+    color: #666;
+  }
+  
+  /* Estilos adicionales para mejorar la legibilidad */
+  .finalizar-grid div {
+    padding: 5px;
+    border-bottom: 1px solid #ccc; /* Línea divisoria entre las filas */
+  }
+  
+  .finalizar-grid .value {
+    color: #007bff;
+  }
+  
+  .finalizar-grid .label {
+    color: #333;
+  }
+  .verify-button-afiliado {
+    background-color: #f04e23; /* Fondo predeterminado */
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+}
+
+.verify-button-afiliado:disabled {
+    background-color: #ffffff; /* Fondo gris cuando está deshabilitado */
+    cursor: not-allowed;
+    color: #f04e23;
+}
+
+.verify-button-afiliado .verificando {
+    background-color: white; /* Fondo blanco cuando se verifica */
+    color: #3498db; /* Texto azul para contrastar */
+}
+.verify-button-afiliado.aceptado {
+    background-color: white; /* Fondo blanco cuando está verificado */
+    color: green; /* Texto verde cuando está verificado */
+}
+.spinner {
+    border: 4px solid #f3f3f3;
+    border-top: 4px solid #c03b1d;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    margin-left: 10px;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+

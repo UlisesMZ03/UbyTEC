@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import "./GoalsSection.css";
 import citiesData from "./data/cities.json"; // Asegúrate de que la ruta sea correcta
 
-function GoalsSection() {
+function GoalsSection({ userRole }) {
   const [cities, setCities] = useState([]);
 
   useEffect(() => {
@@ -19,6 +19,21 @@ function GoalsSection() {
           </div>
         ))}
       </div>
+
+      {userRole === "" && (
+        <div className="options">
+          <div className="option-item">
+            <h3>¿Tienes un comercio?</h3>
+            <p>Afíliate para que tu comercio esté disponible en nuestra plataforma.</p>
+            <button>Afiliar mi comercio</button>
+          </div>
+          <div className="option-item">
+            <h3>¿Te interesa hacer entregas?</h3>
+            <p>Únete como socio repartidor y empieza a generar ganancias.</p>
+            <button>Unirme como socio repartidor</button>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

@@ -7,7 +7,7 @@ function DeliveryHome() {
   const [restaurants, setRestaurants] = useState([]);
   const [loading, setLoading] = useState(true);
   const [errorMessage, setErrorMessage] = useState("");
-  const urlAPI = "http://localhost:5133"; // URL base de la API
+  const urlAPI = "https://apisql-cwbndbaagqerg7dw.canadacentral-01.azurewebsites.net"; // URL base de la API
 
   // Recupera el restaurante seleccionado de localStorage cuando se monta el componente
   useEffect(() => {

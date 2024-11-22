@@ -9,7 +9,7 @@ function RestaurantDetail({ restaurante, onBack }) {
   const [error, setError] = useState(null); // Estado para manejar errores
   const [categorias, setCategorias] = useState([]); // Estado para almacenar las categorías
   const [categoriaSeleccionada, setCategoriaSeleccionada] = useState("todos"); // Estado para la categoría seleccionada
-  const urlAPI = "http://localhost:5133"; // URL base de la API
+  const urlAPI = "https://apisql-cwbndbaagqerg7dw.canadacentral-01.azurewebsites.net"; // URL base de la API
 
   useEffect(() => {
     // Función para manejar el retroceso en el navegador

@@ -92,7 +92,7 @@ const Checkout = () => {
       console.log('Datos del pedido:', JSON.stringify(pedidoData, null, 2));
   
       try {
-        const response = await fetch('http://localhost:5133/api/pedidos/realizar', {
+        const response = await fetch('https://apisql-cwbndbaagqerg7dw.canadacentral-01.azurewebsites.net/api/pedidos/realizar', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -110,7 +110,7 @@ const Checkout = () => {
           setCart(productosRestantes); // Actualizar el carrito en el estado local
   
           // Eliminar el carrito en la base de datos haciendo una solicitud al API
-          const eliminarCarritoResponse = await fetch(`http://localhost:5133/api/carrito/eliminar`, {
+          const eliminarCarritoResponse = await fetch(`https://apisql-cwbndbaagqerg7dw.canadacentral-01.azurewebsites.net/api/carrito/eliminar`, {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',

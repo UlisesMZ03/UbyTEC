@@ -8,8 +8,11 @@ import './AdminDashboard.css';
 import GoalsSection from '../GoalsSection';
 import GestionAdminEmpl from './GestionAdminEmpl';
 import GestionAfiliados from './GestionAfiliados';
+import GestionAdminAfiliado from './GestionAdminAfiliado'
+import GestionRepartidores from './GestionRepartidores';
+import GestionTiposDeComercio from './GestionTipoComercio';
 const Sidebar = ({ sections, activeSection, setActiveSection, isOpen, toggle }) => (
-  <div className={`sidebar bg-light border-right ${isOpen ? 'is-open' : ''}`} style={{ minHeight: '100vh' }}>
+  <div className={`sidebar  ${isOpen ? 'is-open' : ''}`} style={{ minHeight: '100vh' }}>
     <div className="sidebar-header"></div>
     <Nav className="flex-column pt-2">
       {sections.map((section) => (
@@ -33,7 +36,7 @@ export default function AdminDashboard() {
   const sections = [
     'Gestión de Administradores/Empleados',
     'Gestión de Afiliados',
-    'Gestión de Administradores del Comercio Afiliado',
+    'Gestión de Administradores de Comercios',
     'Administración de Afiliaciones',
     'Gestión de Tipos de Comercio',
     'Gestión de Repartidores',
@@ -128,43 +131,15 @@ export default function AdminDashboard() {
         toggle={toggleSidebar} 
       />
 
-      <div className="content p-4">
-        <h1 className="dashboard-title">Dashboard del Administrador</h1>
+      <div className="content-adminDashboard p-4">
+       
 
         {/* Contenido basado en la sección activa */}
         {activeSection === 'Gestión de Administradores/Empleados' && <GestionAdminEmpl />}
-
         {activeSection === 'Gestión de Afiliados' && <GestionAfiliados />}
-        {activeSection === 'Gestión de Tipos de Comercio' && (
-          <section className="section">
-            <h2>Gestión de Tipos de Comercio</h2>
-            <form onSubmit={handleAddTypeOfCommerce}>
-              <div className="form-group">
-                <label>Nombre del Tipo de Comercio</label>
-                <input 
-                  type="text" 
-                  className="form-control" 
-                  value={newTypeOfCommerce.nombre} 
-                  onChange={(e) => setNewTypeOfCommerce({ ...newTypeOfCommerce, nombre: e.target.value })} 
-                />
-              </div>
-              <div className="form-group">
-                <label>Descripción</label>
-                <input 
-                  type="text" 
-                  className="form-control" 
-                  value={newTypeOfCommerce.descripcion} 
-                  onChange={(e) => setNewTypeOfCommerce({ ...newTypeOfCommerce, descripcion: e.target.value })} 
-                />
-              </div>
-              <button type="submit" className="btn btn-primary">Agregar Tipo de Comercio</button>
-            </form>
-
-            {/* Aquí agregamos el componente GoalsSection */}
-            <GestionAdminEmpl />
-          </section>
-        )}
-
+        {activeSection === 'Gestión de Administradores de Comercios' && <GestionAdminAfiliado/>}
+        {activeSection === 'Gestión de Repartidores' && <GestionRepartidores/>}
+        {activeSection === 'Gestión de Tipos de Comercio' && <GestionTiposDeComercio/>}
         {/* Implementar más secciones conforme a las demás funcionalidades */}
       </div>
     </div>

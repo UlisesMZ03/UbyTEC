@@ -1,7 +1,7 @@
 .gestion-empleados {
     font-family: Arial, sans-serif;
-    padding: 20px;
-    background-color: #f4f4f4;
+    padding: 0px;
+    background-color: #ffffff;
   }
   
   h2 {
@@ -89,7 +89,7 @@
     width: 100%; /* Ocupa el ancho completo del campo de texto */
     background-color: white;
     border: 1px solid #ccc;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Agregar sombra */
+    box-shadow: 0 4px 8px rgba(255, 255, 255, 0.2); /* Agregar sombra */
     max-height: 200px; /* Limitar la altura máxima */
     overflow-y: auto; /* Hacer scroll si hay muchas sugerencias */
     z-index: 9999; /* Asegura que las sugerencias estén por encima de otros elementos */

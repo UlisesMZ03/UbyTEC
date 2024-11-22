@@ -1,0 +1,82 @@
+/* Estilos generales para el formulario */
+.app-container {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 20px;
+}
+
+.nav-menu-afiliado {
+  background-color: white;
+  padding: 10px 0;
+}
+
+.nav-menu-afiliado ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  justify-content: flex-start;
+}
+
+.nav-menu-afiliado li {
+  padding: 10px 20px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.nav-menu-afiliado li:hover {
+  font-weight: bold;
+  color: #f04e23;
+}
+
+.nav-menu-afiliado li.active {
+  border-bottom: 3px solid #f04e23;
+  font-weight: bold;
+}
+
+.content {
+  padding: 20px;
+  margin-top: 20px;
+  background-color: #ffffff;
+  border-radius: 8px;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+.form-group label {
+  display: block;
+  font-size: 16px;
+  margin-bottom: 5px;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 8px;
+  margin-top: 5px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+button-afiliado {
+  background-color: #f04e23;
+  color: white;
+  padding: 12px;
+  border: none;
+  font-size: 1.1rem;
+  cursor: pointer;
+  border-radius: 5px;
+  width: 100%;
+  margin-top: 20px;
+}
+
+button-afiliado:hover {
+  background-color: #c03b1d;
+}
+
+.finalizar-container {
+  background-color: #f4f4f4;
+  padding: 20px;
+  border-radius: 5px;
+}

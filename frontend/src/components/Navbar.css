@@ -1,4 +1,5 @@
 
+
 @font-face {
   font-family: 'UberMoveMedium';
   src: url('../components/fonts/UberMoveMedium.otf') format('opentype');
@@ -422,7 +423,6 @@
   .menu-icon {
     display: block;
   }
-  
 }
 
 @media screen and (min-width: 961px) {
