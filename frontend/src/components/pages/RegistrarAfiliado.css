@@ -3,7 +3,7 @@
     padding: 20px;
   }
   
-  /* Estilos para los radio button-afiliados y etiquetas */
+  /* Estilos para los radio buttons y etiquetas */
   .form-radio-container {
     display: flex;
     flex-direction: column;
@@ -14,15 +14,15 @@
     font-size: 16px;
     display: flex;
     
-    align-items: center; /* Alineación correcta del radio button-afiliado con el texto */
+    align-items: center; /* Alineación correcta del radio button con el texto */
     margin-bottom: 10px;
   }
   
   .form-radio-container input[type="radio"] {
     margin-right: 10px;
-    width: 20px; /* Tamaño más grande para el radio button-afiliado */
-    height: 20px; /* Tamaño más grande para el radio button-afiliado */
-    accent-color: #f04e23; /* Cambiar el color de los radio button-afiliados */
+    width: 20px; /* Tamaño más grande para el radio button */
+    height: 20px; /* Tamaño más grande para el radio button */
+    accent-color: #f04e23; /* Cambiar el color de los radio buttons */
   }
   
   .form-radio-container .radio-option {
@@ -40,7 +40,7 @@
   }
   
   .form-radio-container input[type="radio"]:focus {
-    outline: none; /* Elimina el borde al hacer focus en el radio button-afiliado */
+    outline: none; /* Elimina el borde al hacer focus en el radio button */
     box-shadow: 0 0 5px rgba(240, 78, 35, 0.5); /* Añadir sombra al foco */
   }
   
@@ -76,7 +76,21 @@
   }
   
   /* Estilos para el contenido */
-
+  .content {
+    padding: 20px;
+    margin-left: 1%;
+    background-color: #ffffff;
+    border-radius: 0px;
+    max-width: 50%;
+  }
+  
+  .content h2 {
+    color: #333;
+  }
+  
+  .content p {
+    color: #666;
+  }
   
   form {
     display: flex;
@@ -94,7 +108,7 @@
     border: 1px solid #ccc;
   }
   
-  button-afiliado {
+  button {
     background-color: #f04e23;
     color: white;
     padding: 10px;
@@ -103,7 +117,7 @@
     cursor: pointer;
   }
   
-  button-afiliado:hover {
+  button:hover {
     background-color: #c03b1d;
   }
 
@@ -155,7 +169,7 @@
   .finalizar-grid .label {
     color: #333;
   }
-  .verify-button-afiliado {
+  .verify-button {
     background-color: #f04e23; /* Fondo predeterminado */
     color: white;
     padding: 10px 20px;
@@ -166,17 +180,17 @@
     align-items: center;
 }
 
-.verify-button-afiliado:disabled {
+.verify-button:disabled {
     background-color: #ffffff; /* Fondo gris cuando está deshabilitado */
     cursor: not-allowed;
     color: #f04e23;
 }
 
-.verify-button-afiliado .verificando {
+.verify-button .verificando {
     background-color: white; /* Fondo blanco cuando se verifica */
     color: #3498db; /* Texto azul para contrastar */
 }
-.verify-button-afiliado.aceptado {
+.verify-button.aceptado {
     background-color: white; /* Fondo blanco cuando está verificado */
     color: green; /* Texto verde cuando está verificado */
 }

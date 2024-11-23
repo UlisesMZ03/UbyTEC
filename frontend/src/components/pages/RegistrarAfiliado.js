@@ -42,7 +42,7 @@ const handleSubmit = async (e) => {
     // Primero, enviamos el correo de verificación
     if (!isCreatingAccount) {
       try {
-        const response = await axios.post('http://localhost:3001/send-verification', { email: correo });
+        const response = await axios.post('https://miappnode.azurewebsites.net/send-verification', { email: correo });
         console.log("Correo de verificación enviado con éxito a " + correo);
         setMessage("Correo de verificación enviado con éxito a " + correo);
         checkVerificationStatus();
@@ -59,7 +59,7 @@ if (isCreatingAccount) {
     console.log("se envio el form");
     try {
       // Llamada al API para registrar al administrador
-      const response = await axios.post('http://localhost:5133/api/comercios/registrarAdmin', {
+      const response = await axios.post('https://sqlapi-hshshrdbaba8gbgd.canadacentral-01.azurewebsites.net/api/comercios/registrarAdmin', {
         correo: datosAdministrador.usuario,
         nombre: datosAdministrador.nombre,
         apellido1: datosAdministrador.apellido1,
@@ -100,7 +100,7 @@ if (isCreatingAccount) {
   const checkVerificationStatus = async () => {
     if (!isCreatingAccount){
     try {
-      const response = await axios.get(`http://localhost:3001/check-verification?email=${correo}`);
+      const response = await axios.get(`https://miappnode.azurewebsites.net/check-verification?email=${correo}`);
       console.log(response.data);
 
       if (response.data && response.data.includes && response.data.includes("accepted")) {
@@ -445,24 +445,29 @@ const AgregarDatosComercio = ({ correoAdmin, setDatosComercio, datosComercio }) 
 const Finalizar = ({ datosAdministrador, datosComercio, isCreatingAccount, email }) => {
     // Local state to manage the verification status
     const [verificationStatus, setVerificationStatus] = useState(null);
-  
+    const [canFinalize, setCanFinalize] = useState(false); // State to manage the ability to finalize
+
     // Determine which email to display based on the selected option
     const correoAdministrador = isCreatingAccount ? datosAdministrador.correoReg : email;
   
     const checkVerificationStatus = async () => {
-      try {
-        const response = await axios.get(`http://localhost:3001/check-verification?email=${correoAdministrador}`);
-        console.log(response.data); // Verifies the response
-  
-        if (response.data && response.data.includes && response.data.includes("accepted")) {
-          setVerificationStatus("accepted");
-        } else {
-          setVerificationStatus("pending");
+        try {
+          // Make API call to check the verification status
+          const response = await axios.get(`http://miappnode.azurewebsites.net/check-verification?email=${correoAdministrador}`);
+          console.log(response.data); // Verifies the response
+    
+          if (response.data && response.data.includes && response.data.includes("accepted")) {
+            setVerificationStatus("accepted");
+            setCanFinalize(true); // Allow finalization if accepted
+          } else {
+            setVerificationStatus("pending");
+            setCanFinalize(false); // Disable finalization if not accepted
+          }
+        } catch (error) {
+          setVerificationStatus("Error al consultar el estado de verificación");
+          setCanFinalize(false); // Disable finalization on error
         }
-      } catch (error) {
-        setVerificationStatus("Error al consultar el estado de verificación");
-      }
-    };
+      };
   
     useEffect(() => {
       if (!isCreatingAccount) {
@@ -471,7 +476,41 @@ const Finalizar = ({ datosAdministrador, datosComercio, isCreatingAccount, email
         setVerificationStatus("accepted"); // Set status as accepted when creating account
       }
     }, [email, isCreatingAccount]); // Re-run the effect when email or isCreatingAccount changes
-  
+    // Handle finalizing the request
+  // Handle finalizing the request and sending it to the backend
+  const handleFinalize = async () => {
+    if (canFinalize) {
+      try {
+        // Make API call to register the commerce
+        const response = await axios.post('http://sqlapi-hshshrdbaba8gbgd.canadacentral-01.azurewebsites.net/api/comercios/solicitarRegistro', {
+            correo: datosComercio.correoComercio,
+            nombre: datosComercio.nombreComercio,
+            cedulaJuridica: datosComercio.cedulaJuridica,
+            numeroSINPE: datosComercio.numeroSINPE,
+            correoAdmin: correoAdministrador,
+            tipoID: datosComercio.tipoID,
+            provincia: datosComercio.provincia,
+            canton: datosComercio.canton,
+            distrito: datosComercio.distrito,
+            imagen: datosComercio.imagen || null, // Optional image field
+          });
+
+        if (response.data && response.data.message === "Solicitud de comercio registrada exitosamente") {
+          console.log("Solicitud finalizada con éxito");
+          alert("La solicitud de comercio se ha registrado exitosamente");
+        } else {
+          console.log("Error al registrar la solicitud:", response.data.error);
+          alert("Hubo un error al registrar la solicitud.");
+        }
+      } catch (error) {
+        console.error("Error en la solicitud:", error);
+        alert("Hubo un error al realizar la solicitud.");
+      }
+    } else {
+      console.log("No se puede finalizar, el estado es:", verificationStatus);
+      alert("No se puede finalizar, el estado de verificación no es 'accepted'.");
+    }
+  };
     return (
       <div className="finalizar-container">
         <h3>Finalizar</h3>
@@ -498,6 +537,12 @@ const Finalizar = ({ datosAdministrador, datosComercio, isCreatingAccount, email
           <div className="label">Imagen:</div>
           <div className="value">{datosComercio.imagen}</div>
         </div>
+        <button 
+        onClick={handleFinalize} 
+        disabled={!canFinalize} // Disable button if status is not accepted
+      >
+        Finalizar Solicitud
+      </button>
       </div>
     );
   };

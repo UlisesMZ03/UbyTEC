@@ -12,7 +12,7 @@ const Verify = () => {
 
         if (token && action) {
             // Realizar la solicitud para procesar el enlace de verificación
-            fetch(`http://localhost:3001/verify?token=${token}&action=${action}`, {
+            fetch(`https://miappnode.azurewebsites.net/verify?token=${token}&action=${action}`, {
                 method: 'GET',
             })
                 .then((response) => response.text())

@@ -1,0 +1,255 @@
+/* SolicitudesComercio.css */
+
+/* Estilos generales */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f9;
+    margin: 0;
+    padding: 0;
+}
+
+.solicitudes-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+h2 {
+    font-size: 24px;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.filtros {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    gap: 10px;
+}
+
+.filtros input {
+    padding: 8px;
+    font-size: 14px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    
+}
+
+.filtros input[type="date"] {
+    width: 25%;
+}
+
+/* Filtro por estado (dropdown) */
+.filtros select {
+    width: 25%;
+    padding: 8px;
+    font-size: 14px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background-color: #ffffff;
+    cursor: pointer;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.filtros select:hover {
+    border-color: #4CAF50;
+    background-color: #f9f9f9;
+}
+
+.filtros select:focus {
+    border-color: #4CAF50;
+    background-color: #f9f9f9;
+}
+
+.filtros option {
+    font-size: 14px;
+}
+
+.solicitudes-list {
+    display: flex;
+    flex-direction: column;
+}
+
+.solicitud-item {
+    background-color: #fff;
+    padding: 15px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.solicitud-item:hover {
+    background-color: #f0f0f0;
+}
+
+.solicitud-summary {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.solicitud-imagen-container {
+    flex-shrink: 0;
+}
+
+.solicitud-imagen {
+    width: 80px; /* Ajusta el tamaño de la imagen */
+    height: 80px;
+    object-fit: cover; /* Asegura que la imagen se recorte correctamente */
+    border-radius: 8px;
+    margin-right: 15px;
+}
+
+.solicitud-datos {
+    flex-grow: 1;
+}
+
+.solicitud-datos p {
+    margin: 5px 0;
+}
+
+.solicitud-detalle {
+    background-color: #f9f9f9;
+    padding: 15px;
+    margin-top: 15px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+}
+
+.solicitud-detalle h3 {
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+
+.solicitud-detalle p {
+    margin: 5px 0;
+}
+
+.comentario-rechazo {
+    margin-top: 15px;
+}
+
+.comentario-rechazo label {
+    font-size: 14px;
+}
+
+.comentario-rechazo textarea {
+    width: 100%;
+    height: 80px;
+    padding: 10px;
+    font-size: 14px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.solicitud-actions {
+    margin-top: 20px;
+    display: flex;
+    gap: 15px;
+}
+
+.solicitud-actions button {
+    padding: 10px 20px;
+    font-size: 14px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.aceptar-btn {
+    background-color: #4CAF50;
+    color: white;
+}
+
+.aceptar-btn:hover {
+    background-color: #45a049;
+}
+
+.rechazar-btn {
+    background-color: #f44336;
+    color: white;
+}
+
+.rechazar-btn:hover {
+    background-color: #e53935;
+}
+
+/* Estilos para la sección de filtros */
+.filtros input[type="text"]:focus,
+.filtros input[type="date"]:focus {
+    border-color: #4CAF50;
+}
+
+.filtros input[type="text"] {
+    width: 45%;
+}
+
+.solicitudes-list {
+    padding-left: 0;
+}
+
+.solicitud-item {
+    transition: transform 0.3s ease;
+}
+
+.solicitud-item:hover {
+    transform: scale(1.002);
+}
+
+.solicitudes-list .solicitud-item {
+    cursor: pointer;
+}
+
+.solicitud-item p {
+    margin: 5px 0;
+}
+
+/* Estilo para el contenedor general de la página */
+.solicitudes-container {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Estilos para la imagen */
+.solicitud-imagen {
+    width: 100px; /* Ajusta el tamaño de la imagen */
+    height: 100px;
+    object-fit: cover; /* Asegura que la imagen se recorte correctamente */
+    border-radius: 8px;
+    margin-right: 15px;
+}
+
+/* Detalles de la solicitud */
+.detalles-grid {
+    display: grid;
+    grid-template-columns: 1fr 2fr; /* 1fr para las etiquetas y 2fr para los valores */
+    gap: 10px 20px; /* Espaciado entre las filas y columnas */
+    font-size: 16px;
+}
+
+.detalles-grid .label {
+    font-weight: bold;
+    color: #333;
+}
+
+.detalles-grid .value {
+    color: #666;
+}
+
+/* Estilos adicionales para mejorar la legibilidad */
+.detalles-grid div {
+    padding: 5px;
+    border-bottom: 1px solid #ccc; /* Línea divisoria entre las filas */
+}
+
+.detalles-grid .value {
+    color: #444647;
+}
+
+.detalles-grid .label {
+    color: #333;
+}

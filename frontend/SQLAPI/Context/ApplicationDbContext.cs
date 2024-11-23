@@ -16,19 +16,7 @@ public class ApplicationDbContext : DbContext
 
     }
 
-    // Método para insertar comercio
-    public async Task InsertarComercioAsync(ComercioRequest comercio)
-    {
-        await Database.ExecuteSqlRawAsync(
-            "EXEC InsertarComercio @Correo = {0}, @Nombre = {1}, @CedulaJuridica = {2}, @NumeroSINPE = {3}, @CorreoAdmin = {4}, @TipoID = {5}",
-            comercio.Correo,
-            comercio.Nombre,
-            comercio.CedulaJuridica,
-            comercio.NumeroSINPE,
-            comercio.CorreoAdmin,
-            comercio.TipoID
-        );
-    }
+
 
 
     // Método para verificar login de cliente
@@ -196,6 +184,11 @@ public async Task<ClienteLoginDto> VerificarLoginClienteAsync(string correo, str
         modelBuilder.Entity<ProductoCarritoDto>().HasNoKey();
         modelBuilder.Entity<PedidoDto>().HasNoKey();
         modelBuilder.Entity<ClienteLoginDto>().HasNoKey();
+        modelBuilder.Entity<SolicitudComercioDto>().HasNoKey();
+        modelBuilder.Entity<AdministradorDto>().HasNoKey();
+        modelBuilder.Entity<ComercioDto>().HasNoKey();
+        modelBuilder.Entity<AdministradorAfiliadoDto>().HasNoKey();
+        modelBuilder.Entity<TipoDeComercioDto>().HasNoKey();
         
         
         }
@@ -508,8 +501,321 @@ public async Task<string> InsertarRepartidorAsync(RepartidorRequest request, str
     }
 }
 
+public async Task InsertarSolicitudComercioAsync(SolicitudComercioRequest solicitud)
+{
+    await Database.ExecuteSqlRawAsync(
+        "EXEC InsertarSolicitudComercio @Correo = {0}, @Nombre = {1}, @CedulaJuridica = {2}, @NumeroSINPE = {3}, @CorreoAdmin = {4}, @TipoID = {5}, @Provincia = {6}, @Canton = {7}, @Distrito = {8}, @Imagen = {9}",
+        solicitud.Correo,
+        solicitud.Nombre,
+        solicitud.CedulaJuridica,
+        solicitud.NumeroSINPE,
+        solicitud.CorreoAdmin,
+        solicitud.TipoID,
+        solicitud.Provincia,
+        solicitud.Canton,
+        solicitud.Distrito,
+        solicitud.Imagen
+    );
+}
+public async Task<List<SolicitudComercioDto>> ObtenerSolicitudesComercioAsync()
+{
+    try
+    {
+        Console.WriteLine("Buscando solicitudes de comercio...");
+
+        // Aquí usamos SqlParameter para asegurar que los parámetros se pasan correctamente
+        var result = await Set<SolicitudComercioDto>()
+            .FromSqlRaw(
+                "EXEC [dbo].[ObtenerSolicitudesComercio]"
+            )
+            .ToListAsync();
+
+        Console.WriteLine($"Se encontraron {result.Count} solicitudes de comercio.");
+
+        return result;
+    }
+    catch (Exception ex)
+    {
+        Console.WriteLine($"Error al obtener las solicitudes de comercio: {ex.Message}");
+        return new List<SolicitudComercioDto>();  // Retorna una lista vacía en caso de error
+    }
+}
+
+
+public async Task<List<AdministradorDto>> ObtenerAdministradoresAsync()
+{
+    try
+    {
+        // Ejecutar el procedimiento almacenado para obtener los administradores
+        var result = await Set<AdministradorDto>()
+            .FromSqlRaw("EXEC [dbo].[ObtenerAdministradores]")
+            .ToListAsync();
+
+        return result;
+    }
+    catch (Exception ex)
+    {
+        Console.WriteLine($"Error al obtener los administradores: {ex.Message}");
+        return new List<AdministradorDto>();  // Retorna una lista vacía en caso de error
+    }
+}
+
+
+public async Task<string> InsertarAdministradorAsync(AdministradorRequest request)
+{
+    try
+    {
+        // Ejecutar el procedimiento almacenado para insertar un administrador
+        var result = await Database.ExecuteSqlRawAsync(
+            "EXEC [dbo].[InsertarAdministrador] @Cedula = {0}, @Nombre = {1}, @Apellido1 = {2}, @Apellido2 = {3}, @Usuario = {4}, @Password = {5}, @Provincia = {6}, @Canton = {7}, @Distrito = {8}",
+            request.Cedula,
+            request.Nombre,
+            request.Apellido1,
+            request.Apellido2,
+            request.Usuario,
+            request.Password,
+            request.Provincia,
+            request.Canton,
+            request.Distrito
+        );
+
+        return "Administrador insertado correctamente.";
+    }
+    catch (Exception ex)
+    {
+        // Manejo de error en caso de que falle la inserción
+        Console.WriteLine($"Error al insertar administrador: {ex.Message}");
+        return "Error al insertar administrador.";
+    }
+}
+
+public async Task<List<ComercioDto>> ObtenerComerciosAsync()
+{
+    try
+    {
+        // Ejecutar el procedimiento almacenado para obtener los comercios
+        var result = await Set<ComercioDto>()
+            .FromSqlRaw("EXEC [dbo].[ObtenerComercios]")
+            .ToListAsync();
+
+        return result;
+    }
+    catch (Exception ex)
+    {
+        Console.WriteLine($"Error al obtener los comercios: {ex.Message}");
+        return new List<ComercioDto>();  // Retorna una lista vacía en caso de error
+    }
+}
+public async Task<string> InsertarComercioAsync(ComercioRequest request)
+{
+    try
+    {
+        // Ejecutar el procedimiento almacenado para insertar un comercio
+        var result = await Database.ExecuteSqlRawAsync(
+            "EXEC [dbo].[InsertarComercio] @Correo = {0}, @Nombre = {1}, @CedulaJuridica = {2}, @NumeroSINPE = {3}, @CorreoAdmin = {4}, @TipoID = {5}, @Provincia = {6}, @Canton = {7}, @Distrito = {8}, @Imagen = {9}",
+            request.Correo,
+            request.Nombre,
+            request.CedulaJuridica,
+            request.NumeroSINPE,
+            request.CorreoAdmin,
+            request.TipoID,
+            request.Provincia,
+            request.Canton,
+            request.Distrito,
+            request.Imagen
+        );
+
+        return "Comercio insertado correctamente.";
+    }
+    catch (Exception ex)
+    {
+        // Manejo de error en caso de que falle la inserción
+        Console.WriteLine($"Error al insertar comercio: {ex.Message}");
+        return "Error al insertar comercio.";
+    }
+}
+// Método para obtener los administradores afiliados
+public async Task<List<AdministradorAfiliadoDto>> ObtenerAdministradoresAfiliadosAsync()
+{
+    try
+    {
+        Console.WriteLine("Buscando administradores afiliados...");
+
+        // Ejecutar la consulta SQL para obtener los administradores afiliados
+        var result = await Set<AdministradorAfiliadoDto>()
+            .FromSqlRaw("EXEC [dbo].[ObtenerAdministradoresAfiliados]") // Aquí puedes usar el procedimiento almacenado si es necesario
+            .ToListAsync();
+
+        Console.WriteLine($"Se encontraron {result.Count} administradores afiliados.");
+
+        return result;
+    }
+    catch (Exception ex)
+    {
+        Console.WriteLine($"Error al obtener los administradores afiliados: {ex.Message}");
+        return new List<AdministradorAfiliadoDto>(); // Retornar una lista vacía en caso de error
+    }
+}
+
+
+
+    public async Task<List<ReporteConsolidadoVentas>> ObtenerReporteConsolidadoVentasAsync()
+    {
+        var connection = Database.GetDbConnection();
+        var reporte = new List<ReporteConsolidadoVentas>();
+
+        try
+        {
+            await connection.OpenAsync();
+
+            using (var command = connection.CreateCommand())
+            {
+                command.CommandText = "SELECT * FROM [dbo].[ReporteConsolidadoVentas]";
+                command.CommandType = CommandType.Text;
+
+                using (var reader = await command.ExecuteReaderAsync())
+                {
+                    while (await reader.ReadAsync())
+                    {
+                        reporte.Add(new ReporteConsolidadoVentas
+                        {
+                            Cliente = reader.GetString(0),
+                            Afiliado = reader.GetString(1),
+                            Conductor = reader.GetString(2),
+                            Compras = reader.GetInt32(3),
+                            MontoTotal = reader.GetDecimal(4),
+                            MontoServicio = reader.GetDecimal(5)
+                        });
+                    }
+                }
+            }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error al obtener el reporte consolidado: {ex.Message}");
+        }
+        finally
+        {
+            await connection.CloseAsync();
+        }
+
+        return reporte;
+    }
+
+
+    // Método para obtener el reporte de ventas por afiliado
+    public async Task<List<ReporteVentasPorAfiliado>> ObtenerReporteVentasPorAfiliadoAsync()
+    {
+        var connection = Database.GetDbConnection();
+        var reporte = new List<ReporteVentasPorAfiliado>();
+
+        try
+        {
+            await connection.OpenAsync();
+
+            using (var command = connection.CreateCommand())
+            {
+                // Consulta directa a la vista
+                command.CommandText = "SELECT * FROM [dbo].[ReporteVentasPorAfiliado]";
+                command.CommandType = System.Data.CommandType.Text;
+
+                using (var reader = await command.ExecuteReaderAsync())
+                {
+                    while (await reader.ReadAsync())
+                    {
+                        reporte.Add(new ReporteVentasPorAfiliado
+                        {
+                            Afiliado = reader.GetString(0),
+                            Compras = reader.GetInt32(1),
+                            MontoTotal = reader.GetDecimal(2),
+                            MontoServicio = reader.GetDecimal(3)
+                        });
+                    }
+                }
+            }
+        }
+        finally
+        {
+            await connection.CloseAsync();
+        }
+
+        return reporte;
+    }
+
+
+
+    public async Task<string> CrearTipoDeComercioAsync(string nombre)
+{
+    try
+    {
+        // Ejecutar el procedimiento almacenado para crear un tipo de comercio
+        var result = await Database.ExecuteSqlRawAsync(
+            "EXEC [dbo].[CrearTipoDeComercio] @Nombre = {0}", nombre);
+
+        return "Tipo de comercio creado correctamente.";
+    }
+    catch (Exception ex)
+    {
+        // Manejo de error en caso de que falle la creación
+        Console.WriteLine($"Error al crear tipo de comercio: {ex.Message}");
+        return "Error al crear tipo de comercio.";
+    }
+}
+public async Task<string> EditarTipoDeComercioAsync(int id, string nombre)
+{
+    try
+    {
+        // Ejecutar el procedimiento almacenado para editar el tipo de comercio
+        var result = await Database.ExecuteSqlRawAsync(
+            "EXEC [dbo].[EditarTipoDeComercio] @ID = {0}, @Nombre = {1}", id, nombre);
+
+        return "Tipo de comercio actualizado correctamente.";
+    }
+    catch (Exception ex)
+    {
+        // Manejo de error en caso de que falle la actualización
+        Console.WriteLine($"Error al editar tipo de comercio: {ex.Message}");
+        return "Error al editar tipo de comercio.";
+    }
+}
+public async Task<string> EliminarTipoDeComercioAsync(int id)
+{
+    try
+    {
+        // Ejecutar el procedimiento almacenado para eliminar un tipo de comercio
+        var result = await Database.ExecuteSqlRawAsync(
+            "EXEC [dbo].[EliminarTipoDeComercio] @ID = {0}", id);
+
+        return "Tipo de comercio eliminado correctamente.";
+    }
+    catch (Exception ex)
+    {
+        // Manejo de error en caso de que falle la eliminación
+        Console.WriteLine($"Error al eliminar tipo de comercio: {ex.Message}");
+        return "Error al eliminar tipo de comercio.";
+    }
+}
+
+public async Task<List<TipoDeComercioDto>> ObtenerTiposDeComercioAsync()
+{
+    try
+    {
+        // Ejecutar la consulta SQL para obtener todos los tipos de comercio
+        var result = await Set<TipoDeComercioDto>()
+            .FromSqlRaw("EXEC [dbo].[ObtenerTiposDeComercio]")
+            .ToListAsync();
+
+        return result;
+    }
+    catch (Exception ex)
+    {
+        Console.WriteLine($"Error al obtener los tipos de comercio: {ex.Message}");
+        return new List<TipoDeComercioDto>();  // Retornar una lista vacía en caso de error
+    }
+}
 
 }
+
 
 public class EliminarCarritoRequest
 {

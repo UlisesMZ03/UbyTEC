@@ -1,11 +1,12 @@
 {
   "Version": 1,
-  "Hash": "1Hj/3m2jntaF1cq5TjGdutqHOAZN7YIOH6TsfYAs61M=",
+  "Hash": "CgTVkI+m1FRqBCCUJ2bqhqr3TIpxGmoSYw79ixhVE1w=",
   "Source": "SQLAPI",
   "BasePath": "_content/SQLAPI",
   "Mode": "Default",
   "ManifestType": "Publish",
   "ReferencedProjectsConfiguration": [],
   "DiscoveryPatterns": [],
-  "Assets": []
+  "Assets": [],
+  "Endpoints": []
 }

@@ -11,6 +11,9 @@ import GestionAfiliados from './GestionAfiliados';
 import GestionAdminAfiliado from './GestionAdminAfiliado'
 import GestionRepartidores from './GestionRepartidores';
 import GestionTiposDeComercio from './GestionTipoComercio';
+import SolicitudesComercio from './SolicitudesComercio';
+import ReporteConsolidadoVentas from './ReporteConsolidadoVentas';
+import ReporteVentasPorAfiliado from './ReporteVentasPorAfiliado';
 const Sidebar = ({ sections, activeSection, setActiveSection, isOpen, toggle }) => (
   <div className={`sidebar  ${isOpen ? 'is-open' : ''}`} style={{ minHeight: '100vh' }}>
     <div className="sidebar-header"></div>
@@ -37,7 +40,7 @@ export default function AdminDashboard() {
     'Gestión de Administradores/Empleados',
     'Gestión de Afiliados',
     'Gestión de Administradores de Comercios',
-    'Administración de Afiliaciones',
+    'Solicitudes de Afiliaciones',
     'Gestión de Tipos de Comercio',
     'Gestión de Repartidores',
     'Reportes Consolidado de Ventas',
@@ -140,6 +143,12 @@ export default function AdminDashboard() {
         {activeSection === 'Gestión de Administradores de Comercios' && <GestionAdminAfiliado/>}
         {activeSection === 'Gestión de Repartidores' && <GestionRepartidores/>}
         {activeSection === 'Gestión de Tipos de Comercio' && <GestionTiposDeComercio/>}
+        {activeSection === 'Solicitudes de Afiliaciones' && <SolicitudesComercio/>}
+        {activeSection === 'Reportes Consolidado de Ventas' && <ReporteConsolidadoVentas/>}
+        {activeSection === 'Reportes Ventas por Afiliado' && <ReporteVentasPorAfiliado/>}
+        
+        
+        
         {/* Implementar más secciones conforme a las demás funcionalidades */}
       </div>
     </div>

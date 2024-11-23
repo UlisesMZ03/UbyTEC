@@ -1,0 +1,46 @@
+.reporte-afiliado-container {
+    font-family: Arial, sans-serif;
+    max-width: 800px;
+    margin: auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  }
+  
+  h1 {
+    text-align: center;
+    color: #333;
+  }
+  
+  .reporte-tabla {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+  }
+  
+  .reporte-tabla th,
+  .reporte-tabla td {
+    padding: 10px;
+    text-align: left;
+    border: 1px solid #ddd;
+  }
+  
+  .reporte-tabla th {
+    background-color: #f04e23;
+    color: white;
+    font-weight: bold;
+  }
+  
+  .reporte-tabla tr:nth-child(even) {
+    background-color: #f2f2f2;
+  }
+  
+  .reporte-tabla tr:hover {
+    background-color: #e9ecef;
+  }
+  
+  .totales {
+    background-color: #f4f4f4;
+  }
+  

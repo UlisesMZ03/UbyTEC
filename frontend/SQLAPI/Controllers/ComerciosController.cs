@@ -16,33 +16,70 @@ public class ComerciosController : ControllerBase
         _emailService = emailService;
 
     }
-
-    [HttpPost("registrar")]
-    public async Task<IActionResult> RegistrarComercio([FromBody] ComercioRequest comercio)
+// Método para obtener todos los comercios
+[HttpGet("obtenerComercios")]
+public async Task<IActionResult> ObtenerComercios()
+{
+    try
     {
-        if (!ModelState.IsValid)
+        // Llamamos al método que obtiene los comercios de la base de datos
+        var comercios = await _context.ObtenerComerciosAsync();
+
+        // Devolvemos los comercios como respuesta
+        return Ok(comercios);
+    }
+    catch (Exception ex)
+    {
+        // En caso de error, retornamos un error 500 con el mensaje de error
+        return StatusCode(500, new { error = $"Error al obtener los comercios: {ex.Message}" });
+    }
+}
+
+    // Método para insertar un comercio
+    [HttpPost("insertar")]
+    public async Task<IActionResult> InsertarComercio([FromBody] ComercioRequest request)
+    {
+        // Depuración: Mostrar los datos recibidos en la solicitud
+        Console.WriteLine("Datos recibidos para insertar comercio:");
+        Console.WriteLine($"Correo: {request.Correo}");
+        Console.WriteLine($"Nombre: {request.Nombre}");
+        Console.WriteLine($"CedulaJuridica: {request.CedulaJuridica}");
+        Console.WriteLine($"NumeroSINPE: {request.NumeroSINPE}");
+        Console.WriteLine($"CorreoAdmin: {request.CorreoAdmin}");
+        Console.WriteLine($"TipoID: {request.TipoID}");
+        Console.WriteLine($"Provincia: {request.Provincia}");
+        Console.WriteLine($"Canton: {request.Canton}");
+        Console.WriteLine($"Distrito: {request.Distrito}");
+        Console.WriteLine($"Imagen: {request.Imagen}");
+
+        if (request == null)
         {
-            return BadRequest(ModelState);
+            Console.WriteLine("Error: Los datos del comercio son nulos.");
+            return BadRequest("Los datos del comercio son requeridos.");
         }
 
         try
         {
-            // Generar la contraseña aleatoria para el comercio
-            string password = GenerateRandomPassword();
+            // Depuración: Confirmar que el objeto 'request' no es nulo antes de procesarlo
+            Console.WriteLine("Iniciando proceso de inserción en la base de datos...");
 
-            // Insertar el comercio en la base de datos
-            await _context.InsertarComercioAsync(comercio);
+            // Aquí se llama al método en el contexto de base de datos para insertar el comercio
+            var result = await _context.InsertarComercioAsync(request);
+            
+            // Depuración: Confirmar que la inserción se realizó correctamente
+            Console.WriteLine("Comercio insertado correctamente en la base de datos.");
 
-            // Enviar la contraseña al correo del comercio registrado
-
-
-            return Ok(new { message = "Comercio registrado exitosamente" });
+            // Respuesta exitosa
+            return Ok(new { message = "Comercio insertado correctamente." });
         }
         catch (Exception ex)
         {
-            return StatusCode(500, new { error = $"Error al registrar el comercio: {ex.Message}" });
+            // Depuración: Capturar y mostrar cualquier error que ocurra
+            Console.WriteLine($"Error al insertar el comercio: {ex.Message}");
+            return StatusCode(500, new { error = $"Error al insertar el comercio: {ex.Message}" });
         }
     }
+
 
     [HttpGet("buscarZona")]
     public async Task<IActionResult> BuscarComerciosPorZona([FromQuery] string provincia, [FromQuery] string canton)
@@ -156,4 +193,62 @@ public async Task<IActionResult> RegistrarAdministradorAfiliado([FromBody] Admin
 
         return new string(password);
     }
+
+
+
+
+[HttpPost("solicitarRegistro")]
+public async Task<IActionResult> SolicitarComercio([FromBody] SolicitudComercioRequest solicitud)
+{
+    // Verifica si el modelo es válido
+    if (!ModelState.IsValid)
+    {
+        Console.WriteLine("Modelo no válido.");  // Print cuando el modelo no es válido
+        return BadRequest(ModelState);
+    }
+
+    try
+    {
+        // Print para saber si entra a la función
+        Console.WriteLine("Entrando a la solicitud de comercio.");
+
+        // Llamada al método que inserta la solicitud en la base de datos
+        await _context.InsertarSolicitudComercioAsync(solicitud);
+
+        // Si todo va bien, regresa éxito
+        Console.WriteLine("Solicitud de comercio registrada exitosamente.");
+        return Ok(new { message = "Solicitud de comercio registrada exitosamente" });
+    }
+    catch (Exception ex)
+    {
+        // En caso de un error, se captura y se imprime
+        Console.WriteLine($"Error al registrar la solicitud: {ex.Message}");
+        return StatusCode(500, new { error = $"Error al registrar la solicitud: {ex.Message}" });
+    }
+}
+[HttpGet("obtenerSolicitudesComercio")]
+public async Task<IActionResult> ObtenerSolicitudesComercio()
+{
+    try
+    {
+        // Obtener las solicitudes de comercio desde el DbContext
+        var solicitudes = await _context.ObtenerSolicitudesComercioAsync();
+
+        // Si no se encuentran solicitudes, retorna un mensaje de no encontrado
+        if (solicitudes == null || solicitudes.Count == 0)
+        {
+            return NotFound(new { error = "No se encontraron solicitudes de comercio" });
+        }
+
+        // Retorna las solicitudes de comercio
+        return Ok(solicitudes);
+    }
+    catch (Exception ex)
+    {
+        return StatusCode(500, new { error = $"Error al obtener las solicitudes de comercio: {ex.Message}" });
+    }
+}
+
+
+
 }

@@ -1,4 +1,4 @@
-public class ComercioRequest
+public class ComercioDto
 {
     public string Correo { get; set; }
     public string Nombre { get; set; }

@@ -17,7 +17,7 @@ const RegistrarRepartidor = () => {
 
     try {
       // Enviar datos a la API para registrar el repartidor
-      const response = await axios.post('http://localhost:5133/api/repartidor/registrarRepartidor', {
+      const response = await axios.post('http://sqlapi-hshshrdbaba8gbgd.canadacentral-01.azurewebsites.net/api/repartidor/registrarRepartidor', {
         correo: datosRepartidor.correo,
         nombre: datosRepartidor.nombre,
         apellido1: datosRepartidor.apellido1,

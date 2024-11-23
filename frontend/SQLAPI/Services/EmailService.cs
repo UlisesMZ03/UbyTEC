@@ -24,7 +24,7 @@ public class EmailService
         var content = new StringContent(jsonContent, Encoding.UTF8, "application/json");
 
         // Enviar la solicitud POST a la API
-        var response = await _httpClient.PostAsync("http://localhost:3001/send-password", content);
+        var response = await _httpClient.PostAsync("https://miappnode.azurewebsites.net/send-password", content);
 
         // Retorna true si la solicitud fue exitosa, false si no
         return response.IsSuccessStatusCode;
