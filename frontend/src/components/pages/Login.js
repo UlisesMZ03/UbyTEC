@@ -100,18 +100,28 @@ export default function Login() {
           password: formData.password,
         })
       });
-
+  
       if (response.ok) {
         const data = await response.json();
         console.log("Datos recibidos de la API:", data);
-
+  
+        // Guardar todos los datos recibidos para el administrador en userAuth
         login({
           userId: formData.correo, // Usamos el correo o un identificador único
-          token: data.token,
-          nombre: data.nombre || 'Admin',
-          role: 'admin'
+          token: data.token, // Suponiendo que la API devuelve un token JWT
+          nombre: data.nombre || 'Admin', // Asumiendo que la respuesta incluye el nombre
+          role: 'admin', // Establecemos el rol como 'admin'
+          correo: data.correo, // Guardar correo
+          apellido1: data.apellido1, // Guardar apellido1
+          apellido2: data.apellido2, // Guardar apellido2
+          cedula: data.cedula, // Guardar cedula
+          canton: data.canton, // Guardar canton
+          distrito: data.distrito, // Guardar distrito
+          provincia: data.provincia, // Guardar provincia
+          telefono: data.telefono, // Guardar telefono
+          usuario: data.usuario, // Guardar nombre de usuario
         });
-
+  
         setSuccessMessage("Login exitoso.");
         setErrorMessage('');
         navigate("/"); // Ruta para administrador
@@ -126,6 +136,7 @@ export default function Login() {
       setSuccessMessage('');
     }
   };
+  
 
   const loginComercioAdmin = async () => {
     try {
@@ -153,7 +164,7 @@ export default function Login() {
 
         setSuccessMessage("Login exitoso.");
         setErrorMessage('');
-        navigate("/"); // Ruta para admin de comercio
+        navigate("/AdminAfiliado"); // Ruta para admin de comercio
       } else {
         const errorData = await response.json();
         setErrorMessage(errorData.error || "Email o contraseña incorrectos.");
@@ -204,6 +215,54 @@ export default function Login() {
       setSuccessMessage('');
     }
   };
+// Función para login de mensajero
+const loginMensajero = async () => {
+  try {
+    const response = await fetch(`https://apisql-cwbndbaagqerg7dw.canadacentral-01.azurewebsites.net/api/login/mensajero`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        correo: formData.correo,
+        password: formData.password,
+      })
+    });
+
+    if (response.ok) {
+      const data = await response.json();
+      console.log("Datos recibidos de la API:", data);
+
+      login({
+        userId: formData.correo,
+        token: data.token, // Suponiendo que la API devuelve un token JWT
+        nombre: data.nombre || 'Repartidor',
+        role: 'mensajero', // Establecemos el rol como 'mensajero'
+        correo: data.correo,
+        apellido1: data.apellido1,
+        apellido2: data.apellido2,
+        cedula: data.cedula,
+        canton: data.canton,
+        distrito: data.distrito,
+        provincia: data.provincia,
+        estado: data.estado,
+        usuario: data.usuario,
+      });
+
+      setSuccessMessage("Login exitoso.");
+      setErrorMessage('');
+      navigate("/mensajero"); // Ruta para el mensajero
+    } else {
+      const errorData = await response.json();
+      setErrorMessage(errorData.error || "Email o contraseña incorrectos.");
+      setSuccessMessage('');
+    }
+  } catch (error) {
+    console.error("Error al intentar iniciar sesión:", error);
+    setErrorMessage("Error de conexión. No se pudo iniciar sesión.");
+    setSuccessMessage('');
+  }
+};
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -223,6 +282,9 @@ export default function Login() {
       loginComercioAdmin();
     } else if (formData.role === 'comercio') {
       loginComercio();
+    }
+    else if (formData.role === 'mensajero') {
+      loginMensajero();
     }
   };
 
@@ -259,6 +321,7 @@ export default function Login() {
             <option value="admin">Administrador</option>
             <option value="comercio_admin">Administrador de Comercio</option>
             <option value="comercio">Comercio</option>
+            <option value="mensajero">Repartidor</option>
           </select>
         </div>
 

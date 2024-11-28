@@ -106,3 +106,26 @@ footer .footer-bottom {
   margin-top: 20px;
   font-size: 0.9rem;
 }
+/* Asegúrate de que cada sección tenga la altura adecuada */
+section {
+  height: 100vh; /* Cada sección ocupará toda la altura de la pantalla */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+/* Estilos para las secciones específicas */
+.section-goals {
+  background-color: #f1f1f1; /* Puedes personalizarlo según el diseño */
+}
+
+/* Animación de desvanecimiento */
+@keyframes fadeIn {
+  0% { opacity: 0; transform: translateY(20px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+.section-goals {
+  animation: fadeIn 1s ease-out;
+}

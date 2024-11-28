@@ -145,32 +145,7 @@ const Checkout = () => {
     }, 2000);  // Esperar 2 segundos antes de continuar con el pago
   };
 
-  const dejarFeedback = async () => {
-    if (!feedback) {
-      alert("Por favor, escribe un comentario antes de enviar.");
-      return;
-    }
 
-    try {
-      const response = await fetch("https://apimongo-c5esbwe4bfhxf2gy.canadacentral-01.azurewebsites.net/api/feedback", { 
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ feedback }), 
-      });
-
-      if (response.ok) {
-        alert("Gracias por tu feedback");
-        setFeedback(""); 
-      } else {
-        alert("Hubo un problema al enviar el feedback");
-      }
-    } catch (error) {
-      console.error("Error al enviar feedback:", error);
-      alert("Error de conexión. No se pudo enviar el feedback.");
-    }
-  };
 
   return (
     <div className="checkout-page-container">
@@ -250,15 +225,7 @@ const Checkout = () => {
 
       <button className="checkout-button" onClick={handlePayment}>Realizar Pago</button>
 
-      <div className="checkout-comment">
-        <h3>Comentario del pedido:</h3>
-        <textarea
-          value={feedback}
-          onChange={handleFeedbackChange}
-          placeholder="Escribe aquí cualquier comentario o instrucción especial para el pedido"
-        />
-        <button className="feedback-button" onClick={dejarFeedback}>Enviar Comentario</button>
-      </div>
+      
     </div>
   );
 };

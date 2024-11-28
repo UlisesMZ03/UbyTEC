@@ -88,5 +88,30 @@ public class AdministradorController : ControllerBase
             return StatusCode(500, new { error = $"Error al obtener los administradores afiliados: {ex.Message}" });
         }
     }
+// Método para obtener el administrador de un comercio
+[HttpGet("obtenerAdministradorPorComercio")]
+public async Task<IActionResult> ObtenerAdministradorPorComercio([FromQuery] string correoComercio)
+{
+    if (string.IsNullOrEmpty(correoComercio))
+    {
+        return BadRequest(new { error = "El correo del comercio es obligatorio." });
+    }
+
+    try
+    {
+        var administrador = await _context.ObtenerAdministradorPorComercioAsync(correoComercio);
+
+        if (administrador == null)
+        {
+            return NotFound(new { error = "No se encontró un administrador para el comercio especificado." });
+        }
+
+        return Ok(administrador);
+    }
+    catch (Exception ex)
+    {
+        return StatusCode(500, new { error = $"Error al obtener el administrador del comercio: {ex.Message}" });
+    }
+}
 
 }

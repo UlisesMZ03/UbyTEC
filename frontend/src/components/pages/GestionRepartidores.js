@@ -1,484 +1,403 @@
-import React, { useState, useEffect, useRef } from 'react';
-import './GestionAdminEmpl.css';
+import React, { useState, useEffect } from "react";
+import "./GestionAdminEmpl.css";
 
 const GestionRepartidores = () => {
   const [repartidores, setRepartidores] = useState([]);
   const [formData, setFormData] = useState({
-    correo: '',
-    nombre: '',
-    apellido1: '',
-    apellido2: '',
-    usuario: '',
-    direccionProvincia: '',
-    direccionCanton: '',
-    direccionDistrito: '',
-    estado: ''
+    correo: "",
+    nombre: "",
+    apellido1: "",
+    apellido2: "",
+    provincia: "",
+    canton: "",
+    distrito: "",
+    usuario: "",
+    password: "",
+    estado: "Activo",
   });
-  const [direccionProvinciaId, setDireccionProvinciaId] = useState('');
-  const [direccionCantonId, setDireccionCantonId] = useState('');
-  const [direccionDistritoId, setDireccionDistritoId] = useState('');
-  const [editing, setEditing] = useState(false);
-  const [currentIndex, setCurrentIndex] = useState(null);
   const [provincias, setProvincias] = useState([]);
   const [cantones, setCantones] = useState([]);
   const [distritos, setDistritos] = useState([]);
-  const [filteredProvincias, setFilteredProvincias] = useState([]);
-  const [filteredCantones, setFilteredCantones] = useState([]);
-  const [filteredDistritos, setFilteredDistritos] = useState([]);
-  const [isProvinceDropdownOpen, setIsProvinceDropdownOpen] = useState(false);
-  const [isCantonDropdownOpen, setIsCantonDropdownOpen] = useState(false);
-  const [isDistritoDropdownOpen, setIsDistritoDropdownOpen] = useState(false);
+  const [direccionProvinciaId, setDireccionProvinciaId] = useState("");
+  const [direccionCantonId, setDireccionCantonId] = useState("");
   const [errors, setErrors] = useState({});
+  const [editing, setEditing] = useState(false);
+  const [currentIndex, setCurrentIndex] = useState(null);
 
-  const provinceRef = useRef(null);
-  const cantonRef = useRef(null);
-  const distritoRef = useRef(null);
+  // Obtener repartidores
+  useEffect(() => {
+    const fetchRepartidores = async () => {
+      try {
+        const response = await fetch("https://apisql-cwbndbaagqerg7dw.canadacentral-01.azurewebsites.net/api/repartidor/obtenerRepartidores");
+        const data = await response.json();
+        setRepartidores(data);
+      } catch (error) {
+        console.error("Error al cargar los repartidores:", error);
+      }
+    };
+    fetchRepartidores();
+  }, []);
+
+  // Obtener provincias
+  useEffect(() => {
+    const fetchProvincias = async () => {
+      try {
+        const response = await fetch(
+          "https://ubicaciones.paginasweb.cr/provincias.json"
+        );
+        const data = await response.json();
+        setProvincias(
+          Object.entries(data).map(([id, nombre]) => ({ id, nombre }))
+        );
+      } catch (error) {
+        console.error("Error al cargar provincias:", error);
+      }
+    };
+    fetchProvincias();
+  }, []);
+
+  // Obtener cantones
+  useEffect(() => {
+    if (!direccionProvinciaId) return;
+
+    const fetchCantones = async () => {
+      try {
+        const response = await fetch(
+          `https://ubicaciones.paginasweb.cr/provincia/${direccionProvinciaId}/cantones.json`
+        );
+        const data = await response.json();
+        setCantones(
+          Object.entries(data).map(([id, nombre]) => ({ id, nombre }))
+        );
+      } catch (error) {
+        console.error("Error al cargar cantones:", error);
+      }
+    };
+    fetchCantones();
+  }, [direccionProvinciaId]);
+
+  // Obtener distritos
+  useEffect(() => {
+    if (!direccionProvinciaId || !direccionCantonId) return;
+
+    const fetchDistritos = async () => {
+      try {
+        const response = await fetch(
+          `https://ubicaciones.paginasweb.cr/provincia/${direccionProvinciaId}/canton/${direccionCantonId}/distritos.json`
+        );
+        const data = await response.json();
+        setDistritos(
+          Object.entries(data).map(([id, nombre]) => ({ id, nombre }))
+        );
+      } catch (error) {
+        console.error("Error al cargar distritos:", error);
+      }
+    };
+    fetchDistritos();
+  }, [direccionProvinciaId, direccionCantonId]);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
 
-    if (name === 'direccionProvincia') {
+    if (name === "provincia") {
       setFormData((prevState) => ({
         ...prevState,
-        direccionProvincia: value,
-        direccionCanton: '',
-        direccionDistrito: ''
+        provincia: value,
+        canton: "",
+        distrito: "",
       }));
       setDireccionProvinciaId(value);
-      setDireccionCantonId('');
-      setDireccionDistritoId('');
+      setCantones([]);
+      setDistritos([]);
+    } else if (name === "canton") {
+      setFormData((prevState) => ({
+        ...prevState,
+        canton: value,
+        distrito: "",
+      }));
+      setDireccionCantonId(value);
+      setDistritos([]);
     } else {
       setFormData((prevState) => ({
         ...prevState,
-        [name]: value
+        [name]: value,
       }));
     }
   };
 
-  // Detectar clics fuera de los dropdowns para cerrarlos
-  useEffect(() => {
-    const handleClickOutside = (e) => {
-      if (provinceRef.current && !provinceRef.current.contains(e.target)) {
-        setIsProvinceDropdownOpen(false);
-      }
-      if (cantonRef.current && !cantonRef.current.contains(e.target)) {
-        setIsCantonDropdownOpen(false);
-      }
-      if (distritoRef.current && !distritoRef.current.contains(e.target)) {
-        setIsDistritoDropdownOpen(false);
-      }
-    };
-
-    document.addEventListener('click', handleClickOutside);
-    return () => document.removeEventListener('click', handleClickOutside);
-  }, []);
-
-  // Obtener sugerencias de provincias
-  useEffect(() => {
-    if (formData.direccionProvincia.length > 0) {
-      fetch(`https://ubicaciones.paginasweb.cr/provincias.json`)
-        .then((response) => response.json())
-        .then((data) => {
-          const provinciasArray = Object.entries(data).map(([id, nombre]) => ({
-            id,
-            nombre,
-          }));
-          setProvincias(provinciasArray);
-          setFilteredProvincias(provinciasArray);
-        })
-        .catch((error) => {
-          console.error('Error al obtener provincias:', error);
-          setProvincias([]);
-        });
-    }
-  }, [formData.direccionProvincia]);
-
-  // Filtrar provincias según lo que escribe el usuario
-  useEffect(() => {
-    if (formData.direccionProvincia) {
-      setFilteredProvincias(
-        provincias.filter((provincia) =>
-          provincia.nombre
-            .toLowerCase()
-            .includes(formData.direccionProvincia.toLowerCase())
-        )
-      );
-    }
-  }, [formData.direccionProvincia, provincias]);
-
-  // Obtener sugerencias de cantones
-  useEffect(() => {
-    if (direccionProvinciaId && formData.direccionCanton.length > 0) {
-      fetch(`https://ubicaciones.paginasweb.cr/provincia/${direccionProvinciaId}/cantones.json`)
-        .then((response) => response.json())
-        .then((data) => {
-          const cantonesArray = Object.entries(data).map(([id, nombre]) => ({
-            id,
-            nombre,
-          }));
-          setCantones(cantonesArray);
-          setFilteredCantones(cantonesArray);
-        })
-        .catch((error) => {
-          console.error('Error al obtener cantones:', error);
-          setCantones([]);
-        });
-    }
-  }, [formData.direccionCanton, direccionProvinciaId]);
-
-  // Filtrar cantones según lo que escribe el usuario
-  useEffect(() => {
-    if (formData.direccionCanton) {
-      setFilteredCantones(
-        cantones.filter((canton) =>
-          canton.nombre
-            .toLowerCase()
-            .includes(formData.direccionCanton.toLowerCase())
-        )
-      );
-    }
-  }, [formData.direccionCanton, cantones]);
-
-  // Obtener sugerencias de distritos
-  useEffect(() => {
-    if (direccionProvinciaId && direccionCantonId && formData.direccionDistrito.length > 0) {
-      fetch(`https://ubicaciones.paginasweb.cr/provincia/${direccionProvinciaId}/canton/${direccionCantonId}/distritos.json`)
-        .then((response) => response.json())
-        .then((data) => {
-          const distritosArray = Object.entries(data).map(([id, nombre]) => ({
-            id,
-            nombre,
-          }));
-          setDistritos(distritosArray);
-          setFilteredDistritos(distritosArray);
-        })
-        .catch((error) => {
-          console.error('Error al obtener distritos:', error);
-          setDistritos([]);
-        });
-    }
-  }, [formData.direccionDistrito, direccionCantonId, direccionProvinciaId]);
-
-  // Filtrar distritos según lo que escribe el usuario
-  useEffect(() => {
-    if (formData.direccionDistrito) {
-      setFilteredDistritos(
-        distritos.filter((distrito) =>
-          distrito.nombre
-            .toLowerCase()
-            .includes(formData.direccionDistrito.toLowerCase())
-        )
-      );
-    }
-  }, [formData.direccionDistrito, distritos]);
-
-  // Validaciones antes de agregar o actualizar repartidor
   const validateForm = () => {
     let errors = {};
-
     if (!formData.correo || !/\S+@\S+\.\S+/.test(formData.correo)) {
-      errors.correo = 'El correo electrónico es obligatorio y debe ser válido.';
+      errors.correo = "El correo es inválido.";
     }
-
     if (!formData.nombre) {
-      errors.nombre = 'El nombre es obligatorio.';
+      errors.nombre = "El nombre no puede estar vacío.";
     }
-
     if (!formData.apellido1) {
-      errors.apellido1 = 'El primer apellido es obligatorio.';
+      errors.apellido1 = "El primer apellido no puede estar vacío.";
     }
-
-    if (!formData.apellido2) {
-      errors.apellido2 = 'El segundo apellido es obligatorio.';
-    }
-
-    if (!formData.usuario || formData.usuario.length < 4) {
-      errors.usuario =
-        'El nombre de usuario debe tener al menos 4 caracteres y solo puede contener letras y números.';
-    }
-
-    if (!formData.direccionProvincia || !formData.direccionCanton || !formData.direccionDistrito) {
+    if (!formData.provincia || !formData.canton || !formData.distrito) {
       errors.direccion =
-        'Debe completar todos los campos de dirección (provincia, cantón y distrito).';
+        "Debe completar todos los campos de provincia, cantón y distrito.";
     }
-
-    if (!formData.estado) {
-      errors.estado = 'El estado es obligatorio.';
+    if (!formData.usuario) {
+      errors.usuario = "El usuario no puede estar vacío.";
     }
-
+    if (!formData.password || formData.password.length < 6) {
+      errors.password = "La contraseña debe tener al menos 6 caracteres.";
+    }
     return errors;
   };
 
-  // Agregar nuevo repartidor
-  const handleAddMessenger = () => {
+  const handleAddRepartidor = async () => {
     const formErrors = validateForm();
     setErrors(formErrors);
 
-    if (Object.keys(formErrors).length > 0) {
-      return;
-    }
+    if (Object.keys(formErrors).length > 0) return;
 
-    setRepartidores([
-      ...repartidores,
-      { ...formData, direccionProvinciaId, direccionCantonId, direccionDistritoId },
-    ]);
-    setFormData({
-      correo: '',
-      nombre: '',
-      apellido1: '',
-      apellido2: '',
-      usuario: '',
-      direccionProvincia: '',
-      direccionCanton: '',
-      direccionDistrito: '',
-      estado: ''
-    });
-    setDireccionProvinciaId('');
-    setDireccionCantonId('');
-    setDireccionDistritoId('');
+    try {
+      const response = await fetch("https://apisql-cwbndbaagqerg7dw.canadacentral-01.azurewebsites.net/api/repartidor/registrarRepartidor", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      });
+      const data = await response.json();
+
+      if (response.ok) {
+        setRepartidores([...repartidores, data]);
+        setFormData({
+          correo: "",
+          nombre: "",
+          apellido1: "",
+          apellido2: "",
+          provincia: "",
+          canton: "",
+          distrito: "",
+          usuario: "",
+          password: "",
+          estado: "Activo",
+        });
+      } else {
+        console.error("Error al crear el repartidor:", data.error);
+      }
+    } catch (error) {
+      console.error("Error al realizar la solicitud:", error);
+    }
   };
 
-  // Editar repartidor
-  const handleEditMessenger = (index) => {
+  const handleEditRepartidor = async (index) => {
     setEditing(true);
     setCurrentIndex(index);
     setFormData(repartidores[index]);
-    setDireccionProvinciaId(repartidores[index].direccionProvinciaId);
-    setDireccionCantonId(repartidores[index].direccionCantonId);
-    setDireccionDistritoId(repartidores[index].direccionDistritoId);
   };
 
-  // Actualizar repartidor
-  const handleUpdateMessenger = () => {
+  const handleUpdateRepartidor = async () => {
     const formErrors = validateForm();
     setErrors(formErrors);
 
-    if (Object.keys(formErrors).length > 0) {
-      return;
-    }
+    if (Object.keys(formErrors).length > 0) return;
 
-    const updatedMessengers = [...repartidores];
-    updatedMessengers[currentIndex] = {
-      ...formData,
-      direccionProvinciaId,
-      direccionCantonId,
-      direccionDistritoId,
-    };
-    setRepartidores(updatedMessengers);
-    setFormData({
-      correo: '',
-      nombre: '',
-      apellido1: '',
-      apellido2: '',
-      usuario: '',
-      direccionProvincia: '',
-      direccionCanton: '',
-      direccionDistrito: '',
-      estado: ''
-    });
-    setDireccionProvinciaId('');
-    setDireccionCantonId('');
-    setDireccionDistritoId('');
-    setEditing(false);
-    setCurrentIndex(null);
+    try {
+      const response = await fetch(
+        `https://apisql-cwbndbaagqerg7dw.canadacentral-01.azurewebsites.net/api/repartidor/editarRepartidor/${formData.correo}`,
+        {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(formData),
+        }
+      );
+      const data = await response.json();
+
+      if (response.ok) {
+        const updatedRepartidores = [...repartidores];
+        updatedRepartidores[currentIndex] = formData;
+        setRepartidores(updatedRepartidores);
+        setEditing(false);
+        setFormData({
+          correo: "",
+          nombre: "",
+          apellido1: "",
+          apellido2: "",
+          provincia: "",
+          canton: "",
+          distrito: "",
+          usuario: "",
+          password: "",
+          estado: "Activo",
+        });
+      } else {
+        console.error("Error al actualizar el repartidor:", data.error);
+      }
+    } catch (error) {
+      console.error("Error al realizar la solicitud:", error);
+    }
   };
 
-  // Eliminar repartidor
-  const handleDeleteMessenger = (index) => {
-    const updatedMessengers = repartidores.filter((_, i) => i !== index);
-    setRepartidores(updatedMessengers);
+  const handleDeleteRepartidor = async (correo) => {
+    try {
+      const response = await fetch(
+        `https://apisql-cwbndbaagqerg7dw.canadacentral-01.azurewebsites.net/api/repartidor/eliminarRepartidor/${correo}`,
+        {
+          method: "DELETE",
+        }
+      );
+
+      if (response.ok) {
+        setRepartidores(repartidores.filter((r) => r.correo !== correo));
+      } else {
+        console.error("Error al eliminar el repartidor.");
+      }
+    } catch (error) {
+      console.error("Error al realizar la solicitud:", error);
+    }
   };
 
   return (
     <div className="gestion-repartidores">
       <h2>Gestión de Repartidores</h2>
       <div className="form-container">
-        <div>
-          <label>Nombre Completo</label>
-          <input
-            type="text"
-            name="nombre"
-            placeholder="Nombre"
-            value={formData.nombre}
-            onChange={handleInputChange}
-            style={{ borderColor: errors.nombre ? 'red' : '' }}
-          />
-          <input
-            type="text"
-            name="apellido1"
-            placeholder="Primer Apellido"
-            value={formData.apellido1}
-            onChange={handleInputChange}
-            style={{ borderColor: errors.apellido1 ? 'red' : '' }}
-          />
-          <input
-            type="text"
-            name="apellido2"
-            placeholder="Segundo Apellido"
-            value={formData.apellido2}
-            onChange={handleInputChange}
-            style={{ borderColor: errors.apellido2 ? 'red' : '' }}
-          />
-          {errors.nombre && <small className="error-message">{errors.nombre}</small>}
-          {errors.apellido1 && <small className="error-message">{errors.apellido1}</small>}
-          {errors.apellido2 && <small className="error-message">{errors.apellido2}</small>}
-        </div>
-
-        <div>
-          <label>Correo</label>
-          <input
-            type="email"
-            name="correo"
-            placeholder="Correo"
-            value={formData.correo}
-            onChange={handleInputChange}
-            style={{ borderColor: errors.correo ? 'red' : '' }}
-          />
-          {errors.correo && <small className="error-message">{errors.correo}</small>}
-        </div>
-
-        <div>
-          <label>Dirección</label>
-          <div className="dropdown-container" ref={provinceRef}>
-            <input
-              type="text"
-              name="direccionProvincia"
-              placeholder="Provincia"
-              value={formData.direccionProvincia}
-              onChange={handleInputChange}
-              onFocus={() => setIsProvinceDropdownOpen(true)}
-              style={{ borderColor: errors.direccion ? 'red' : '' }}
-            />
-            {errors.direccion && <small className="error-message">{errors.direccion}</small>}
-            {isProvinceDropdownOpen && filteredProvincias.length > 0 && (
-              <ul className="dropdown-list">
-                {filteredProvincias.map((provincia, index) => (
-                  <li
-                    key={index}
-                    onClick={() => {
-                      setFormData((prevState) => ({
-                        ...prevState,
-                        direccionProvincia: provincia.nombre,
-                      }));
-                      setDireccionProvinciaId(provincia.id);
-                      setIsProvinceDropdownOpen(false);
-                    }}
-                  >
-                    {provincia.nombre}
-                  </li>
-                ))}
-              </ul>
-            )}
-          </div>
-          
-          <div className="dropdown-container" ref={cantonRef}>
-            <input
-              type="text"
-              name="direccionCanton"
-              placeholder="Cantón"
-              value={formData.direccionCanton}
-              onChange={handleInputChange}
-              onFocus={() => setIsCantonDropdownOpen(true)}
-            />
-            {isCantonDropdownOpen && filteredCantones.length > 0 && (
-              <ul className="dropdown-list">
-                {filteredCantones.map((canton, index) => (
-                  <li
-                    key={index}
-                    onClick={() => {
-                      setFormData((prevState) => ({
-                        ...prevState,
-                        direccionCanton: canton.nombre,
-                      }));
-                      setDireccionCantonId(canton.id);
-                      setIsCantonDropdownOpen(false);
-                    }}
-                  >
-                    {canton.nombre}
-                  </li>
-                ))}
-              </ul>
-            )}
-          </div>
-
-          <div className="dropdown-container" ref={distritoRef}>
-            <input
-              type="text"
-              name="direccionDistrito"
-              placeholder="Distrito"
-              value={formData.direccionDistrito}
-              onChange={handleInputChange}
-              onFocus={() => setIsDistritoDropdownOpen(true)}
-            />
-            {isDistritoDropdownOpen && filteredDistritos.length > 0 && (
-              <ul className="dropdown-list">
-                {filteredDistritos.map((distrito, index) => (
-                  <li
-                    key={index}
-                    onClick={() => {
-                      setFormData((prevState) => ({
-                        ...prevState,
-                        direccionDistrito: distrito.nombre,
-                      }));
-                      setDireccionDistritoId(distrito.id);
-                      setIsDistritoDropdownOpen(false);
-                    }}
-                  >
-                    {distrito.nombre}
-                  </li>
-                ))}
-              </ul>
-            )}
-          </div>
-        </div>
-
-        <div>
-          <label>Estado</label>
-          <input
-            type="text"
-            name="estado"
-            placeholder="Estado"
-            value={formData.estado}
-            onChange={handleInputChange}
-            style={{ borderColor: errors.estado ? 'red' : '' }}
-          />
-          {errors.estado && <small className="error-message">{errors.estado}</small>}
-        </div>
-
-        <div>
-          <label>Nombre De Usuario</label>
-          <input
-            type="text"
-            name="usuario"
-            placeholder="Usuario"
-            value={formData.usuario}
-            onChange={handleInputChange}
-            style={{ borderColor: errors.usuario ? 'red' : '' }}
-          />
-          {errors.usuario && <small className="error-message">{errors.usuario}</small>}
-        </div>
+      <input
+          type="text"
+          name="correo"
+          placeholder="Correo"
+          value={formData.correo}
+          onChange={handleInputChange}
+          style={{ borderColor: errors.correo ? "red" : "" }}
+        />
+        <input
+          type="text"
+          name="nombre"
+          placeholder="Nombre"
+          value={formData.nombre}
+          onChange={handleInputChange}
+          style={{ borderColor: errors.nombre ? "red" : "" }}
+        />
+        <input
+          type="text"
+          name="apellido1"
+          placeholder="Primer Apellido"
+          value={formData.apellido1}
+          onChange={handleInputChange}
+          style={{ borderColor: errors.apellido1 ? "red" : "" }}
+        />
+        <input
+          type="text"
+          name="apellido2"
+          placeholder="Segundo Apellido"
+          value={formData.apellido2}
+          onChange={handleInputChange}
+        />
+        <select
+          name="provincia"
+          value={formData.provincia}
+          onChange={handleInputChange}
+        >
+          <option value="">Seleccione Provincia</option>
+          {provincias.map((p) => (
+            <option key={p.id} value={p.id}>
+              {p.nombre}
+            </option>
+          ))}
+        </select>
+        <select
+          name="canton"
+          value={formData.canton}
+          onChange={handleInputChange}
+          disabled={!direccionProvinciaId}
+        >
+          <option value="">Seleccione Cantón</option>
+          {cantones.map((c) => (
+            <option key={c.id} value={c.id}>
+              {c.nombre}
+            </option>
+          ))}
+        </select>
+        <select
+          name="distrito"
+          value={formData.distrito}
+          onChange={handleInputChange}
+          disabled={!direccionCantonId}
+        >
+          <option value="">Seleccione Distrito</option>
+          {distritos.map((d) => (
+            <option key={d.id} value={d.id}>
+              {d.nombre}
+            </option>
+          ))}
+        </select>
+        <input
+          type="text"
+          name="usuario"
+          placeholder="Usuario"
+          value={formData.usuario}
+          onChange={handleInputChange}
+          style={{ borderColor: errors.usuario ? "red" : "" }}
+        />
+        <input
+          type="password"
+          name="password"
+          placeholder="Contraseña"
+          value={formData.password}
+          onChange={handleInputChange}
+          style={{ borderColor: errors.password ? "red" : "" }}
+        />
+        <select
+          name="estado"
+          value={formData.estado}
+          onChange={handleInputChange}
+        >
+          <option value="Activo">Activo</option>
+          <option value="Inactivo">Inactivo</option>
+        </select>
 
         {editing ? (
-          <button onClick={handleUpdateMessenger}>Actualizar Repartidor</button>
+          <button onClick={handleUpdateRepartidor}>Actualizar Repartidor</button>
         ) : (
-          <button onClick={handleAddMessenger}>Agregar Repartidor</button>
+          <button onClick={handleAddRepartidor}>Agregar Repartidor</button>
         )}
       </div>
 
-      <div className="repartidores-list">
-        <h3>Lista de Repartidores</h3>
-        <ul>
-          {repartidores.map((repartidor, index) => (
-            <li key={index}>
-              <span>
-                {repartidor.nombre} {repartidor.apellido1} {repartidor.apellido2} - {repartidor.correo}
-              </span>
-              <button onClick={() => handleEditMessenger(index)}>Editar</button>
-              <button onClick={() => handleDeleteMessenger(index)}>Eliminar</button>
-            </li>
-          ))}
-        </ul>
-      </div>
+      <div className="empleados-list">
+  <h3>Lista de Repartidores</h3>
+  <table className="empleados-table">
+    <thead>
+      <tr>
+        <th>Correo</th>
+        <th>Nombre</th>
+        <th>Apellido 1</th>
+        <th>Apellido 2</th>
+        <th>Provincia</th>
+        <th>Cantón</th>
+        <th>Distrito</th>
+        <th>Usuario</th>
+        <th>Estado</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      {repartidores.map((r, index) => (
+        <tr key={index}>
+          <td>{r.correo}</td>
+          <td>{r.nombre}</td>
+          <td>{r.apellido1}</td>
+          <td>{r.apellido2}</td>
+          <td>{r.provincia}</td>
+          <td>{r.canton}</td>
+          <td>{r.distrito}</td>
+          <td>{r.usuario}</td>
+          <td>{r.estado}</td>
+          <td>
+            <div className="btn-acciones">
+              <button onClick={() => handleEditRepartidor(index)}>Editar</button>
+              <button onClick={() => handleDeleteRepartidor(r.correo)}>Eliminar</button>
+            </div>
+          </td>
+        </tr>
+      ))}
+    </tbody>
+  </table>
+</div>
+
     </div>
   );
 };

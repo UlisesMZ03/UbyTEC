@@ -482,7 +482,7 @@ const Finalizar = ({ datosAdministrador, datosComercio, isCreatingAccount, email
     if (canFinalize) {
       try {
         // Make API call to register the commerce
-        const response = await axios.post('http://sqlapi-hshshrdbaba8gbgd.canadacentral-01.azurewebsites.net/api/comercios/solicitarRegistro', {
+        const response = await axios.post('https://sqlapi-hshshrdbaba8gbgd.canadacentral-01.azurewebsites.net/api/comercios/solicitarRegistro', {
             correo: datosComercio.correoComercio,
             nombre: datosComercio.nombreComercio,
             cedulaJuridica: datosComercio.cedulaJuridica,

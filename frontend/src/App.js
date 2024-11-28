@@ -28,7 +28,7 @@ import VerificationForm from "./components/pages/VerificationForm";
 import Verify from "./components/pages/Verify";
 import RegistrarAfiliado from "./components/pages/RegistrarAfiliado";
 import RegistrarRepartidor from "./components/pages/RegistrarRepartidor";
-
+import AdminView from "./components/pages/AdminAfiliado";
 function App() {
   return (
     <AuthProvider>
@@ -44,7 +44,7 @@ function App() {
                 <Route path="/reg-comercio" element={<AgregarComercio />} />
                 <Route path="/reg-afiliado" element={<RegistrarAfiliado />} />
                 <Route path="/reg-repartidor" element={<RegistrarRepartidor />} />
-            
+                <Route path="/AdminAfiliado" element={<AdminView />} />
                 {/* Ruta protegida para Admin */}
                 <Route path="/admin-dashboard" element={<PrivateRoute element={<AdminDashboard />} role="admin" />} />
                 <Route path="/verify" element={<Verify />} />

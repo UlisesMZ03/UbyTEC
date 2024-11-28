@@ -1,4 +1,4 @@
-public class RepartidorRequest
+public class AdministradorAfiliado
 {
     public string Correo { get; set; }
     public string Nombre { get; set; }
@@ -8,8 +8,4 @@ public class RepartidorRequest
     public string Provincia { get; set; }
     public string Canton { get; set; }
     public string Distrito { get; set; }
-    public string Estado { get; set; }
 }
-
-
-

@@ -248,6 +248,182 @@ public async Task<IActionResult> ObtenerSolicitudesComercio()
         return StatusCode(500, new { error = $"Error al obtener las solicitudes de comercio: {ex.Message}" });
     }
 }
+[HttpPost("insertarDesdeSolicitud")]
+public async Task<IActionResult> InsertarComercioDesdeSolicitud([FromBody] int solicitudId)
+{
+    try
+    {
+        // Llamar al método que inserta el comercio desde la solicitud y actualiza el estado de la solicitud
+        var result = await _context.InsertarComercioDesdeSolicitudAsync(solicitudId);
+        return Ok(new { message = result });
+    }
+    catch (Exception ex)
+    {
+        // Si ocurre un error, capturamos el mensaje del error
+        // Dependiendo del tipo de error, podemos enviar un mensaje específico
+
+        if (ex.Message.Contains("Solicitud no encontrada o ya procesada"))
+        {
+            return StatusCode(400, new { error = ex.Message });
+        }
+        else if (ex.Message.Contains("La solicitud ya ha sido aceptada"))
+        {
+            return StatusCode(400, new { error = ex.Message });
+        }
+        else if (ex.Message.Contains("Ya existe un comercio con la misma cédula jurídica"))
+        {
+            return StatusCode(400, new { error = ex.Message });
+        }
+        else if (ex.Message.Contains("Ya existe un comercio con el mismo correo"))
+        {
+            return StatusCode(400, new { error = ex.Message });
+        }
+        else
+        {
+            // En caso de otro error desconocido, se devuelve un error genérico
+            return StatusCode(500, new { error = "Error inesperado: " + ex.Message });
+        }
+    }
+}
+
+[HttpPost("rechazarSolicitud")]
+public async Task<IActionResult> RechazarSolicitud([FromBody] RechazoSolicitudRequest rechazoSolicitud)
+{
+    try
+    {
+        // Llamar al método que agrega el comentario y actualiza el estado de la solicitud
+        var result = await _context.RechazarSolicitudAsync(rechazoSolicitud.SolicitudId, rechazoSolicitud.Comentario);
+        return Ok(new { message = result });
+    }
+    catch (Exception ex)
+    {
+        return StatusCode(500, new { error = $"Error al rechazar la solicitud: {ex.Message}" });
+    }
+}
+
+[HttpGet("obtenerComentarioRechazo/{solicitudId}")]
+public async Task<IActionResult> ObtenerComentarioRechazo(int solicitudId)
+{
+    try
+    {
+        // Llamar al método que obtiene el comentario de rechazo y la fecha
+        var comentarioRechazo = await _context.ObtenerComentarioRechazoAsync(solicitudId);
+
+        // Si no se encontró el comentario, regresamos un mensaje de error
+        if (comentarioRechazo == null || string.IsNullOrEmpty(comentarioRechazo.Comentario))
+        {
+            return NotFound(new { error = "No se encontró un comentario para esta solicitud o la solicitud no está rechazada." });
+        }
+
+        // Devolver el comentario y la fecha de rechazo
+        return Ok(comentarioRechazo);
+    }
+    catch (Exception ex)
+    {
+        return StatusCode(500, new { error = $"Error al obtener el comentario de rechazo: {ex.Message}" });
+    }
+}
+// Método para obtener productos de un comercio
+[HttpGet("productos")]
+public async Task<IActionResult> ObtenerProductos([FromQuery] string correoComercio)
+{
+    if (string.IsNullOrEmpty(correoComercio))
+    {
+        return BadRequest(new { error = "El correo del comercio es obligatorio." });
+    }
+
+    try
+    {
+        var productos = await _context.ObtenerProductosPorComercioAsync(correoComercio);
+
+        if (productos == null || productos.Count == 0)
+        {
+            return NotFound(new { error = "No se encontraron productos para el comercio especificado." });
+        }
+
+        return Ok(productos);
+    }
+    catch (Exception ex)
+    {
+        return StatusCode(500, new { error = $"Error al obtener los productos: {ex.Message}" });
+    }
+}
+
+// Método para agregar un producto
+[HttpPost("productos/agregar")]
+public async Task<IActionResult> AgregarProducto([FromBody] ProductoRequest request)
+{
+    if (request == null || string.IsNullOrEmpty(request.CorreoComercio))
+    {
+        return BadRequest(new { error = "Los datos del producto y el correo del comercio son obligatorios." });
+    }
+
+    try
+    {
+        var result = await _context.AgregarProductoAsync(request);
+        return Ok(new { message = result });
+    }
+    catch (Exception ex)
+    {
+        return StatusCode(500, new { error = $"Error al agregar el producto: {ex.Message}" });
+    }
+}
+
+// Método para editar un producto
+[HttpPut("productos/editar")]
+public async Task<IActionResult> EditarProducto([FromBody] ProductoRequest request)
+{
+    // Debug: Log para verificar los datos recibidos
+    Console.WriteLine("=== Iniciando Edición de Producto ===");
+    if (request == null)
+    {
+        Console.WriteLine("Error: Request es nulo.");
+        return BadRequest(new { error = "Los datos del producto son obligatorios." });
+    }
+
+    Console.WriteLine($"Datos recibidos: ID={request.ID}, Nombre={request.Nombre}, Precio={request.Precio}, Categoria={request.Categoria}, CorreoComercio={request.CorreoComercio}");
+
+    if (request.ID == null || string.IsNullOrEmpty(request.CorreoComercio))
+    {
+        Console.WriteLine("Error: ID o CorreoComercio faltantes.");
+        return BadRequest(new { error = "El ID del producto, los datos del producto y el correo del comercio son obligatorios." });
+    }
+
+    try
+    {
+        Console.WriteLine("Llamando al método EditarProductoAsync...");
+        var result = await _context.EditarProductoAsync(request);
+        Console.WriteLine($"Resultado de la edición: {result}");
+        return Ok(new { message = result });
+    }
+    catch (Exception ex)
+    {
+        // Debug: Log del error
+        Console.WriteLine($"Error al editar el producto: {ex.Message}");
+        return StatusCode(500, new { error = $"Error al editar el producto: {ex.Message}" });
+    }
+}
+
+
+// Método para eliminar un producto
+[HttpDelete("productos/eliminar")]
+public async Task<IActionResult> EliminarProducto([FromQuery] int id, [FromQuery] string correoComercio)
+{
+    if (id <= 0 || string.IsNullOrEmpty(correoComercio))
+    {
+        return BadRequest(new { error = "El ID del producto y el correo del comercio son obligatorios." });
+    }
+
+    try
+    {
+        var result = await _context.EliminarProductoAsync(id, correoComercio);
+        return Ok(new { message = result });
+    }
+    catch (Exception ex)
+    {
+        return StatusCode(500, new { error = $"Error al eliminar el producto: {ex.Message}" });
+    }
+}
 
 
 

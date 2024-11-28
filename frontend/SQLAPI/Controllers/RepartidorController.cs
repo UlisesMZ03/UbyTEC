@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
+using System.Collections.Generic;
 
 [Route("api/[controller]")]
 [ApiController]
@@ -18,40 +19,76 @@ public class RepartidorController : ControllerBase
     [HttpPost("registrarRepartidor")]
     public async Task<IActionResult> RegistrarRepartidor([FromBody] RepartidorRequest request)
     {
-        // Validar los datos del request
         if (!ModelState.IsValid)
         {
-            return BadRequest(ModelState); // Retorna un error de validación si no es válido
+            return BadRequest(ModelState);
         }
 
-        // Generar una contraseña aleatoria para el repartidor
         string password = GenerateRandomPassword();
-
-        // Insertar el nuevo repartidor en la base de datos
         var result = await _context.InsertarRepartidorAsync(request, password);
 
-        // Verificar si el proceso de inserción fue exitoso
         if (result == "Repartidor registrado con éxito.")
         {
-            // Enviar la contraseña generada al correo del repartidor
-            await _emailService.SendEmailAsync(request.Correo,password);
-
-            // Responder con el mensaje de éxito
+            await _emailService.SendEmailAsync(request.Correo, password);
             return Ok(new { message = result });
         }
         else
         {
-            // En caso de error, retornar el código de error 500
             return StatusCode(500, new { error = result });
         }
     }
 
-    // Método para generar una contraseña aleatoria de 12 caracteres
+    // Ruta para obtener todos los repartidores
+    [HttpGet("obtenerRepartidores")]
+    public async Task<IActionResult> ObtenerRepartidores()
+    {
+        var repartidores = await _context.ObtenerRepartidoresAsync();
+        return Ok(repartidores);
+    }
+
+    // Ruta para editar un repartidor
+    [HttpPut("editarRepartidor/{correo}")]
+    public async Task<IActionResult> EditarRepartidor(string correo, [FromBody] RepartidorRequest request)
+    {
+        if (!ModelState.IsValid)
+        {
+            return BadRequest(ModelState);
+        }
+
+        var result = await _context.EditarRepartidorAsync(correo, request);
+
+        if (result == "Repartidor actualizado con éxito.")
+        {
+            return Ok(new { message = result });
+        }
+        else
+        {
+            return StatusCode(500, new { error = result });
+        }
+    }
+
+    // Ruta para eliminar un repartidor
+    [HttpDelete("eliminarRepartidor/{correo}")]
+    public async Task<IActionResult> EliminarRepartidor(string correo)
+    {
+        var result = await _context.EliminarRepartidorAsync(correo);
+
+        if (result == "Repartidor eliminado con éxito.")
+        {
+            return Ok(new { message = result });
+        }
+        else
+        {
+            return StatusCode(500, new { error = result });
+        }
+    }
+
+    // Método para generar una contraseña aleatoria
     private string GenerateRandomPassword()
     {
         var random = new Random();
         const string validChars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
-        var password = new char[12]; // 12 caracteres para la contraseña
+        var password = new char[12];
 
         for (int i = 0; i < password.Length; i++)
         {

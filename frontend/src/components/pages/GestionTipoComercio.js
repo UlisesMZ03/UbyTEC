@@ -218,9 +218,9 @@ const GestionTiposComercio = () => {
         {editing && <button className="cancelar-edicion" onClick={handleCancelEdit}>Cancelar</button>}
       </div>
 
-      <div className="tipos-comercio-list">
+      <div className="empleados-list">
         <h3>Lista de Tipos de Comercio</h3>
-        <table className="tipos-comercio-table">
+        <table className="empleados-table">
           <thead>
             <tr>
               <th>ID</th>

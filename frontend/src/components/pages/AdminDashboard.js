@@ -16,7 +16,9 @@ import ReporteConsolidadoVentas from './ReporteConsolidadoVentas';
 import ReporteVentasPorAfiliado from './ReporteVentasPorAfiliado';
 const Sidebar = ({ sections, activeSection, setActiveSection, isOpen, toggle }) => (
   <div className={`sidebar  ${isOpen ? 'is-open' : ''}`} style={{ minHeight: '100vh' }}>
-    <div className="sidebar-header"></div>
+    <div className="sidebar-header">
+      <h4>Panel de Administrador</h4>
+    </div>
     <Nav className="flex-column pt-2">
       {sections.map((section) => (
         <Nav.Item key={section} className={activeSection === section ? 'active' : ''}>

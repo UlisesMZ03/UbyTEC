@@ -17,7 +17,7 @@ const RegistrarRepartidor = () => {
 
     try {
       // Enviar datos a la API para registrar el repartidor
-      const response = await axios.post('http://sqlapi-hshshrdbaba8gbgd.canadacentral-01.azurewebsites.net/api/repartidor/registrarRepartidor', {
+      const response = await axios.post('https://sqlapi-hshshrdbaba8gbgd.canadacentral-01.azurewebsites.net/api/repartidor/registrarRepartidor', {
         correo: datosRepartidor.correo,
         nombre: datosRepartidor.nombre,
         apellido1: datosRepartidor.apellido1,
@@ -46,24 +46,9 @@ const RegistrarRepartidor = () => {
 
   return (
     <div className="app-container">
-      <nav className="nav-menu-afiliado">
-        <ul>
-          <li
-            onClick={() => setActiveSection("registrarRepartidor")}
-            className={activeSection === "registrarRepartidor" ? "active" : ""}
-          >
-            Registrar Repartidor
-          </li>
-          <li
-            onClick={() => setActiveSection("finalizar")}
-            className={activeSection === "finalizar" ? "active" : ""}
-          >
-            Finalizar
-          </li>
-        </ul>
-      </nav>
 
-      <div className="content">
+
+      <div className="content-repartidor">
         {activeSection === "registrarRepartidor" && (
           <form onSubmit={handleSubmit}>
             <h3>Registrar Repartidor</h3>
@@ -174,14 +159,7 @@ const RegistrarRepartidor = () => {
           </form>
         )}
 
-        {activeSection === "finalizar" && (
-          <div className="finalizar-container">
-            <h3>Finalizar</h3>
-            <p>Correo del Repartidor: {datosRepartidor.correo}</p>
-            <p>Estado de Verificación: {verificationStatus || "No verificado"}</p>
-            {/* Aquí puedes agregar más detalles a mostrar al finalizar */}
-          </div>
-        )}
+
       </div>
     </div>
   );

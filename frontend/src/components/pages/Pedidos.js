@@ -9,6 +9,9 @@ const PedidoPage = () => {
   const { user } = useAuth(); // Obtener el user.Id (correo) desde el AuthContext
   const [pedidos, setPedidos] = useState([]);  // Estado para almacenar los pedidos
   const [pedidoSeleccionado, setPedidoSeleccionado] = useState(null);
+  const [feedback, setFeedback] = useState("");  // Estado para almacenar el feedback
+  const [mostrarFormularioFeedback, setMostrarFormularioFeedback] = useState(false);  // Estado para mostrar el formulario de feedback
+  const [pedidoSeleccionadoFeedback, setPedidoSeleccionadoFeedback] = useState(null);  // Estado para saber cuál pedido calificar
 
   // Llamada a la API para obtener los pedidos basados en el correo del usuario
   useEffect(() => {
@@ -55,6 +58,36 @@ const PedidoPage = () => {
       setPedidoSeleccionado(null);
     } else {
       setPedidoSeleccionado(pedidoId);
+    }
+  };
+
+  // Función para manejar el envío de feedback
+  const dejarFeedback = async () => {
+    if (!feedback) {
+      alert("Por favor, escribe un comentario antes de enviar.");
+      return;
+    }
+
+    try {
+      const response = await fetch("https://apimongo-c5esbwe4bfhxf2gy.canadacentral-01.azurewebsites.net/api/feedback", { 
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ feedback, pedidoId: pedidoSeleccionadoFeedback }), 
+      });
+
+      if (response.ok) {
+        alert("Gracias por tu feedback");
+        setFeedback(""); 
+        setMostrarFormularioFeedback(false);  // Ocultar el formulario de feedback después de enviar
+        setPedidoSeleccionadoFeedback(null);  // Limpiar el pedido seleccionado
+      } else {
+        alert("Hubo un problema al enviar el feedback");
+      }
+    } catch (error) {
+      console.error("Error al enviar feedback:", error);
+      alert("Error de conexión. No se pudo enviar el feedback.");
     }
   };
 
@@ -115,8 +148,29 @@ const PedidoPage = () => {
             </div>
             <div className="acciones">
               <button className="ver-tienda">Ver tienda</button>
-              <button className="calificar">Califica el pedido</button>
+              <button 
+                className="calificar" 
+                onClick={() => {
+                  setMostrarFormularioFeedback(true);
+                  setPedidoSeleccionadoFeedback(pedido.pedidoID); // Establecer el pedido que se va a calificar
+                }}
+              >
+                Califica el pedido
+              </button>
             </div>
+
+            {/* Formulario para dejar el feedback */}
+            {mostrarFormularioFeedback && pedido.pedidoID === pedidoSeleccionadoFeedback && (
+              <div className="feedback-form">
+                <textarea 
+                  placeholder="Escribe tu comentario aquí..."
+                  value={feedback}
+                  onChange={(e) => setFeedback(e.target.value)}
+                />
+                <button onClick={dejarFeedback}>Enviar Feedback</button>
+                <button onClick={() => setMostrarFormularioFeedback(false)}>Cancelar</button>
+              </div>
+            )}
           </div>
         ))
       )}

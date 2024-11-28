@@ -1,65 +1,160 @@
-import React, { useState, useEffect } from 'react';
-import './SolicitudesComercio.css';
+import React, { useState, useEffect } from "react";
+import "./SolicitudesComercio.css";
 
 const SolicitudesComercio = () => {
   const [solicitudes, setSolicitudes] = useState([]);
   const [filteredSolicitudes, setFilteredSolicitudes] = useState([]); // Estado para las solicitudes filtradas
   const [selectedSolicitud, setSelectedSolicitud] = useState(null);
-  const [comentarioRechazo, setComentarioRechazo] = useState('');
+
   const [cargando, setCargando] = useState(false);
+  const [comentarioRechazo, setComentarioRechazo] = useState(""); // Estado para el comentario
+  const [fechaRechazo, setFechaRechazo] = useState(null); // Estado para la fecha de rechazo
 
   // Filtros
-  const [filtroNombre, setFiltroNombre] = useState('');
-  const [filtroFecha, setFiltroFecha] = useState('');
-  const [filtroBusqueda, setFiltroBusqueda] = useState('');
-  const [filtroEstado, setFiltroEstado] = useState(''); // Filtro por estado
+  const [filtroNombre, setFiltroNombre] = useState("");
+  const [filtroFecha, setFiltroFecha] = useState("");
+  const [filtroBusqueda, setFiltroBusqueda] = useState("");
+  const [filtroEstado, setFiltroEstado] = useState(""); // Filtro por estado
 
   // Función para obtener las solicitudes desde el servidor
   const obtenerSolicitudes = async () => {
     setCargando(true);
     try {
-      const response = await fetch('https://sqlapi-hshshrdbaba8gbgd.canadacentral-01.azurewebsites.net/api/comercios/obtenerSolicitudesComercio');
+      const response = await fetch(
+        "https://sqlapi-hshshrdbaba8gbgd.canadacentral-01.azurewebsites.net/api/comercios/obtenerSolicitudesComercio"
+      );
       const data = await response.json();
-      console.log("Datos recibidos de solicitudes: " + JSON.stringify(data, null, 2));
+      console.log(
+        "Datos recibidos de solicitudes: " + JSON.stringify(data, null, 2)
+      );
       setSolicitudes(data);
       setFilteredSolicitudes(data); // Inicializamos las solicitudes filtradas con todas las solicitudes
     } catch (error) {
-      console.error('Error al obtener las solicitudes:', error);
+      console.error("Error al obtener las solicitudes:", error);
     } finally {
       setCargando(false);
     }
   };
+  // Función para obtener el comentario de rechazo de una solicitud
+  const obtenerComentarioRechazo = async (solicitudId) => {
+    try {
+      const response = await fetch(
+        `https://apisql-cwbndbaagqerg7dw.canadacentral-01.azurewebsites.net/api/comercios/obtenerComentarioRechazo/${solicitudId}`
+      );
 
-  // Función para manejar el clic en una solicitud y abrir/cerrar el panel de detalles
-  const manejarSeleccionSolicitud = (solicitud) => {
+      if (!response.ok) {
+        throw new Error("Error al obtener el comentario de rechazo");
+      }
+
+      const data = await response.json();
+      console.log("Comentario recibido: " + data);
+      return {
+        comentario: data.comentario,
+        fechaRechazo: data.fechaRechazo,
+      };
+    } catch (error) {
+      console.error("Error al obtener el comentario:", error);
+      alert("Error al obtener el comentario de rechazo");
+    }
+  };
+
+  const manejarSeleccionSolicitud = async (solicitud) => {
     if (selectedSolicitud && selectedSolicitud.id === solicitud.id) {
       setSelectedSolicitud(null); // Cerrar detalles
     } else {
       setSelectedSolicitud(solicitud); // Abrir detalles
+
+      // Si la solicitud está rechazada, obtener el comentario y la fecha
+      if (solicitud.estado === 2) {
+        const comentarioData = await obtenerComentarioRechazo(solicitud.id);
+        setComentarioRechazo(comentarioData.comentario);
+        setFechaRechazo(comentarioData.fechaRechazo); // Establecer la fecha de rechazo
+      } else {
+        setComentarioRechazo(""); // Limpiar el comentario si no está rechazada
+        setFechaRechazo(null); // Limpiar la fecha si no está rechazada
+      }
     }
   };
 
-  // Función para manejar el rechazo de una solicitud
   const manejarRechazo = async () => {
     if (!comentarioRechazo) {
       alert("Por favor, ingresa un comentario para el rechazo.");
       return;
     }
+
+    const solicitudAcep = selectedSolicitud;
+
     try {
-      console.log("Solicitud rechazada con comentario:", comentarioRechazo);
-      setSelectedSolicitud(null); // Cerrar el detalle
+      // Enviar el Id de la solicitud y el comentario a la API para rechazarla
+      const response = await fetch(
+        "https://apisql-cwbndbaagqerg7dw.canadacentral-01.azurewebsites.net/api/comercios/rechazarSolicitud",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            SolicitudId: solicitudAcep.id,
+            Comentario: comentarioRechazo,
+          }),
+        }
+      );
+
+      const result = await response.json();
+
+      if (!response.ok) {
+        throw new Error(result.error || "Error al rechazar la solicitud");
+      }
+
+      console.log(result);
+
+      // Limpiar y cerrar el detalle de la solicitud
+      setSelectedSolicitud(null);
+      alert("Solicitud rechazada correctamente.");
     } catch (error) {
-      console.error('Error al rechazar la solicitud:', error);
+      console.error("Error al rechazar la solicitud:", error);
+      alert(error.message || "Error inesperado");
     }
   };
 
   // Función para manejar la aceptación de una solicitud
+  // Función para manejar la aceptación de una solicitud
   const manejarAceptacion = async () => {
+    if (!selectedSolicitud) {
+      alert("No se ha seleccionado ninguna solicitud.");
+      return;
+    }
+
+    const solicitudAcep = selectedSolicitud;
+
     try {
-      console.log("Solicitud aceptada");
+      // Enviar solo el Id de la solicitud a la API para insertarlo en la base de datos
+      const response = await fetch(
+        "https://apisql-cwbndbaagqerg7dw.canadacentral-01.azurewebsites.net/api/comercios/insertarDesdeSolicitud",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(solicitudAcep.id), // Enviar solo el Id de la solicitud
+        }
+      );
+
+      const result = await response.json();
+
+      if (!response.ok) {
+        // Si la respuesta no es 200, mostrar el error que vino del backend
+        throw new Error(result.error || "Error al procesar la solicitud");
+      }
+
+      console.log(result);
+
+      // Aquí se actualiza el estado de la solicitud y se cierra el detalle
       setSelectedSolicitud(null); // Cerrar el detalle
+      alert("Comercio insertado y solicitud aceptada correctamente.");
     } catch (error) {
-      console.error('Error al aceptar la solicitud:', error);
+      console.error("Error al aceptar la solicitud:", error);
+      alert(error.message || "Error inesperado");
     }
   };
 
@@ -68,27 +163,32 @@ const SolicitudesComercio = () => {
     let solicitudesFiltradas = solicitudes;
 
     if (filtroNombre) {
-      solicitudesFiltradas = solicitudesFiltradas.filter(solicitud =>
+      solicitudesFiltradas = solicitudesFiltradas.filter((solicitud) =>
         solicitud.nombre.toLowerCase().includes(filtroNombre.toLowerCase())
       );
     }
 
     if (filtroFecha) {
-      solicitudesFiltradas = solicitudesFiltradas.filter(solicitud =>
-        new Date(solicitud.fechaSolicitud).toLocaleDateString() === new Date(filtroFecha).toLocaleDateString()
+      solicitudesFiltradas = solicitudesFiltradas.filter(
+        (solicitud) =>
+          new Date(solicitud.fechaSolicitud).toLocaleDateString() ===
+          new Date(filtroFecha).toLocaleDateString()
       );
     }
 
     if (filtroBusqueda) {
-      solicitudesFiltradas = solicitudesFiltradas.filter(solicitud =>
-        solicitud.nombre.toLowerCase().includes(filtroBusqueda.toLowerCase()) ||
-        solicitud.correo.toLowerCase().includes(filtroBusqueda.toLowerCase())
+      solicitudesFiltradas = solicitudesFiltradas.filter(
+        (solicitud) =>
+          solicitud.nombre
+            .toLowerCase()
+            .includes(filtroBusqueda.toLowerCase()) ||
+          solicitud.correo.toLowerCase().includes(filtroBusqueda.toLowerCase())
       );
     }
 
     if (filtroEstado) {
-      solicitudesFiltradas = solicitudesFiltradas.filter(solicitud =>
-        solicitud.estado === parseInt(filtroEstado) // Filtramos usando el número correspondiente
+      solicitudesFiltradas = solicitudesFiltradas.filter(
+        (solicitud) => solicitud.estado === parseInt(filtroEstado) // Filtramos usando el número correspondiente
       );
     }
 
@@ -145,17 +245,34 @@ const SolicitudesComercio = () => {
               >
                 <div className="solicitud-imagen-container">
                   {solicitud.imagen && (
-                    <img 
-                      src={solicitud.imagen} 
-                      alt="Imagen de la solicitud" 
-                      className="solicitud-imagen" 
+                    <img
+                      src={solicitud.imagen}
+                      alt="Imagen de la solicitud"
+                      className="solicitud-imagen"
                     />
                   )}
                 </div>
                 <div className="solicitud-datos">
                   <p>{solicitud.nombre}</p>
                   <p>{solicitud.correo}</p>
-                  <p>{new Date(solicitud.fechaSolicitud).toLocaleDateString()}</p>
+                  <p>
+                    {new Date(solicitud.fechaSolicitud).toLocaleDateString()}
+                  </p>
+                  <p
+                    className={
+                      solicitud.estado === 0
+                        ? "estado-pendiente"
+                        : solicitud.estado === 1
+                        ? "estado-aceptado"
+                        : "estado-rechazado"
+                    }
+                  >
+                    {solicitud.estado === 0
+                      ? "Pendiente"
+                      : solicitud.estado === 1
+                      ? "Aceptado"
+                      : "Rechazado"}
+                  </p>
                 </div>
               </div>
 
@@ -182,24 +299,58 @@ const SolicitudesComercio = () => {
                     <div className="label">Distrito:</div>
                     <div className="value">{solicitud.distrito}</div>
                     <div className="label">Estado:</div>
-                    <div className="value">{solicitud.estado === 0 ? 'Pendiente' : solicitud.estado === 1 ? 'Aceptado' : 'Rechazado'}</div>
+                    <div className="value">
+                      {solicitud.estado === 2 && (
+                        <div className="comentario-rechazo">
+                          <label className="label">
+                            Comentario de Rechazo:
+                          </label>
+                          <p className="comentario-text">{comentarioRechazo}</p>
+                          <label className="label">Fecha de Rechazo:</label>
+                          <p className="fecha-text">
+                            {new Date(fechaRechazo).toLocaleDateString()}
+                          </p>
+                        </div>
+                      )}
+                      
+                    </div>
+
                     <div className="label">Fecha Solicitud:</div>
-                    <div className="value">{new Date(solicitud.fechaSolicitud).toLocaleDateString()}</div>
+                    <div className="value">
+                      {new Date(solicitud.fechaSolicitud).toLocaleDateString()}
+                    </div>
                   </div>
 
-                  <div className="comentario-rechazo">
-                    <label htmlFor="comentario">Comentario (si se rechaza):</label>
-                    <textarea
-                      id="comentario"
-                      value={comentarioRechazo}
-                      onChange={(e) => setComentarioRechazo(e.target.value)}
-                    />
-                  </div>
+                  {/* Mostrar los botones solo si el estado es Pendiente */}
+                  {solicitud.estado === 0 && (
+                    <>
+                      <div className="comentario-rechazo">
+                        <label htmlFor="comentario">
+                          Comentario (si se rechaza):
+                        </label>
+                        <textarea
+                          id="comentario"
+                          value={comentarioRechazo}
+                          onChange={(e) => setComentarioRechazo(e.target.value)}
+                        />
+                      </div>
 
-                  <div className="solicitud-actions">
-                    <button className="aceptar-btn" onClick={manejarAceptacion}>Aceptar</button>
-                    <button className="rechazar-btn" onClick={manejarRechazo}>Rechazar</button>
-                  </div>
+                      <div className="solicitud-actions">
+                        <button
+                          className="aceptar-btn"
+                          onClick={manejarAceptacion}
+                        >
+                          Aceptar
+                        </button>
+                        <button
+                          className="rechazar-btn"
+                          onClick={manejarRechazo}
+                        >
+                          Rechazar
+                        </button>
+                      </div>
+                    </>
+                  )}
                 </div>
               )}
             </div>

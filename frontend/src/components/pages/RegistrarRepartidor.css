@@ -3,38 +3,11 @@
   font-family: Arial, sans-serif;
   margin: 0;
   padding: 20px;
+  width: 100%;
 }
 
-.nav-menu-afiliado {
-  background-color: white;
-  padding: 10px 0;
-}
 
-.nav-menu-afiliado ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  display: flex;
-  justify-content: flex-start;
-}
-
-.nav-menu-afiliado li {
-  padding: 10px 20px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-.nav-menu-afiliado li:hover {
-  font-weight: bold;
-  color: #f04e23;
-}
-
-.nav-menu-afiliado li.active {
-  border-bottom: 3px solid #f04e23;
-  font-weight: bold;
-}
-
-.content {
+.content-repartidor {
   padding: 20px;
   margin-top: 20px;
   background-color: #ffffff;

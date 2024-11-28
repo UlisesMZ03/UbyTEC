@@ -189,8 +189,12 @@ public async Task<ClienteLoginDto> VerificarLoginClienteAsync(string correo, str
         modelBuilder.Entity<ComercioDto>().HasNoKey();
         modelBuilder.Entity<AdministradorAfiliadoDto>().HasNoKey();
         modelBuilder.Entity<TipoDeComercioDto>().HasNoKey();
-        
-        
+        modelBuilder.Entity<ComentarioRechazo>().HasNoKey();
+        modelBuilder.Entity<RepartidorRequest>().HasNoKey();
+        modelBuilder.Entity<Repartidor>().HasNoKey();
+        modelBuilder.Entity<AdministradorAfiliado>().HasNoKey();
+        modelBuilder.Entity<ProductoDto>().HasNoKey();
+        modelBuilder.Entity<ProductoRequest>().HasNoKey();
         }
     // Método para obtener productos con fotos
     public async Task<List<ProductosConFoto>> ObtenerProductosConFotosAsync(string correoComercio)
@@ -813,7 +817,445 @@ public async Task<List<TipoDeComercioDto>> ObtenerTiposDeComercioAsync()
         return new List<TipoDeComercioDto>();  // Retornar una lista vacía en caso de error
     }
 }
+public async Task<string> InsertarComercioDesdeSolicitudAsync(int solicitudId)
+{
+    try
+    {
+        // Llamar al procedimiento almacenado que inserta el comercio y actualiza el estado de la solicitud
+        var result = await Database.ExecuteSqlRawAsync(
+            "EXEC [dbo].[InsertarComercioDesdeSolicitud] @SolicitudId = {0}",
+            solicitudId
+        );
 
+        return "Comercio insertado y solicitud aceptada correctamente.";
+    }
+    catch (Exception ex)
+    {
+        // Lanza el error para ser manejado por el controlador
+        throw new Exception(ex.Message);
+    }
+}
+
+public async Task<string> RechazarSolicitudAsync(int solicitudId, string comentario)
+{
+    try
+    {
+        // Llamar al procedimiento almacenado que agrega el comentario y actualiza el estado de la solicitud
+        var result = await Database.ExecuteSqlRawAsync(
+            "EXEC [dbo].[RechazarSolicitud] @SolicitudId = {0}, @Comentario = {1}",
+            solicitudId, comentario
+        );
+
+        return "Solicitud rechazada correctamente con el comentario.";
+    }
+    catch (Exception ex)
+    {
+        // Lanza el error para ser manejado por el controlador
+        throw new Exception(ex.Message);
+    }
+}
+
+public async Task<ComentarioRechazo> ObtenerComentarioRechazoAsync(int solicitudId)
+{
+    try
+    {
+        Console.WriteLine($"Iniciando la ejecución de ObtenerComentarioRechazoAsync para SolicitudId: {solicitudId}");
+
+        // Ejecutar el procedimiento almacenado que obtiene el comentario de rechazo y la fecha
+        var comentarioRechazo = await Set<ComentarioRechazo>()
+            .FromSqlRaw("EXEC [dbo].[ObtenerComentarioRechazo] @SolicitudId = {0}", solicitudId)
+            .ToListAsync(); // Usamos ToListAsync para ejecutar la consulta correctamente
+
+        // Si no se encontró un comentario, retornar null
+        if (comentarioRechazo == null || comentarioRechazo.Count == 0)
+        {
+            Console.WriteLine($"No se encontró comentario de rechazo para SolicitudId: {solicitudId}");
+            return null; // No se encontró el comentario
+        }
+
+        // Si se encontró un comentario, se regresa el primer resultado
+        var comentario = comentarioRechazo.FirstOrDefault();
+        Console.WriteLine($"Comentario encontrado para SolicitudId: {solicitudId}, Comentario: {comentario.Comentario}, Fecha de Rechazo: {comentario.FechaRechazo}");
+
+        return comentario;
+    }
+    catch (Exception ex)
+    {
+        // Captura cualquier error y lo imprime
+        Console.WriteLine($"Error en ObtenerComentarioRechazoAsync para SolicitudId: {solicitudId}. Detalles del error: {ex.Message}");
+        throw new Exception($"Error al obtener el comentario de rechazo: {ex.Message}");
+    }
+}
+
+public async Task<List<Repartidor>> ObtenerRepartidoresAsync()
+{
+    try
+    {
+        var result = await Set<Repartidor>()
+            .FromSqlRaw("EXEC [dbo].[ObtenerRepartidores]")
+            .ToListAsync();
+
+        Console.WriteLine($"Se obtuvieron {result.Count} repartidores.");
+        return result;
+    }
+    catch (Exception ex)
+    {
+        Console.WriteLine($"Error al obtener repartidores: {ex.Message}");
+        return new List<Repartidor>(); // Retorna una lista vacía en caso de error
+    }
+}
+
+public async Task<string> EditarRepartidorAsync(string correo, RepartidorRequest repartidor)
+{
+    try
+    {
+        await Database.ExecuteSqlRawAsync(
+            "EXEC [dbo].[EditarRepartidor] @Correo = {0}, @Nombre = {1}, @Apellido1 = {2}, @Apellido2 = {3}, @Provincia = {4}, @Canton = {5}, @Distrito = {6}, @Usuario = {7}, @Estado = {8}",
+            correo,
+            repartidor.Nombre,
+            repartidor.Apellido1,
+            repartidor.Apellido2,
+            repartidor.Provincia,
+            repartidor.Canton,
+            repartidor.Distrito,
+            repartidor.Usuario,
+            repartidor.Estado
+        );
+
+        return "Repartidor actualizado con éxito.";
+    }
+    catch (Exception ex)
+    {
+        Console.WriteLine($"Error al editar repartidor: {ex.Message}");
+        return "Error al editar repartidor.";
+    }
+}
+public async Task<string> EliminarRepartidorAsync(string correo)
+{
+    try
+    {
+        await Database.ExecuteSqlRawAsync(
+            "EXEC [dbo].[EliminarRepartidor] @Correo = {0}",
+            correo
+        );
+
+        return "Repartidor eliminado con éxito.";
+    }
+    catch (Exception ex)
+    {
+        Console.WriteLine($"Error al eliminar repartidor: {ex.Message}");
+        return "Error al eliminar repartidor.";
+    }
+}
+
+public async Task<AdministradorAfiliado?> ObtenerAdministradorPorComercioAsync(string correoComercio)
+{
+    try
+    {
+        Console.WriteLine($"[INFO] Iniciando método ObtenerAdministradorPorComercioAsync para correoComercio: {correoComercio}");
+
+        // Crear la conexión
+        using var connection = (SqlConnection)Database.GetDbConnection();
+        await connection.OpenAsync();
+        Console.WriteLine("[INFO] Conexión a la base de datos abierta correctamente.");
+
+        using var command = connection.CreateCommand();
+        command.CommandText = "EXEC ObtenerAdministradorPorComercio @CorreoComercio";
+        command.Parameters.AddWithValue("@CorreoComercio", correoComercio);
+        Console.WriteLine($"[INFO] Comando configurado: {command.CommandText} con parámetro @CorreoComercio = {correoComercio}");
+
+        using var reader = await command.ExecuteReaderAsync();
+        Console.WriteLine("[INFO] Ejecución del procedimiento almacenado completada.");
+
+        if (await reader.ReadAsync())
+        {
+            Console.WriteLine("[INFO] Resultados encontrados. Mapeando datos del administrador.");
+
+            // Mapear manualmente los resultados
+            var administrador = new AdministradorAfiliado
+            {
+                Correo = reader.GetString(reader.GetOrdinal("Correo")),
+                Nombre = reader.GetString(reader.GetOrdinal("Nombre")),
+                Apellido1 = reader.GetString(reader.GetOrdinal("Apellido1")),
+                Apellido2 = reader.GetString(reader.GetOrdinal("Apellido2")),
+                Usuario = reader.GetString(reader.GetOrdinal("Usuario")),
+                Provincia = reader.GetString(reader.GetOrdinal("Provincia")),
+                Canton = reader.GetString(reader.GetOrdinal("Canton")),
+                Distrito = reader.GetString(reader.GetOrdinal("Distrito"))
+            };
+
+            Console.WriteLine($"[INFO] Datos mapeados: {administrador.Correo}, {administrador.Nombre} {administrador.Apellido1} {administrador.Apellido2}");
+            return administrador;
+        }
+
+        Console.WriteLine("[INFO] No se encontraron resultados para el correoComercio proporcionado.");
+        return null; // Si no se encontraron resultados
+    }
+    catch (Exception ex)
+    {
+        Console.WriteLine($"[ERROR] Error en ObtenerAdministradorPorComercioAsync: {ex.Message}");
+        throw new Exception("Error al ejecutar el procedimiento almacenado ObtenerAdministradorPorComercio", ex);
+    }
+}
+
+public async Task<string> AgregarProductoAsync(ProductoRequest request)
+{
+    try
+    {
+        await Database.ExecuteSqlRawAsync(
+            "EXEC AgregarProducto @Precio = {0}, @Categoria = {1}, @Nombre = {2}, @CorreoComercio = {3}",
+            request.Precio, request.Categoria, request.Nombre, request.CorreoComercio
+        );
+
+        return "Producto agregado correctamente.";
+    }
+    catch (Exception ex)
+    {
+        Console.WriteLine($"Error al agregar producto: {ex.Message}");
+        return "Error al agregar producto.";
+    }
+}
+
+public async Task<string> EditarProductoAsync(ProductoRequest request)
+{
+    try
+    {
+        await Database.ExecuteSqlRawAsync(
+            "EXEC EditarProducto @ID = {0}, @Precio = {1}, @Categoria = {2}, @Nombre = {3}, @CorreoComercio = {4}",
+            request.ID, request.Precio, request.Categoria, request.Nombre, request.CorreoComercio
+        );
+
+        return "Producto editado correctamente.";
+    }
+    catch (SqlException sqlEx)
+    {
+        Console.WriteLine($"Error SQL al editar producto: {sqlEx.Message}");
+        return $"Error SQL al editar producto: {sqlEx.Message}";
+    }
+    catch (Exception ex)
+    {
+        Console.WriteLine($"Error general al editar producto: {ex.Message}");
+        return "Error general al editar producto.";
+    }
+}
+
+
+public async Task<string> EliminarProductoAsync(int id, string correoComercio)
+{
+    try
+    {
+        await Database.ExecuteSqlRawAsync(
+            "EXEC EliminarProducto @ID = {0}, @CorreoComercio = {1}",
+            id, correoComercio
+        );
+
+        return "Producto eliminado correctamente.";
+    }
+    catch (Exception ex)
+    {
+        Console.WriteLine($"Error al eliminar producto: {ex.Message}");
+        return "Error al eliminar producto.";
+    }
+}
+
+public async Task<List<ProductoDto>> ObtenerProductosPorComercioAsync(string correoComercio)
+{
+    try
+    {
+        return await Set<ProductoDto>()
+            .FromSqlRaw("EXEC ObtenerProductosPorComercio @CorreoComercio = {0}", correoComercio)
+            .ToListAsync();
+    }
+    catch (Exception ex)
+    {
+        Console.WriteLine($"Error al obtener productos: {ex.Message}");
+        return new List<ProductoDto>();
+    }
+}
+
+// Método para verificar login de mensajero
+public async Task<MensajeroLoginDto> VerificarLoginMensajeroAsync(string correo, string password)
+{
+    // Parámetros de salida para almacenar los resultados
+    var messageParam = new SqlParameter("@Message", SqlDbType.NVarChar, 255) { Direction = ParameterDirection.Output };
+    var nombreParam = new SqlParameter("@Nombre", SqlDbType.NVarChar, 255) { Direction = ParameterDirection.Output };
+    var apellido1Param = new SqlParameter("@Apellido1", SqlDbType.NVarChar, 255) { Direction = ParameterDirection.Output };
+    var apellido2Param = new SqlParameter("@Apellido2", SqlDbType.NVarChar, 255) { Direction = ParameterDirection.Output };
+    var usuarioParam = new SqlParameter("@Usuario", SqlDbType.NVarChar, 255) { Direction = ParameterDirection.Output };
+    var provinciaParam = new SqlParameter("@Provincia", SqlDbType.NVarChar, 255) { Direction = ParameterDirection.Output };
+    var cantonParam = new SqlParameter("@Canton", SqlDbType.NVarChar, 255) { Direction = ParameterDirection.Output };
+    var distritoParam = new SqlParameter("@Distrito", SqlDbType.NVarChar, 255) { Direction = ParameterDirection.Output };
+    var estadoParam = new SqlParameter("@Estado", SqlDbType.NVarChar, 255) { Direction = ParameterDirection.Output };
+
+    try
+    {
+        // Ejecutar el procedimiento almacenado usando ExecuteSqlRawAsync
+        await Database.ExecuteSqlRawAsync(
+            "EXEC [dbo].[LoginMensajero] @Correo = {0}, @Password = {1}, @Message = @Message OUTPUT, " +
+            "@Nombre = @Nombre OUTPUT, @Apellido1 = @Apellido1 OUTPUT, @Apellido2 = @Apellido2 OUTPUT, " +
+            "@Usuario = @Usuario OUTPUT, @Provincia = @Provincia OUTPUT, @Canton = @Canton OUTPUT, " +
+            "@Distrito = @Distrito OUTPUT, @Estado = @Estado OUTPUT",
+            correo, password,
+            messageParam, nombreParam, apellido1Param, apellido2Param,
+            usuarioParam, provinciaParam, cantonParam, distritoParam, estadoParam
+        );
+
+        // Verificar si el mensaje de salida es "Correo o contraseña incorrectos"
+        if (messageParam.Value?.ToString() == "Correo o contraseña incorrectos")
+        {
+            return null; // Retornar null si las credenciales son incorrectas
+        }
+
+        // Crear un objeto de respuesta con los resultados obtenidos
+        return new MensajeroLoginDto
+        {
+            Message = messageParam.Value?.ToString(),
+            Correo = correo,
+            Nombre = nombreParam.Value?.ToString(),
+            Apellido1 = apellido1Param.Value?.ToString(),
+            Apellido2 = apellido2Param.Value?.ToString(),
+            Usuario = usuarioParam.Value?.ToString(),
+            Provincia = provinciaParam.Value?.ToString(),
+            Canton = cantonParam.Value?.ToString(),
+            Distrito = distritoParam.Value?.ToString(),
+            Estado = estadoParam.Value?.ToString()
+        };
+    }
+    catch (Exception ex)
+    {
+        // Manejo de excepciones
+        Console.WriteLine($"Error al verificar el login: {ex.Message}");
+        return null;
+    }
+}
+
+public async Task<PedidosComercioDto> ObtenerPedidosPorCorreoComercioAsync(string correoComercio)
+{
+    try
+    {
+        Console.WriteLine($"[INFO] Buscando pedidos para el comercio con correo: {correoComercio}");
+
+        var pedidos = new List<PedidoDto2>();
+        var productos = new List<PedidoProductoDto>();
+        var clientes = new List<ClientePedidoDto>();
+
+        var connection = (SqlConnection)Database.GetDbConnection();
+        await connection.OpenAsync();
+
+        using (var command = connection.CreateCommand())
+        {
+            command.CommandText = "EXEC [dbo].[ObtenerPedidosPorCorreoComercio] @CorreoComercio";
+            command.Parameters.Add(new SqlParameter("@CorreoComercio", correoComercio));
+            command.CommandType = CommandType.Text;
+
+            using (var reader = await command.ExecuteReaderAsync())
+            {
+                // Leer el primer conjunto de resultados (Pedidos)
+                if (reader.HasRows)
+                {
+                    while (await reader.ReadAsync())
+                    {
+                        pedidos.Add(new PedidoDto2
+                        {
+                            PedidoID = reader.GetInt32(reader.GetOrdinal("PedidoID")),
+                            Total = reader.IsDBNull(reader.GetOrdinal("Total")) ? (decimal?)null : reader.GetDecimal(reader.GetOrdinal("Total")),
+                            CorreoMensajero = reader.IsDBNull(reader.GetOrdinal("CorreoMensajero")) ? null : reader.GetString(reader.GetOrdinal("CorreoMensajero")),
+                            FechaCreacion = reader.IsDBNull(reader.GetOrdinal("FechaCreacion")) ? (DateTime?)null : reader.GetDateTime(reader.GetOrdinal("FechaCreacion")),
+                            CorreoCliente = reader.IsDBNull(reader.GetOrdinal("CorreoCliente")) ? null : reader.GetString(reader.GetOrdinal("CorreoCliente")),
+                            Estado = reader.IsDBNull(reader.GetOrdinal("Estado")) ? null : reader.GetString(reader.GetOrdinal("Estado"))
+                        });
+                    }
+                }
+                await reader.NextResultAsync();
+
+                // Leer el segundo conjunto de resultados (Productos)
+                if (reader.HasRows)
+                {
+                    while (await reader.ReadAsync())
+                    {
+                        productos.Add(new PedidoProductoDto
+                        {
+                            PedidoID = reader.GetInt32(reader.GetOrdinal("PedidoID")),
+                            ProductID = reader.GetInt32(reader.GetOrdinal("ProductID")),
+                            ProductoNombre = reader.GetString(reader.GetOrdinal("ProductoNombre")),
+                            Cantidad = reader.GetInt32(reader.GetOrdinal("Cantidad")),
+                            Precio = reader.GetDecimal(reader.GetOrdinal("Precio")),
+                            TotalProducto = reader.GetDecimal(reader.GetOrdinal("TotalProducto"))
+                        });
+                    }
+                }
+                await reader.NextResultAsync();
+
+                // Leer el tercer conjunto de resultados (Clientes)
+                if (reader.HasRows)
+                {
+                    while (await reader.ReadAsync())
+                    {
+                        clientes.Add(new ClientePedidoDto
+                        {
+                            PedidoID = reader.GetInt32(reader.GetOrdinal("PedidoID")),
+                            ClienteNombre = reader.GetString(reader.GetOrdinal("ClienteNombre")),
+                           
+                        });
+                    }
+                }
+            }
+        }
+
+        return new PedidosComercioDto
+        {
+            Pedidos = pedidos,
+            Productos = productos,
+            Clientes = clientes
+        };
+    }
+    catch (Exception ex)
+    {
+        Console.WriteLine($"[ERROR] Error al obtener los pedidos: {ex.Message}");
+        return null;
+    }
+}
+public async Task<int> CambiarEstadoPedidoAsync(int pedidoID, string nuevoEstado)
+{
+    try
+    {
+        // Ejecutamos el procedimiento almacenado y obtenemos el número de filas afectadas
+        var result = await Database.ExecuteSqlRawAsync(
+            "EXEC [dbo].[CambiarEstadoPedido] @PedidoID = {0}, @NuevoEstado = {1}",
+            pedidoID, nuevoEstado);
+
+        return result; // Devuelve el número de filas afectadas (int)
+    }
+    catch (Exception ex)
+    {
+        // En caso de error, logueamos y retornamos 0
+        Console.WriteLine($"Error al ejecutar el procedimiento: {ex.Message}");
+        return 0;
+    }
+}
+
+
+}
+
+
+
+public class CambiarEstadoPedidoRequest
+{
+    public int PedidoID { get; set; }
+    public string NuevoEstado { get; set; }
+}
+public class MensajeroLoginDto
+{
+    public string Message { get; set; }
+    public string Correo { get; set; }
+    public string Nombre { get; set; }
+    public string Apellido1 { get; set; }
+    public string Apellido2 { get; set; }
+    public string Usuario { get; set; }
+    public string Provincia { get; set; }
+    public string Canton { get; set; }
+    public string Distrito { get; set; }
+    public string Estado { get; set; }
 }
 
 
@@ -901,8 +1343,15 @@ public class PedidoDto
     public string? CorreoComercio { get; set; }
     public string? Estado { get; set; }  // Añadido el campo 'Estado'
 }
-
-
+public class PedidoDto2
+{
+    public int PedidoID { get; set; }
+    public decimal? Total { get; set; }
+    public string CorreoMensajero { get; set; }
+    public DateTime? FechaCreacion { get; set; }
+    public string CorreoCliente { get; set; }
+    public string Estado { get; set; }
+}
 
 // Model for representing Products (Productos)
 public class PedidoProductoDto
@@ -946,4 +1395,17 @@ public class ClienteLoginDto
     public string Provincia { get; set; }
     public string Canton { get; set; }
     public string Distrito { get; set; }
+}
+public class PedidosComercioDto
+{
+    public List<PedidoDto2> Pedidos { get; set; }
+    public List<PedidoProductoDto> Productos { get; set; }
+    public List<ClientePedidoDto> Clientes { get; set; }
+}
+
+public class ClientePedidoDto
+{
+    public int PedidoID { get; set; }
+    public string ClienteNombre { get; set; }
+
 }

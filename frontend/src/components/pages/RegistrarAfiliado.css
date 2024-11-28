@@ -81,7 +81,7 @@
     margin-left: 1%;
     background-color: #ffffff;
     border-radius: 0px;
-    max-width: 50%;
+    max-width: 100%;
   }
   
   .content h2 {
@@ -146,7 +146,9 @@
     gap: 10px 20px; /* Espaciado entre las filas y columnas */
     font-size: 16px;
   }
-  
+  .finalizar-btn{
+    margin-top: 5%;
+  }
   .finalizar-grid .label {
     font-weight: bold;
     color: #333;
@@ -163,7 +165,7 @@
   }
   
   .finalizar-grid .value {
-    color: #007bff;
+    color: #f04e23;
   }
   
   .finalizar-grid .label {

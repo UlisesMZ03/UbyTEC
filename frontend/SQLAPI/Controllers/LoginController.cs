@@ -88,4 +88,21 @@ public async Task<IActionResult> LoginCliente([FromBody] LoginRequest request)
         }
     }
 
+
+[HttpPost("mensajero")]
+public async Task<IActionResult> LoginMensajero([FromBody] LoginRequest request)
+{
+    var result = await _context.VerificarLoginMensajeroAsync(request.Correo, request.Password);
+
+    // Verificar si el resultado es nulo o si el mensaje es "Correo o contraseña incorrectos"
+    if (result == null || result.Message == "Correo o contraseña incorrectos")
+    {
+        return Unauthorized(new { Message = "Correo o contraseña incorrectos" });
+    }
+
+    // Devuelve los datos del mensajero si el login es exitoso
+    return Ok(result);
+}
+
+
 }

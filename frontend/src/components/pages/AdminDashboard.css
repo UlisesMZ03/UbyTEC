@@ -18,33 +18,54 @@
   width: 100%;
   font-family: 'UberMoveMedium', sans-serif;  /* Fuente predeterminada para todo el dashboard */
 }
-
 .sidebar {
-  width: 300px; /* Ancho fijo del sidebar */
+  width: fit-content; /* El ancho se ajusta al contenido */
+  max-width: 15%; /* Limita el ancho máximo al 90% del contenido más ancho */
   transition: width 0.3s ease; /* Transición suave al abrir/cerrar */
-  max-height: 100vh;  /* La altura máxima será igual a la altura visible de la pantalla */
+  max-height: 100vh; /* La altura máxima será igual a la altura visible de la pantalla */
   display: flex;
-  flex-direction: column; /* Para organizar los elementos del sidebar verticalmente */
-  font-family: 'UberMoveMedium', sans-serif;  /* Fuente normal para los elementos del sidebar */
+  flex-direction: column; /* Organiza los elementos del sidebar verticalmente */
+  font-family: 'UberMoveMedium', sans-serif; /* Fuente normal para los elementos del sidebar */
   background-color: #ffffff;
+
+  padding-right: -10px; /* Espacio extra para reducir visualmente el ancho */
+}
+
+
+.sidebar-item {
+  display: flex;
+  align-items: center; /* Alinea los íconos y el texto verticalmente */
+  padding: 10px 15px; /* Espacio interno (superior/inferior y laterales) */
+  margin-bottom: 5px; /* Espacio entre los elementos */
+  border-radius: 4px; /* Opcional: redondea los bordes */
+  background-color: #ffffff; /* Fondo (puedes ajustarlo si es necesario) */
+  font-family: 'UberMoveMedium', sans-serif;
+}
+
+.sidebar-item:hover {
+  background-color: #ececec; /* Color de fondo al pasar el ratón */
+}
+
+.sidebar-item-icon {
+  margin-right: 10px; /* Espacio entre el ícono y el texto */
+}
+
+.sidebar-item-text {
+  margin-left: 5px; /* Ajusta el margen interno del texto */
 }
 
 
 
-
-
 .nav-link {
-  display: flex;
-  align-items: center; /* Asegura que los elementos estén alineados verticalmente */
-  justify-content: flex-start; /* Alinear los elementos a la izquierda */
-  padding: 15px -20px; /* Aumentar el padding para mayor tamaño */
-  color: #333;
-  transition: background-color 0.5s ease;
-  font-size: 1.2rem; /* Aumentar el tamaño de fuente */
-  width: 100%;
-  
-  text-align: left; /* Asegura que el texto esté alineado a la izquierda */
-  font-family: 'UberMoveMedium', sans-serif;  /* Fuente normal para los enlaces de navegación */
+  display: flex; /* Alinea el ícono y el texto horizontalmente */
+  align-items: center; /* Centra el ícono y texto verticalmente */
+  padding: 10px 20px; /* Espacio interno (superior/inferior y laterales) */
+  font-size: 14px; /* Tamaño de fuente (ajústalo según tus necesidades) */
+  margin: 5px 0; /* Espacio entre elementos */
+  border-radius: 0px; /* Redondea los bordes */
+  color: #000000; /* Color del texto */
+  background-color: transparent; /* Fondo transparente por defecto */
+  text-align: left; /* Alinea el texto a la izquierda */
 }
 
 .nav-link .mr-2 { /* Asegura que el icono y el texto estén alineados correctamente */
@@ -62,7 +83,10 @@
   background-color: #f04e23; /* Fondo activo */
   color: #fff; /* Color de texto activo */
 }
-
+.active .nav-link {
+  background-color: #e0e0e0; /* Fondo cuando está activo */
+  color: #000000; /* Color del texto activo */
+}
 .content-adminDashboard {
   flex: 1;
   padding: 20px; /* Espacio interno para el contenido */
